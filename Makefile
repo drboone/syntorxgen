@@ -4,6 +4,7 @@
 
 # Modifications:
 # 07/23/02 Boone      Initial coding
+# 07/27/02 Boone      Added decode
 # End Modifications
 
 # This file is part of syntorxgen.
@@ -29,8 +30,12 @@ LEX=flex
 LFLAGS=-s
 LIBS=-lfl -lm
 
+all: syntorxgen decode
+
 syntorxgen: synxparser.o synxlexer.o calcplug.o
 	$(CC) -o $@ $^ $(LIBS)
+
+decode: decode.o
 
 clean:
 	rm *.o y.tab.h syntorxgen

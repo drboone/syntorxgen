@@ -30,7 +30,7 @@
 
 unsigned char ctable[3] = { 2, 1, 3 };
 /* unsigned char dpltable[8] = { 0, 4, 2, 6, 1, 5, 3, 7 }; */
-unsigned char dpltable[8] = { 7, 3, 5, 1, 6, 2, 4, 0 };
+unsigned int dpltable[8] = { 7, 3, 5, 1, 6, 2, 4, 0 };
 
 typedef struct 
 {
@@ -453,13 +453,13 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	{
 		txdpl = gmodedef -> txdpl;
 		plugbuf[0x04] |= (gmodedef -> txdplinv & 0x01) << 7;
-		plugbuf[0x04] |= (dpltable[(gmodedef -> txdpl & 0007)]) << 4;
-		plugbuf[0x04] |= (dpltable[(gmodedef -> txdpl & 0070)]) << 1;
-		plugbuf[0x04] |= (dpltable[(gmodedef -> txdpl & 0700)] & 0001);
+		plugbuf[0x04] |= (dpltable[(txdpl & 0007)]) << 4;
+		plugbuf[0x04] |= (dpltable[(txdpl & 0070) >> 3]) << 1;
+		plugbuf[0x04] |= (dpltable[(txdpl & 0700) >> 6] & 0004) >> 2;
 		plugbuf[0x05] |= (gmodedef -> txmpl & 0x01) << 7;
 		plugbuf[0x05] |= (1 << 6);
 		plugbuf[0x05] |= (1 << 5);
-		plugbuf[0x05] |= (dpltable[(gmodedef -> txdpl & 0700)] & 0006) << 2;
+		plugbuf[0x05] |= (dpltable[(txdpl & 0700) >> 6] & 0003) << 3;
 		plugbuf[0x05] |= 0x07;
 	}
 	else
@@ -475,18 +475,18 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	{
 		rxdpl = gmodedef -> rxdpl;
 		plugbuf[0x06] |= (gmodedef -> rxdplinv & 0x01) << 7;
-		plugbuf[0x06] |= (dpltable[(gmodedef -> rxdpl & 0007)]) << 4;
-		plugbuf[0x06] |= (dpltable[(gmodedef -> rxdpl & 0070)]) << 1;
-		plugbuf[0x06] |= (dpltable[(gmodedef -> rxdpl & 0700)] & 0001);
+		plugbuf[0x06] |= (dpltable[(rxdpl & 0007)]) << 4;
+		plugbuf[0x06] |= (dpltable[(rxdpl & 0070) >> 3]) << 1;
+		plugbuf[0x06] |= (dpltable[(rxdpl & 0700) >> 6] & 0004) >> 2;
 		plugbuf[0x07] |= (gmodedef -> rxmpl & 0x01) << 7;
 		plugbuf[0x07] |= (1 << 6);
 		plugbuf[0x07] |= (1 << 5);
-		plugbuf[0x07] |= (dpltable[(gmodedef -> rxdpl & 0700)] & 0006) << 2;
+		plugbuf[0x07] |= (dpltable[(rxdpl & 0700) >> 6] & 0003) << 3;
 		plugbuf[0x07] |= 0x07;
 	}
 	else
 	{
-		rxpl = txplookup(gmodedef -> rxpl);
+		rxpl = rxplookup(gmodedef -> rxpl);
 		plugbuf[0x06] |= (rxpl & 0xff00) >> 8;
 		/* DPL/PL bit value 0 means PL, so it's already set */
 		/* DPL enable bit value 0 means PL, so it's already set */
