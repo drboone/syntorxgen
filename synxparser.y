@@ -552,6 +552,12 @@ void zerobits(unsigned char bitbuf[])
 		bitbuf[i] = 0;
 }
 
+void writebinary(unsigned char bitbuf[], FILE *outfile)
+
+{
+	fwrite(bitbuf, sizeof(char), 16, outfile);
+}
+
 void writehex(unsigned char bitbuf[], FILE *outfile)
 
 {
@@ -601,14 +607,19 @@ void writeplug(int outfmt, FILE *outfile)
 		else
 			zerobits(bitbuf);
 
-		if (outfmt == HEX)
-			writehex(bitbuf, outfile);
-		else
-			if (outfmt == SRECORD)
-			{
+		switch (outfmt)
+		{
+			case BINARY:
+				writebinary(bitbuf, outfile);
+				break;
+			case HEX:
+				writehex(bitbuf, outfile);
+				break;
+			case SRECORD:
 				writesrecord(bitbuf, outfile, offset);
 				offset += MODEBITSIZE;
-			}
+				break;
+		}
 	}
 
 	if (outfmt == SRECORD)
@@ -658,7 +669,7 @@ int main(int argc, char *argv[])
 
 /* Command line */
 
-	while ((c = getopt(argc, argv, "o:dhsxy")) != -1)
+	while ((c = getopt(argc, argv, "o:bdhsxy")) != -1)
 	{
 		switch (c)
 		{
@@ -669,14 +680,17 @@ int main(int argc, char *argv[])
 					exit(errno);
 				}
 				break;
+			case 'b':
+				outfmt = BINARY;
+				break;
 			case 'd':
 				gdebug = 1;
 				break;
-			case 'x':
-				outfmt = HEX;
-				break;
 			case 's':
 				outfmt = SRECORD;
+				break;
+			case 'x':
+				outfmt = HEX;
 				break;
 			case 'y':
 				yydebug = 1;

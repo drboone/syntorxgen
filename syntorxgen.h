@@ -35,8 +35,9 @@
 
 #define MODEBITSIZE 16
 
-#define HEX 1
-#define SRECORD 2
+#define BINARY 1
+#define HEX 2
+#define SRECORD 3
 
 /* Guesses as to the upper frequency limits various models of Syntor could
    be hacked to do; used to decide for which band of radio this mode def is

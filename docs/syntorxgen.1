@@ -26,7 +26,7 @@
 .SH NAME
 syntorxgen \- Generate code plugs for conventional Syntor X radios
 .SH SYNOPSIS
-.B syntorxgen [-dhsxy] [-o
+.B syntorxgen [-bdhsxy] [-o
 .I output-file
 .B ]
 .SH DESCRIPTION
@@ -43,6 +43,8 @@ For details of the contents of a Syntor X code plug, see
 The author's knowledge of these radios has come largely from these
 sources, and from Motorola manuals.  Any errors are mine, not theirs.
 .SH OPTIONS
+.IP -b
+Generate binary format output.
 .IP -d
 Generate debugging output.
 .IP -h
@@ -61,14 +63,16 @@ instead of standard output.
 .SH "OUTPUT FORMATS"
 .LP
 .BR Syntorxgen
-is capable of writing two output file formats.  The first is the
+is capable of writing three output file formats.  The first is the
 Motorola S-record, a well known, and widely supported transfer format.
 The second is a simple hex dump format.  The latter places sixteen hex
 pairs per line, with a single space in between.  There are no headers,
-and all files are assumed to start at offset 0.
+and all files are assumed to start at offset 0.  The third is a binary
+image of the code plug.
 .LP
 If you need utilities to convert between various hex formats, you might
-be interested in Peter Miller's Srecord package.
+be interested in Peter Miller's Srecord package.  See
+.BR http://www.canb.auug.org.au/~millerp/README.html .
 .SH DIAGNOSTICS
 .LP
 Many error messages provide a line number location for the error they

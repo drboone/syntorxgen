@@ -374,13 +374,16 @@ int main(int argc, char *argv[])
 	int c;
 	int infmt = HEX;
 	char filename[MAXSTR+1] = "";
-	char inbuf[MAXSTR+1];
+	unsigned char inbuf[MAXSTR+1];
+	unsigned char cinbuf[MAXSTR+1];
+	unsigned char *i;
+	unsigned int *b;
 	int rtypespec = 0;
 	unsigned int binbuf[16];
 	int n;
 	time_t now;
 
-	while ((c = getopt(argc, argv, "LHU8shf:")) != -1)
+	while ((c = getopt(argc, argv, "LHU8bhsf:")) != -1)
 	{
 		switch (c)
 		{
@@ -436,23 +439,37 @@ int main(int argc, char *argv[])
 
 	offset = 0;
 	maxused = 0;
-	while (fgets(inbuf, MAXSTR, stdin) != NULL)
+	switch (infmt)
 	{
-		switch (infmt)
-		{
-			case BINARY:
-				break;
-			case HEX:
+		case BINARY:
+			maxused = fread(cinbuf, sizeof(char), 2048, stdin);
+			if (maxused < 16)
+			{
+				fputs("short binary file\n", stderr);
+				exit(EINVAL);
+			}
+			i = cinbuf;
+			b = (unsigned int *)bigbuf;
+			for (n = 0; n < maxused; n++)
+				*b++ = (unsigned int)*i++;
+			break;
+		case HEX:
+			while (fgets(inbuf, MAXSTR, stdin) != NULL)
+			{
 				maxused = hexbin(inbuf);
-				break;
-			case SRECORD:
+			}
+			break;
+		case SRECORD:
+			while (fgets(inbuf, MAXSTR, stdin) != NULL)
+			{
 				maxused = srecbin(inbuf);
-				break;
-			DEFAULT:
-				fprintf(stderr, "unknown input file format\n");
-				break;
-		};
-	}
+			}
+			break;
+		DEFAULT:
+			fprintf(stderr, "unknown input file format\n");
+			exit(EINVAL);
+			break;
+	};
 
 	for (n = 1; n <= (maxused / 16); n++)
 	{
