@@ -1,0 +1,42 @@
+.\" syntorxgen.1, Boone, 07/20/02
+.\" Documentation for the syntorxgen program
+.\" Copyright (C) 2002, Dennis Boone, East Lansing, MI
+.\"
+.\" Modifications:
+.\" 07/20/02 Boone      Initial coding
+.\" End Modifications
+.TH syntorxgen 1 "July 2002" Linux "User Manuals"
+.SH NAME
+syntorxgen \- Generate code plugs for Syntor X radios
+.SH SYNOPSIS
+.B syntorxgen [-dhsxy] [-o
+.I output-file
+.B ]
+.SH DESCRIPTION
+.B syntorxgen
+reads a text file describing the contents of the desired code plug
+from standard input.  A hex representation of the code plug is written.
+.SH OPTIONS
+.IP -d
+Generate debugging output.
+.IP -h
+Print usage information.
+.IP -s
+Generate Motorola S-record format output.
+.IP -x
+Generate simple hex format output.  (default)
+.IP -y
+Cause the parser to generate debugging output.  Only really useful to
+those who understand yacc parsers.
+.IP "-o output-file"
+Write the hex representation of the code plug to
+.I output-file
+instead of standard output.
+.SH DIAGNOSTICS
+I need to be written.
+.SH BUGS
+Doubtless there are many.
+.SH AUTHOR
+Dennis Boone <jm-sxg at yagi.h-net.msu.edu>
+.SH "SEE ALSO"
+.BR syntorxgen (5)
