@@ -38,16 +38,16 @@
 EOF
 
 	printf("nmodes %d;\n", $nmodes);
-	printf("txvcosplit %7.3f;\n", $txvcosplit);
-	printf("rxvcosplit %7.3f;\n", $rxvcosplit);
+	printf("txvcosplit %10.6f;\n", $txvcosplit);
+	printf("rxvcosplit %10.6f;\n", $rxvcosplit);
 
 	for ($i = 0; $i < $nmodes; $i++)
 	{
 		$a = (($mainlow / 1000000) + ($i * ($mainstep / 1000000)));
 
 		print "mode ", $i+1, "\n{\n";
-		printf("\ttxfreq %7.3f;\n", $a);
-		printf("\trxfreq %7.3f;\n", $a);
+		printf("\ttxfreq %10.6f;\n", $a);
+		printf("\trxfreq %10.6f;\n", $a);
 		print <<"EOF";
 	txdplinv no;
 	txmpl no;
