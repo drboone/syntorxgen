@@ -1,5 +1,6 @@
-Copyright, header comment cleanup in testdata directory.  Additional
-test data too.  Also utilities to generate more test data.
+Develop additional test data.
+
+Develop better tools to generate test data.
 
 Test rx extender on low-band rig.
 
