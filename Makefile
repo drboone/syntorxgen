@@ -45,5 +45,7 @@ dist-clean: clean
 	$(RM) syntorxgen syntorxdecode
 
 install:
-	$(INSTALL) syntorxgen $(DESTDIR)/usr/bin/
-	$(INSTALL) syntorxdecode $(DESTDIR)/usr/bin/
+	$(INSTALL) syntorxgen $(DESTDIR)/bin/
+	$(INSTALL) docs/syntorxgen.1 $(DESTDIR)/man/man1/
+	$(INSTALL) syntorxdecode $(DESTDIR)/bin/
+	$(INSTALL) docs/syntorxdecode.1 $(DESTDIR)/man/man1/
