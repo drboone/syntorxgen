@@ -296,7 +296,7 @@
 		tbscan no;
 		npscansource fixed;
 	};
-	mode 18
+	mode 20
 	{
 		txfreq 150.0125;
 		rxfreq 150.0125;
@@ -312,10 +312,10 @@
 	};
 
 ############################################################################
-# Other scantypes: 19 sglpri, 20 dblpri
+# Other scantypes: 21 sglpri, 22 dblpri
 ############################################################################
 
-	mode 19
+	mode 21
 	{
 		txfreq 173.000;
 		rxfreq 173.000;
@@ -326,7 +326,7 @@
 		p2scanmode 2;
 		tbscan no;
 	};
-	mode 20
+	mode 22
 	{
 		txfreq 173.000;
 		rxfreq 173.000;
@@ -342,7 +342,7 @@
 # Talkback scan
 ############################################################################
 
-	mode 21
+	mode 23
 	{
 		txfreq 173.000;
 		rxfreq 173.000;
@@ -358,7 +358,7 @@
 # Operator-selectable scan modes
 ############################################################################
 
-	mode 22
+	mode 24
 	{
 		txfreq 173.000;
 		rxfreq 173.000;
@@ -370,12 +370,12 @@
 	};
 
 ############################################################################
-# Squelch types: 23 stdstd, 24 andstd, 25 andor
+# Squelch types: 25 stdstd, 26 andstd, 27 andor
 # If you figure out how to actually use these without specialized
 # equipment, let me know
 ############################################################################
 
-	mode 23
+	mode 25
 	{
 		txfreq 150.000;
 		rxfreq 150.000;
@@ -390,7 +390,7 @@
 		npscansource fixed;
 		squelchtype stdstd;
 	};
-	mode 24
+	mode 26
 	{
 		txfreq 150.000;
 		rxfreq 150.000;
@@ -405,7 +405,7 @@
 		npscansource fixed;
 		squelchtype andstd;
 	};
-	mode 25
+	mode 27
 	{
 		txfreq 150.000;
 		rxfreq 150.000;
