@@ -476,6 +476,98 @@ andor:				ANDOR
 
 %%
 
+void writerefcard(FILE *reffile)
+
+{
+	int i, j;
+	char clamshell[32];
+	int cs;
+	char acm[32];
+	int al;
+	char bank[32];
+	char rxpl[32];
+	char txpl[32];
+	char scan[256];
+	char smode[32];
+
+	fputs(".nr PS 8\n"
+		".nr VS 10p\n"
+		".na\n"
+		".TS H\n"
+		"expand center box;\n"
+		"cfB cfB cfB cfB cfB cfB cfB lfB lfB\n"
+		"n c c n n n n l l\n"
+		".\n"
+		"Bank	Cshell	ACM	Rx	Rx(D)PL	Tx	Tx(D)PL	Label	Scan(P1/P2/NP)\n"
+		"_\n"
+		".TH\n",
+		reffile);
+
+		for (i = 0; i < gnmodes; i++)
+		{
+			if (gmodedef[i].defined)
+			{
+				cs = ((i / 16) % 2);
+				sprintf(clamshell, "%c %2d", cs+'A', (i%16)+1);
+				al = ((i / 8) % 4);
+				sprintf(acm, "%c %2d", al+'A', (i%8)+1);
+				if (gmodedef[i].rxdplflag)
+					sprintf(rxpl, "%03o%s", gmodedef[i].rxdpl,
+						gmodedef[i].rxdplinv ? "i" : "");
+				else
+					if (gmodedef[i].rxpl != 0.0)
+						sprintf(rxpl, "%5.1f", gmodedef[i].rxpl);
+					else
+						*rxpl = 0;
+				if (gmodedef[i].txdplflag)
+					sprintf(txpl, "%03o%s", gmodedef[i].txdpl,
+						gmodedef[i].txdplinv ? "i" : "");
+				else
+					if (gmodedef[i].txpl != 0.0)
+						sprintf(txpl, "%5.1f", gmodedef[i].txpl);
+					else
+						*txpl = 0;
+				fprintf(reffile, "%s\t%s\t%s\t%8.4f\t%s\t%8.4f\t%s\tT{\n%s\nT}\t",
+					i/32 ? "2" : "1", clamshell, acm, gmodedef[i].rxfreq,
+					rxpl, gmodedef[i].txfreq, txpl, gmodedef[i].label);
+				switch (gmodedef[i].scantype)
+				{
+					case 2:
+						fputs("T{\nNone\nT}\n", reffile);
+						break;
+					case 3:
+						fputs("T{\nNonPri", reffile);
+						for (j = 0; j < gmodedef[i].scanlistsize; j++)
+						{
+							fprintf(reffile, " %d", gmodedef[i].npscanlist[j]);
+						}
+						fputs("\nT}\n", reffile);
+						break;
+					case 1:
+						fprintf(reffile, "T{\nSglPri P1(%d)",
+							gmodedef[i].p1scanmode);
+						for (j = 0; j < gmodedef[i].scanlistsize; j++)
+						{
+							fprintf(reffile, " %d", gmodedef[i].npscanlist[j]);
+						}
+						fputs("\nT}\n", reffile);
+						break;
+					case 0:
+						fprintf(reffile, "T{\nDblPri P1(%d) P2(%d)",
+							gmodedef[i].p1scanmode, gmodedef[i].p2scanmode);
+						for (j = 0; j < gmodedef[i].scanlistsize; j++)
+						{
+							fprintf(reffile, " %d", gmodedef[i].npscanlist[j]);
+						}
+						fputs("\nT}\n", reffile);
+						break;
+				};
+			}
+		}
+
+		fputs(".TE\n", reffile);
+}
+
 void dumpmodes()
 
 {
@@ -645,6 +737,8 @@ int main(int argc, char *argv[])
 	int c;
 	int outfmt = HEX;
 	FILE *outfile;
+	int refcard = 0;
+	FILE *reffile;
 	int rc;
 
 /* Initialize */
@@ -676,7 +770,7 @@ int main(int argc, char *argv[])
 
 /* Command line */
 
-	while ((c = getopt(argc, argv, "o:bdhsvxy")) != -1)
+	while ((c = getopt(argc, argv, "o:r:bdhsvxy")) != -1)
 	{
 		switch (c)
 		{
@@ -686,6 +780,14 @@ int main(int argc, char *argv[])
 					perror(optarg);
 					exit(errno);
 				}
+				break;
+			case 'r':
+				if ((reffile = fopen(optarg, "w")) == NULL)
+				{
+					perror(optarg);
+					exit(errno);
+				}
+				refcard = 1;
 				break;
 			case 'b':
 				outfmt = BINARY;
@@ -707,7 +809,8 @@ int main(int argc, char *argv[])
 				break;
 			case 'h':
 			default:
-				fprintf(stderr, "usage: %s [-dhsvxy] [-o outfile]\n", argv[0]);
+				fprintf(stderr, "usage: %s [-dhsvxy] [-o outfile] "
+					"[-r refcard-file]\n", argv[0]);
 				exit(EINVAL);
 		}
 	}
@@ -722,7 +825,11 @@ int main(int argc, char *argv[])
 		dumpmodes();
 
 	if (! rc)
+	{
 		writeplug(outfmt, outfile);
+		if (refcard)
+			writerefcard(reffile);
+	}
 
 /* Done */
 

@@ -28,6 +28,8 @@ syntorxgen \- Generate code plugs for conventional Syntor X radios
 .SH SYNOPSIS
 .B syntorxgen [-bdhsvxy] [-o
 .I output-file
+.B ] [-r
+.I refcard-file
 .B ]
 .SH DESCRIPTION
 .B Syntorxgen
@@ -62,6 +64,11 @@ those who understand yacc parsers.
 Write the hex representation of the code plug to
 .I output-file
 instead of standard output.
+.IP "-r refcard-file"
+Write an input file for troff and tbl which will, when processed, produce
+a reference card listing the parameters of the code plug.  The file is
+written to
+.IR refcard-file .
 .SH "OUTPUT FORMATS"
 .LP
 .BR Syntorxgen

@@ -134,6 +134,7 @@ DEFAULT			[^#;{} \n\t0-9A-Za-z]
 {DQUOTE}		BEGIN(string);
 <string>[^"]+{DQUOTE}	{
 					BEGIN(INITIAL);
+					yytext[strlen(yytext)-1] = 0;
 					yylval.sval = yytext;
 					return(STRING);
 				}
