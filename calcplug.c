@@ -142,15 +142,61 @@ void calcbits(Modestruct *gmodedef, int plugbuf[])
 {
 	unsigned int i;
 	unsigned int rxvcofreq;
-	unsigned int refreq = 5;
+	unsigned int refreq;
 	unsigned char accum;
 	unsigned int txa, txb, txc, txn, txn1, txn2;
 	unsigned int rxa, rxb, rxc, rxn, rxn1, rxn2;
 	unsigned int txcix, rxcix;
+	float rxif;
+	unsigned int txfreq, rxfreq;
+
+	/* Default: "VHF RSS prefers the 5 KHz reference frequency. All other
+	   radios prefer the 6.25 KHz frequency." -- From Pakman's code plug
+	   documentation at http://home.xnet.com/~pakman/syntor/syntorx.htm */
+
+	if (gmodedef -> txfreq < MAXLOWBAND)
+		refreq = 6.25;
+	else
+		if (gmodedef -> txfreq < MAXHIGHBAND)
+			refreq = 5.0;
+		else
+			refreq = 6.25;
+
+	/* A global reference frequency spec overrides a default */
+
+	if (greffreq != -1)
+		refreq = greffreq;
+
+	/* Else a mode reference frequency spec overrides a global */
+
+	if (gmodedef -> refreq != -1)
+		refreq = gmodedef -> refreq;
 
 	txa = txb = txc = txn = txn1 = txn2 = 0;
 	rxa = rxb = rxc = rxn = rxn1 = rxn2 = 0;
 	txcix = rxcix = 0;
+
+	/* RX IF varies between bands */
+
+	if (gmodedef -> rxfreq < MAXLOWBAND)
+		rxif = 75.7;
+	else
+		if (gmodedef -> rxfreq < MAXHIGHBAND)
+			rxif = 53.9;
+		else
+			if (gmodedef -> rxfreq < MAXUHFR1BAND)
+				rxif = 53.9;
+			else
+				if (gmodedef -> rxfreq < MAXUHFBAND)
+					rxif = -53.9;
+				else
+					if (gmodedef -> rxfreq < MAX800BAND)
+						rxif = -53.9;
+
+	/* Divisor math is all integer */
+
+	txfreq = int(gmodedef -> txfreq * 1000.0L);
+	rxfreq = int(gmodedef -> rxfreq * 1000.0L);
 
 	for (i = 0; i < 16; i++)
 		plugbuf[i] = 0;
@@ -170,7 +216,7 @@ void calcbits(Modestruct *gmodedef, int plugbuf[])
 	txn2 = txn1 / 63;
 	txb = txn2 - txa;
 
-	rxvcofreq = rxfreq + 53900;
+	rxvcofreq = rxfreq + rxif;
 	rxn = rxvcofreq / refreq;
 	rxc = rxn % 3;
 	rxcix = rxc;
