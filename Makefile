@@ -27,7 +27,7 @@ YFLAGS=-d -y -t
 CFLAGS=-g
 LEX=flex
 LFLAGS=-s
-LIBS=-lfl
+LIBS=-lfl -lm
 
 syntorxgen: synxparser.o synxlexer.o calcplug.o
 	$(CC) -o $@ $^ $(LIBS)

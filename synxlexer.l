@@ -23,6 +23,8 @@
    Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA */
 
 %{
+#include <stdlib.h>
+#include <math.h>
 #include "y.tab.h"
 #define KWLISTSIZE 43
 
@@ -103,7 +105,11 @@ DEFAULT			[^#;{} \n\t0-9A-Za-z]
 {SEMICOLON}		return(';');
 {LBRACE}		return('{');
 {RBRACE}		return('}');
-{DOUBLE}		yylval.dval = atof(yytext); return(DOUBLE);
+{DOUBLE}		{
+					yylval.dval = atof(yytext);
+					yylval.dval = (floor(yylval.dval * 1000.0) / 1000.0);
+					return(DOUBLE);
+				}
 {INTEGER}		yylval.ival = atoi(yytext); return(INTEGER);
 {KEYWORD}		{
 					for (i = 0; i < KWLISTSIZE; i++)

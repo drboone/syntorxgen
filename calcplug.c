@@ -23,6 +23,7 @@
    Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA */
 
 #include <stdio.h>
+#include <math.h>
 
 #include "syntorxgen.h"
 /* #include "vbits.h" */
@@ -347,8 +348,8 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 
 	/* Divisor math is all integer */
 
-	txfreq = (unsigned int)((gmodedef -> txfreq) * 1000000.0L);
-	rxfreq = (unsigned int)((gmodedef -> rxfreq) * 1000000.0L);
+	txfreq = (unsigned int)floor((gmodedef -> txfreq) * 1000000.0L);
+	rxfreq = (unsigned int)floor((gmodedef -> rxfreq) * 1000000.0L);
 
 	/* Figure VCO range splits */
 

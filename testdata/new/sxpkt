@@ -1,8 +1,8 @@
 nmodes 34;
 txvcosplit 155.800;
 mode 1
-{	txfreq 144.39;
-	rxfreq 144.39;
+{	txfreq 144.390;
+	rxfreq 144.390;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -15,8 +15,8 @@ mode 1
 	npscansource FIXED;
 };
 mode 2
-{	txfreq 144.91;
-	rxfreq 144.91;
+{	txfreq 144.910;
+	rxfreq 144.910;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -29,8 +29,8 @@ mode 2
 	npscansource FIXED;
 };
 mode 3
-{	txfreq 144.93;
-	rxfreq 144.93;
+{	txfreq 144.930;
+	rxfreq 144.930;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -43,8 +43,8 @@ mode 3
 	npscansource FIXED;
 };
 mode 4
-{	txfreq 144.95;
-	rxfreq 144.95;
+{	txfreq 144.950;
+	rxfreq 144.950;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -57,8 +57,8 @@ mode 4
 	npscansource FIXED;
 };
 mode 5
-{	txfreq 144.97;
-	rxfreq 144.97;
+{	txfreq 144.970;
+	rxfreq 144.970;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -71,8 +71,8 @@ mode 5
 	npscansource FIXED;
 };
 mode 6
-{	txfreq 144.99;
-	rxfreq 144.99;
+{	txfreq 144.990;
+	rxfreq 144.990;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -85,8 +85,8 @@ mode 6
 	npscansource FIXED;
 };
 mode 7
-{	txfreq 145.01;
-	rxfreq 145.01;
+{	txfreq 145.010;
+	rxfreq 145.010;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -99,8 +99,8 @@ mode 7
 	npscansource FIXED;
 };
 mode 8
-{	txfreq 145.03;
-	rxfreq 145.03;
+{	txfreq 145.030;
+	rxfreq 145.030;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -113,8 +113,8 @@ mode 8
 	npscansource FIXED;
 };
 mode 9
-{	txfreq 145.05;
-	rxfreq 145.05;
+{	txfreq 145.050;
+	rxfreq 145.050;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -127,8 +127,8 @@ mode 9
 	npscansource FIXED;
 };
 mode 10
-{	txfreq 145.07;
-	rxfreq 145.07;
+{	txfreq 145.070;
+	rxfreq 145.070;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -141,8 +141,8 @@ mode 10
 	npscansource FIXED;
 };
 mode 11
-{	txfreq 145.09;
-	rxfreq 145.09;
+{	txfreq 145.090;
+	rxfreq 145.090;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -155,8 +155,8 @@ mode 11
 	npscansource FIXED;
 };
 mode 12
-{	txfreq 145.51;
-	rxfreq 145.51;
+{	txfreq 145.510;
+	rxfreq 145.510;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -169,8 +169,8 @@ mode 12
 	npscansource FIXED;
 };
 mode 13
-{	txfreq 145.53;
-	rxfreq 145.53;
+{	txfreq 145.530;
+	rxfreq 145.530;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -183,8 +183,8 @@ mode 13
 	npscansource FIXED;
 };
 mode 14
-{	txfreq 145.55;
-	rxfreq 145.55;
+{	txfreq 145.550;
+	rxfreq 145.550;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -197,8 +197,8 @@ mode 14
 	npscansource FIXED;
 };
 mode 15
-{	txfreq 145.57;
-	rxfreq 145.57;
+{	txfreq 145.570;
+	rxfreq 145.570;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -211,8 +211,8 @@ mode 15
 	npscansource FIXED;
 };
 mode 16
-{	txfreq 145.59;
-	rxfreq 145.59;
+{	txfreq 145.590;
+	rxfreq 145.590;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -225,8 +225,8 @@ mode 16
 	npscansource FIXED;
 };
 mode 17
-{	txfreq 145.61;
-	rxfreq 145.61;
+{	txfreq 145.610;
+	rxfreq 145.610;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -239,8 +239,8 @@ mode 17
 	npscansource FIXED;
 };
 mode 18
-{	txfreq 145.63;
-	rxfreq 145.63;
+{	txfreq 145.630;
+	rxfreq 145.630;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -253,8 +253,8 @@ mode 18
 	npscansource FIXED;
 };
 mode 19
-{	txfreq 145.65;
-	rxfreq 145.65;
+{	txfreq 145.650;
+	rxfreq 145.650;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -267,8 +267,8 @@ mode 19
 	npscansource FIXED;
 };
 mode 20
-{	txfreq 145.67;
-	rxfreq 145.67;
+{	txfreq 145.670;
+	rxfreq 145.670;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -281,8 +281,8 @@ mode 20
 	npscansource FIXED;
 };
 mode 21
-{	txfreq 145.69;
-	rxfreq 145.69;
+{	txfreq 145.690;
+	rxfreq 145.690;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -295,8 +295,8 @@ mode 21
 	npscansource FIXED;
 };
 mode 22
-{	txfreq 145.71;
-	rxfreq 145.71;
+{	txfreq 145.710;
+	rxfreq 145.710;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -309,8 +309,8 @@ mode 22
 	npscansource FIXED;
 };
 mode 23
-{	txfreq 145.73;
-	rxfreq 145.73;
+{	txfreq 145.730;
+	rxfreq 145.730;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -323,8 +323,8 @@ mode 23
 	npscansource FIXED;
 };
 mode 24
-{	txfreq 145.75;
-	rxfreq 145.75;
+{	txfreq 145.750;
+	rxfreq 145.750;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -337,8 +337,8 @@ mode 24
 	npscansource FIXED;
 };
 mode 25
-{	txfreq 145.76;
-	rxfreq 145.76;
+{	txfreq 145.760;
+	rxfreq 145.760;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -351,8 +351,8 @@ mode 25
 	npscansource FIXED;
 };
 mode 26
-{	txfreq 145.77;
-	rxfreq 145.77;
+{	txfreq 145.770;
+	rxfreq 145.770;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -365,8 +365,8 @@ mode 26
 	npscansource FIXED;
 };
 mode 27
-{	txfreq 145.79;
-	rxfreq 145.79;
+{	txfreq 145.790;
+	rxfreq 145.790;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -379,8 +379,8 @@ mode 27
 	npscansource FIXED;
 };
 mode 28
-{	txfreq 145.8;
-	rxfreq 145.8;
+{	txfreq 145.80;
+	rxfreq 145.80;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -407,8 +407,8 @@ mode 29
 	npscansource FIXED;
 };
 mode 30
-{	txfreq 145.99;
-	rxfreq 145.99;
+{	txfreq 145.990;
+	rxfreq 145.990;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -421,8 +421,8 @@ mode 30
 	npscansource FIXED;
 };
 mode 31
-{	txfreq 147.43;
-	rxfreq 147.43;
+{	txfreq 147.430;
+	rxfreq 147.430;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -435,8 +435,8 @@ mode 31
 	npscansource FIXED;
 };
 mode 32
-{	txfreq 147.54;
-	rxfreq 147.54;
+{	txfreq 147.540;
+	rxfreq 147.540;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -449,8 +449,8 @@ mode 32
 	npscansource FIXED;
 };
 mode 33
-{	txfreq 147.56;
-	rxfreq 147.56;
+{	txfreq 147.560;
+	rxfreq 147.560;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
@@ -463,8 +463,8 @@ mode 33
 	npscansource FIXED;
 };
 mode 34
-{	txfreq 147.58;
-	rxfreq 147.58;
+{	txfreq 147.580;
+	rxfreq 147.580;
 	txdplinv no;
 	rxdplinv no;
 	timeout 165;
