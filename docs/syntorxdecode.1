@@ -1,0 +1,83 @@
+.\" syntorxdecode.1, Boone, 07/28/02
+.\" Documentation for the syntorxdecode program
+.\" Copyright (C) 2002, Dennis Boone, East Lansing, MI
+.\"
+.\" Modifications:
+.\" 07/28/02 Boone      Initial coding
+.\" End Modifications
+.\"
+.\" This file is part of syntorxgen.
+.\"
+.\" Syntorxgen is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published
+.\" by the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" Syntorxgen is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with syntorxgen; if not, write to the Free Software Foundation,
+.\" Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+.\"
+.TH syntorxdecode 1 "July 2002" Linux "User Manuals"
+.SH NAME
+syntorxdecode \- Decipher code plugs for conventional Syntor X radios
+.SH SYNOPSIS
+.B syntorxdecode [-LVUW8hs] [-f
+.I input-file
+.B ]
+.SH DESCRIPTION
+.B Syntorxgen
+reads a code plug in plain hex or Motorola S-record format.  An input
+file suitable for feeding to syntorxgen, and describing the contents
+of the code plug, is generated.
+.LP
+For copious information on working with Syntor X radios, see
+.IR http://www.open.org/~blenderm/syntorx/ .
+.LP
+For details of the contents of a Syntor X code plug, see
+.IR http://home.xnet.com/~pakman/syntor/syntorx.htm .
+.LP
+The author's knowledge of these radios has come largely from these
+sources, and from Motorola manuals.  Any errors are mine, not theirs.
+.SH OPTIONS
+.IP -L
+The input code plug was generated for a low band radio.
+.IP -V
+The input code plug was generated for a high band radio.
+.IP -U
+The input code plug was generated for a UHF range 1 radio.
+.IP -W
+The input code plug was generated for a UHF range 2-5 radio.
+.IP -8
+The input code plug was generated for an 800 MHz radio.
+.IP -h
+Read simple hex format output.  (default)
+.IP -s
+Read Motorola S-record format output.
+.IP "-f input-file"
+Read the hex representation of the code plug from
+.I input-file
+instead of standard input.
+.SH "INPUT FORMATS"
+.LP
+.BR Syntorxdecode
+is capable of reading two input file formats.  The first is the
+Motorola S-record, a well known, and widely supported transfer format.
+The second is a simple hex dump format.  The latter places sixteen hex
+pairs per line, with a single space in between.  There are no headers,
+and all files are assumed to start at offset 0.
+.LP
+If you need utilities to convert between various hex formats, you might
+be interested in Peter Miller's Srecord package.
+.SH DIAGNOSTICS
+.SH BUGS
+Doubtless there are many.
+.SH AUTHOR
+Dennis Boone <jm-sxg at yagi.h-net.msu.edu>
+.SH "SEE ALSO"
+.BR syntorxgen (1),
+.BR syntorxgen (5)

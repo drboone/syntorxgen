@@ -58,6 +58,17 @@ those who understand yacc parsers.
 Write the hex representation of the code plug to
 .I output-file
 instead of standard output.
+.SH "OUTPUT FORMATS"
+.LP
+.BR Syntorxgen
+is capable of writing two output file formats.  The first is the
+Motorola S-record, a well known, and widely supported transfer format.
+The second is a simple hex dump format.  The latter places sixteen hex
+pairs per line, with a single space in between.  There are no headers,
+and all files are assumed to start at offset 0.
+.LP
+If you need utilities to convert between various hex formats, you might
+be interested in Peter Miller's Srecord package.
 .SH DIAGNOSTICS
 .LP
 Many error messages provide a line number location for the error they
