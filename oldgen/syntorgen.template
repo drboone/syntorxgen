@@ -1,0 +1,11 @@
+MODE
+txfreq rxfreq
+	txdpl txdplinv txpl txmpl 
+	rxdpl rxdplinv rxpl rxmpl 
+	tomins tosecs 
+	pwr 
+	scantype tbscan p1mode p2mode 
+	squelchtype 
+	scansource
+	scanchannel ...
+END

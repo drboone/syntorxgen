@@ -1,0 +1,493 @@
+<html>
+	<head>
+		<title>Edit single channel</title>
+	</head>
+	<body bgcolor="#ffffff">
+		<form method="POST" action="##SELF##">
+			<input type="hidden" name="channel" value="##CID##">
+		<table border="1" cellpadding="4">
+			<tr bgcolor="#004400">
+				<th colspan="2">
+					<font color="#ffffff" size="7">Channel ##CID##</font>
+				</th>
+			</tr>
+			<tr bgcolor="#00ff00">
+				<th colspan="2">
+					Transmit
+				</th>
+			</tr>
+			<tr>
+				<td align="right">
+					<b>Frequency (MHz):</b>
+				</td>
+				<td>
+					<input type="text" name="txfreq">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<b>Transmit PL/DPL/MPL</b>
+				</td>
+				<td>
+					Use DPL:&nbsp;<input type="checkbox" name="txdpl">
+					Invert DPL:&nbsp;<input type="checkbox" name="txdplinv">
+					DPL code:&nbsp;<select name="txdplcode">
+						<option value="023">023
+						<option value="025">025
+						<option value="026">026
+						<option value="031">031
+						<option value="032">032
+						<option value="036">036
+						<option value="043">043
+						<option value="047">047
+						<option value="051">051
+						<option value="054">054
+						<option value="065">065
+						<option value="071">071
+						<option value="072">072
+						<option value="073">073
+						<option value="074">074
+						<option value="114">114
+						<option value="115">115
+						<option value="116">116
+						<option value="125">125
+						<option value="131">131
+						<option value="132">132
+						<option value="134">134
+						<option value="143">143
+						<option value="152">152
+						<option value="155">155
+						<option value="156">156
+						<option value="162">162
+						<option value="165">165
+						<option value="172">172
+						<option value="174">174
+						<option value="205">205
+						<option value="223">223
+						<option value="226">226
+						<option value="243">243
+						<option value="244">244
+						<option value="245">245
+						<option value="251">251
+						<option value="261">261
+						<option value="263">263
+						<option value="265">265
+						<option value="271">271
+						<option value="306">306
+						<option value="311">311
+						<option value="315">315
+						<option value="331">331
+						<option value="343">343
+						<option value="346">346
+						<option value="351">351
+						<option value="364">364
+						<option value="365">365
+						<option value="371">371
+						<option value="411">411
+						<option value="412">412
+						<option value="413">413
+						<option value="423">423
+						<option value="431">431
+						<option value="432">432
+						<option value="445">445
+						<option value="464">464
+						<option value="465">465
+						<option value="466">466
+						<option value="503">503
+						<option value="506">506
+						<option value="516">516
+						<option value="532">532
+						<option value="546">546
+						<option value="565">565
+						<option value="606">606
+						<option value="612">612
+						<option value="624">624
+						<option value="627">627
+						<option value="631">631
+						<option value="632">632
+						<option value="654">654
+						<option value="662">662
+						<option value="664">664
+						<option value="703">703
+						<option value="712">712
+						<option value="723">723
+						<option value="731">731
+						<option value="732">732
+						<option value="734">734
+						<option value="743">743
+						<option value="754">754
+					</select>
+					<br>
+					Use PL:&nbsp;<input type="checkbox" name="txpl">
+					PL code:&nbsp;<select name="txplcode">
+						<option value="67.0">67.0 (XZ) 
+						<option value="69.3">69.3 (WZ) 
+						<option value="71.9">71.9 (XA) 
+						<option value="74.4">74.4 (WA) 
+						<option value="77.0">77.0 (XB) 
+						<option value="79.7">79.7 (WB) 
+						<option value="82.5">82.5 (YZ) 
+						<option value="85.4">85.4 (YA) 
+						<option value="88.5">88.5 (YB) 
+						<option value="91.5">91.5 (ZZ) 
+						<option value="94.8">94.8 (ZA) 
+						<option value="97.4">97.4 (ZB) 
+						<option value="100.0">100.0 (1Z) 
+						<option value="103.5">103.5 (1A) 
+						<option value="107.2">107.2 (1B) 
+						<option value="110.9">110.9 (2Z) 
+						<option value="114.8">114.8 (2A) 
+						<option value="118.8">118.8 (2B) 
+						<option value="123.0">123.0 (3Z) 
+						<option value="127.3">127.3 (3A) 
+						<option value="131.8">131.8 (3B) 
+						<option value="136.5">136.5 (4Z) 
+						<option value="141.3">141.3 (4A) 
+						<option value="146.2">146.2 (4B) 
+						<option value="151.4">151.4 (5Z) 
+						<option value="156.7">156.7 (5A) 
+						<option value="162.2">162.2 (5B) 
+						<option value="167.9">167.9 (6Z) 
+						<option value="173.8">173.8 (6A) 
+						<option value="179.9">179.9 (6B) 
+						<option value="186.2">186.2 (7Z) 
+						<option value="192.8">192.8 (7A) 
+						<option value="203.3">203.3 (M1) 
+						<option value="206.5">206.5 (8Z) 
+						<option value="210.7">210.7 (M2) 
+						<option value="218.1">218.1 (M3) 
+						<option value="225.7">225.7 (M4) 
+						<option value="229.1">229.1 (9Z) 
+						<option value="233.6">233.6 (M5) 
+						<option value="241.8">241.8 (M6) 
+						<option value="250.3">250.3 (M7) 
+						<option value="254.1">254.1 (OZ) 
+					</select>
+					<br>
+					Operator MPL Select: <input type="checkbox" name="txmpl">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<b>Tx timeout:</b>
+				</td>
+				<td>
+					<i>0 minutes 0 seconds gives infinite timeout</i><br>
+					Minutes:&nbsp;<select name="tomins">
+						<option> 0
+						<option> 1
+						<option> 2
+						<option> 3
+						<option> 4
+						<option> 5
+						<option> 6
+						<option> 7
+					</select>
+					Seconds:&nbsp;<select name="tosecs">
+						<option> 0
+						<option> 15
+						<option> 30
+						<option> 45
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<b>Tx power:</b>
+				</td>
+				<td>
+					High&nbsp;<input type="radio" name="txpwr" value="HIGH">
+					Low&nbsp;<input type="radio" name="txpwr" value="HIGH">
+				</td>
+			</tr>
+			<tr bgcolor="#00ff00">
+				<th colspan="2">
+					Receive
+				</th>
+			</tr>
+			<tr>
+				<td align="right">
+					<b>Frequency (MHz):</b>
+				</td>
+				<td>
+					<input type="text" name="txfreq">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<b>Receive PL/DPL/MPL</b>
+				</td>
+				<td>
+					Use DPL:&nbsp;<input type="checkbox" name="rxdpl">
+					Invert DPL:&nbsp;<input type="checkbox" name="rxdplinv">
+					DPL code:&nbsp;<select name="rxdplcode">
+						<option value="023">023
+						<option value="025">025
+						<option value="026">026
+						<option value="031">031
+						<option value="032">032
+						<option value="036">036
+						<option value="043">043
+						<option value="047">047
+						<option value="051">051
+						<option value="054">054
+						<option value="065">065
+						<option value="071">071
+						<option value="072">072
+						<option value="073">073
+						<option value="074">074
+						<option value="114">114
+						<option value="115">115
+						<option value="116">116
+						<option value="125">125
+						<option value="131">131
+						<option value="132">132
+						<option value="134">134
+						<option value="143">143
+						<option value="152">152
+						<option value="155">155
+						<option value="156">156
+						<option value="162">162
+						<option value="165">165
+						<option value="172">172
+						<option value="174">174
+						<option value="205">205
+						<option value="223">223
+						<option value="226">226
+						<option value="243">243
+						<option value="244">244
+						<option value="245">245
+						<option value="251">251
+						<option value="261">261
+						<option value="263">263
+						<option value="265">265
+						<option value="271">271
+						<option value="306">306
+						<option value="311">311
+						<option value="315">315
+						<option value="331">331
+						<option value="343">343
+						<option value="346">346
+						<option value="351">351
+						<option value="364">364
+						<option value="365">365
+						<option value="371">371
+						<option value="411">411
+						<option value="412">412
+						<option value="413">413
+						<option value="423">423
+						<option value="431">431
+						<option value="432">432
+						<option value="445">445
+						<option value="464">464
+						<option value="465">465
+						<option value="466">466
+						<option value="503">503
+						<option value="506">506
+						<option value="516">516
+						<option value="532">532
+						<option value="546">546
+						<option value="565">565
+						<option value="606">606
+						<option value="612">612
+						<option value="624">624
+						<option value="627">627
+						<option value="631">631
+						<option value="632">632
+						<option value="654">654
+						<option value="662">662
+						<option value="664">664
+						<option value="703">703
+						<option value="712">712
+						<option value="723">723
+						<option value="731">731
+						<option value="732">732
+						<option value="734">734
+						<option value="743">743
+						<option value="754">754
+					</select>
+					<br>
+					Use PL:&nbsp;<input type="checkbox" name="rxpl">
+					PL code:&nbsp;<select name="rxplcode">
+						<option value="67.0">67.0 (XZ) 
+						<option value="69.3">69.3 (WZ) 
+						<option value="71.9">71.9 (XA) 
+						<option value="74.4">74.4 (WA) 
+						<option value="77.0">77.0 (XB) 
+						<option value="79.7">79.7 (WB) 
+						<option value="82.5">82.5 (YZ) 
+						<option value="85.4">85.4 (YA) 
+						<option value="88.5">88.5 (YB) 
+						<option value="91.5">91.5 (ZZ) 
+						<option value="94.8">94.8 (ZA) 
+						<option value="97.4">97.4 (ZB) 
+						<option value="100.0">100.0 (1Z) 
+						<option value="103.5">103.5 (1A) 
+						<option value="107.2">107.2 (1B) 
+						<option value="110.9">110.9 (2Z) 
+						<option value="114.8">114.8 (2A) 
+						<option value="118.8">118.8 (2B) 
+						<option value="123.0">123.0 (3Z) 
+						<option value="127.3">127.3 (3A) 
+						<option value="131.8">131.8 (3B) 
+						<option value="136.5">136.5 (4Z) 
+						<option value="141.3">141.3 (4A) 
+						<option value="146.2">146.2 (4B) 
+						<option value="151.4">151.4 (5Z) 
+						<option value="156.7">156.7 (5A) 
+						<option value="162.2">162.2 (5B) 
+						<option value="167.9">167.9 (6Z) 
+						<option value="173.8">173.8 (6A) 
+						<option value="179.9">179.9 (6B) 
+						<option value="186.2">186.2 (7Z) 
+						<option value="192.8">192.8 (7A) 
+						<option value="203.3">203.3 (M1) 
+						<option value="206.5">206.5 (8Z) 
+						<option value="210.7">210.7 (M2) 
+						<option value="218.1">218.1 (M3) 
+						<option value="225.7">225.7 (M4) 
+						<option value="229.1">229.1 (9Z) 
+						<option value="233.6">233.6 (M5) 
+						<option value="241.8">241.8 (M6) 
+						<option value="250.3">250.3 (M7) 
+						<option value="254.1">254.1 (OZ) 
+					</select>
+					<br>
+					Operator MPL Select: <input type="checkbox" name="rxmpl">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<b>Scan:</b>
+				</td>
+				<td>
+					Source:
+					Selectable
+					<input type="radio" name="scansource" value="SELECTABLE">
+					Fixed
+					<input type="radio" name="scansource" value="FIXED"><br>
+					Type:
+					Double priority
+					<input type="radio" name="scantype" value="DBLPRI">
+					Single priority
+					<input type="radio" name="scantype" value="SGLPRI">
+					Non-priority
+					<input type="radio" name="scantype" value="STD">
+					No scan
+					<input type="radio" name="scantype" value="NONE"><br>
+					Talkback scan:
+					<input type="checkbox" name="tbscan"><br>
+					Priority scan:
+					First mode <select name="p1scan">
+						<option> 1
+						<option> 2
+						<option> 3
+						<option> 4
+						<option> 5
+						<option> 6
+						<option> 7
+						<option> 8
+						<option> 9
+						<option> 10
+						<option> 11
+						<option> 12
+						<option> 13
+						<option> 14
+						<option> 15
+						<option> 16
+						<option> 17
+						<option> 18
+						<option> 19
+						<option> 20
+						<option> 21
+						<option> 22
+						<option> 23
+						<option> 24
+						<option> 25
+						<option> 26
+						<option> 27
+						<option> 28
+						<option> 29
+						<option> 30
+						<option> 31
+						<option> 32
+					</select>
+					Second mode <select name="p2scan">
+						<option> 1
+						<option> 2
+						<option> 3
+						<option> 4
+						<option> 5
+						<option> 6
+						<option> 7
+						<option> 8
+						<option> 9
+						<option> 10
+						<option> 11
+						<option> 12
+						<option> 13
+						<option> 14
+						<option> 15
+						<option> 16
+						<option> 17
+						<option> 18
+						<option> 19
+						<option> 20
+						<option> 21
+						<option> 22
+						<option> 23
+						<option> 24
+						<option> 25
+						<option> 26
+						<option> 27
+						<option> 28
+						<option> 29
+						<option> 30
+						<option> 31
+						<option> 32
+					</select><br>
+				Non-priority mode scan list:<br>
+					1&nbsp;<input type="checkbox" name="npscanlist" value="1">
+					2&nbsp;<input type="checkbox" name="npscanlist" value="2">
+					3&nbsp;<input type="checkbox" name="npscanlist" value="3">
+					4&nbsp;<input type="checkbox" name="npscanlist" value="4">
+					5&nbsp;<input type="checkbox" name="npscanlist" value="5">
+					6&nbsp;<input type="checkbox" name="npscanlist" value="6">
+					7&nbsp;<input type="checkbox" name="npscanlist" value="7">
+					8&nbsp;<input type="checkbox" name="npscanlist" value="8">
+					9&nbsp;<input type="checkbox" name="npscanlist" value="9">
+					10&nbsp;<input type="checkbox" name="npscanlist" value="10">
+					11&nbsp;<input type="checkbox" name="npscanlist" value="11">
+					12&nbsp;<input type="checkbox" name="npscanlist" value="12">
+					13&nbsp;<input type="checkbox" name="npscanlist" value="13">
+					14&nbsp;<input type="checkbox" name="npscanlist" value="14">
+					15&nbsp;<input type="checkbox" name="npscanlist" value="15">
+					16&nbsp;<input type="checkbox" name="npscanlist" value="16">
+					17&nbsp;<input type="checkbox" name="npscanlist" value="17">
+					18&nbsp;<input type="checkbox" name="npscanlist" value="18">
+					19&nbsp;<input type="checkbox" name="npscanlist" value="19">
+					20&nbsp;<input type="checkbox" name="npscanlist" value="20">
+					21&nbsp;<input type="checkbox" name="npscanlist" value="21">
+					22&nbsp;<input type="checkbox" name="npscanlist" value="22">
+					23&nbsp;<input type="checkbox" name="npscanlist" value="23">
+					24&nbsp;<input type="checkbox" name="npscanlist" value="24">
+					25&nbsp;<input type="checkbox" name="npscanlist" value="25">
+					26&nbsp;<input type="checkbox" name="npscanlist" value="26">
+					27&nbsp;<input type="checkbox" name="npscanlist" value="27">
+					28&nbsp;<input type="checkbox" name="npscanlist" value="28">
+					29&nbsp;<input type="checkbox" name="npscanlist" value="29">
+					30&nbsp;<input type="checkbox" name="npscanlist" value="30">
+					31&nbsp;<input type="checkbox" name="npscanlist" value="31">
+					32&nbsp;<input type="checkbox" name="npscanlist" value="32">
+				</td>
+			</tr>
+			<tr>
+				<td align="center" colspan="2">
+					<input type="submit" value=" Submit ">&nbsp;&nbsp;
+					<input type="reset" value=" Clear form ">
+				</td>
+			</tr>
+		</table>
+		</form>
+	</body>
+</html>
