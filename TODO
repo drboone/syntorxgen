@@ -1,12 +1,7 @@
-Thorough function test; a high-band rig ought to be enough for most
-parts except frequency bits and the rx extender on the low band rigs.
+Test rx extender on low-band rig.
 
-	Update: Extender, frequency testing still remain; the rest is
-	mostly done.
+Test frequency calculation on UHF rig.
 
-Convert a UHF rig, gather a cable and head, and then test UHF.
-
-Find (beg, borrow) an 800 rig, gather a cable and head, and then
-test 800.
+Test frequency calculation on an 800 rig.
 
 Build a web interface, so this can be used to provide a public service.
