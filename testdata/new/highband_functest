@@ -21,21 +21,439 @@
 # along with syntorxgen; if not, write to the Free Software Foundation,
 # Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-nmodes 32;
-txvcosplit 150.000;
-rxvcosplit 154.000;
+############################################################################
+# Global settings
+############################################################################
 
+	nmodes 40;
+	txvcosplit 150.000; # Fix us!  For tx, factory setting mostly works
+	rxvcosplit 154.000; # For rx, it depends on how you mod the VCO
+
+############################################################################
+# Non-priority fixed scan: mode 1 scans 2, 3, 4
+############################################################################
+
+	mode 1
+	{
+		txfreq 150.000;
+		rxfreq 151.000;
+		npscanlist 1 2 3 4;
+		txpl 100.0;
+		txmpl no;
+		rxpl 100.0;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype nonpri;
+		tbscan no;
+		npscansource fixed;
+	};
+	mode 2
+	{
+		txfreq 152.000;
+		rxfreq 153.000;
+		txpl 100.0;
+		txmpl no;
+		rxpl 100.0;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+	mode 3
+	{
+		txfreq 154.000;
+		rxfreq 155.000;
+		txpl 100.0;
+		txmpl no;
+		rxpl 100.0;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+	mode 4
+	{
+		txfreq 156.000;
+		rxfreq 157.000;
+		txpl 100.0;
+		txmpl no;
+		rxpl 100.0;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+
+############################################################################
+# DPL checks: 023/047, 743/654 encode and decode
+############################################################################
+
+	mode 5
+	{
+		txfreq 158.000;
+		rxfreq 159.000;
+		txdpl 023;
+		txmpl no;
+		rxdpl 023;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+	mode 6
+	{
+		txfreq 160.000;
+		rxfreq 161.000;
+		txdpl 047;
+		txmpl no;
+		rxdpl 047;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+	mode 7
+	{
+		txfreq 162.000;
+		rxfreq 163.000;
+		txdpl 743;
+		txmpl no;
+		rxdpl 743;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+	mode 8
+	{
+		txfreq 164.000;
+		rxfreq 165.000;
+		txdpl 654;
+		txmpl no;
+		rxdpl 654;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+
+############################################################################
+# PL checks: 67.0, 254.1, encode and decode
+############################################################################
+
+	mode 9
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		txpl 67.0;
+		txmpl no;
+		rxpl 67.0;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+	mode 10
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		txpl 254.1;
+		txmpl no;
+		rxpl 254.1;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+
+############################################################################
+# PL/DPL with MPL checks: see modes 33-40 for codes/frequencies
+############################################################################
+
+	mode 11
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		txdpl 023;
+		txmpl yes;
+		rxdpl 023;
+		rxmpl yes;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+	mode 12
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		txpl 100.0;
+		txmpl yes;
+		rxpl 100.0;
+		rxmpl yes;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+
+############################################################################
+# Timeout: 13 is infinite, 14 60 seconds, 15 465 seconds
+############################################################################
+
+	mode 13
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		timeout 0;
+		txpower high;
+	};
+	mode 14
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		timeout 60;
+		txpower high;
+	};
+	mode 15
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		timeout 465;
+		txpower high;
+	};
+
+############################################################################
 # Power: mode 1=high; mode 2=low
+############################################################################
 
-mode 1
+	mode 16
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		txpower high;
+	};
+	mode 17
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		txpower low;
+	};
+
+############################################################################
+# Reference frequency: 18 forces 5000, 19 forces 6250, 20 needs 6250 but
+# sets nothing
+############################################################################
+
+	mode 18
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		txpl 100.0;
+		txmpl yes;
+		rxpl 100.0;
+		rxmpl yes;
+		timeout 165;
+		txpower high;
+		refreq 5000;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+	mode 19
+	{
+		txfreq 150.0125;
+		rxfreq 150.0125;
+		txpl 100.0;
+		txmpl yes;
+		rxpl 100.0;
+		rxmpl yes;
+		timeout 165;
+		txpower high;
+		refreq 6250;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+	mode 18
+	{
+		txfreq 150.0125;
+		rxfreq 150.0125;
+		txpl 100.0;
+		txmpl yes;
+		rxpl 100.0;
+		rxmpl yes;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+	};
+
+############################################################################
+# Other scantypes: 19 sglpri, 20 dblpri
+############################################################################
+
+	mode 19
+	{
+		txfreq 173.000;
+		rxfreq 173.000;
+		timeout 165;
+		txpower high;
+		scantype sglpri;
+		p1scanmode 1;
+		p2scanmode 2;
+		tbscan no;
+	};
+	mode 20
+	{
+		txfreq 173.000;
+		rxfreq 173.000;
+		timeout 165;
+		txpower high;
+		scantype dblpri;
+		p1scanmode 1;
+		p2scanmode 2;
+		tbscan no;
+	};
+
+############################################################################
+# Talkback scan
+############################################################################
+
+	mode 21
+	{
+		txfreq 173.000;
+		rxfreq 173.000;
+		npscanlist 1 2 3 4;
+		timeout 165;
+		txpower high;
+		scantype nonpri;
+		tbscan yes;
+		npscansource fixed;
+	};
+
+############################################################################
+# Operator-selectable scan modes
+############################################################################
+
+	mode 22
+	{
+		txfreq 173.000;
+		rxfreq 173.000;
+		timeout 165;
+		txpower high;
+		scantype nonpri;
+		tbscan yes;
+		npscansource selectable;
+	};
+
+############################################################################
+# Squelch types: 23 stdstd, 24 andstd, 25 andor
+# If you figure out how to actually use these without specialized
+# equipment, let me know
+############################################################################
+
+	mode 23
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		txpl 67.0;
+		txmpl no;
+		rxpl 67.0;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+		squelchtype stdstd;
+	};
+	mode 24
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		txpl 67.0;
+		txmpl no;
+		rxpl 67.0;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+		squelchtype andstd;
+	};
+	mode 25
+	{
+		txfreq 150.000;
+		rxfreq 150.000;
+		txpl 67.0;
+		txmpl no;
+		rxpl 67.0;
+		rxmpl no;
+		timeout 165;
+		txpower high;
+		scantype none;
+		tbscan no;
+		npscansource fixed;
+		squelchtype andor;
+	};
+
+############################################################################
+# High bank: operator select PL/DPL (i.e. MPL) settings
+############################################################################
+
+mode 33
 {
-	txfreq 150.000;
-	rxfreq 150.000;
-	txpower high;
+	txdpl 023;
 };
-mode 2
+mode 34
 {
-	txfreq 150.000;
-	rxfreq 150.000;
-	txpower low;
+	txdpl 116;
+};
+mode 35
+{
+	txdpl 244;
+};
+mode 36
+{
+	txdpl 411;
+};
+mode 37
+{
+	txpl 77.0;
+};
+mode 38
+{
+	txpl 94.8;
+};
+mode 39
+{
+	txpl 100.0;
+};
+mode 40
+{
+	txpl 141.3;
 };
