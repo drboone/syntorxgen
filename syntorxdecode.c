@@ -384,7 +384,7 @@ int main(int argc, char *argv[])
 	int n;
 	time_t now;
 
-	while ((c = getopt(argc, argv, "LHU8bhsf:")) != -1)
+	while ((c = getopt(argc, argv, "LHU8bhsvf:")) != -1)
 	{
 		switch (c)
 		{
