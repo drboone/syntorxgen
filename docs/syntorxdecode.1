@@ -26,7 +26,7 @@
 .SH NAME
 syntorxdecode \- Decipher code plugs for conventional Syntor X radios
 .SH SYNOPSIS
-.B syntorxdecode [-LVUW8hs] [-f
+.B syntorxdecode [-LVUW8bhs] [-f
 .I input-file
 .B ]
 .SH DESCRIPTION
@@ -54,22 +54,25 @@ The input code plug was generated for a UHF range 1 radio.
 The input code plug was generated for a UHF range 2-5 radio.
 .IP -8
 The input code plug was generated for an 800 MHz radio.
+.IP -b
+Read binary format input.  (default)
 .IP -h
-Read simple hex format output.  (default)
+Read simple hex format input.  (default)
 .IP -s
-Read Motorola S-record format output.
+Read Motorola S-record format input.
 .IP "-f input-file"
-Read the hex representation of the code plug from
+Read the code plug from
 .I input-file
 instead of standard input.
 .SH "INPUT FORMATS"
 .LP
 .BR Syntorxdecode
-is capable of reading two input file formats.  The first is the
+is capable of reading three input file formats.  The first is the
 Motorola S-record, a well known, and widely supported transfer format.
 The second is a simple hex dump format.  The latter places sixteen hex
 pairs per line, with a single space in between.  There are no headers,
-and all files are assumed to start at offset 0.
+and all files are assumed to start at offset 0.  The third is a raw
+binary image of the code plug.
 .LP
 If you need utilities to convert between various hex formats, you might
 be interested in Peter Miller's Srecord package.
