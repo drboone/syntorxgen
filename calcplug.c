@@ -472,9 +472,11 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	plugbuf[0x01] = (scanlist & 0x00ff0000) >> 16;
 	plugbuf[0x02] = (scanlist & 0x0000ff00) >> 8;
 	plugbuf[0x03] = (scanlist & 0x000000ff);
-	if (gmodedef -> txdpl != 0)
+	if (gmodedef -> txdplflag)
 	{
 		txdpl = gmodedef -> txdpl;
+		plugbuf[0x04] = 0;
+		plugbuf[0x05] = 0;
 		plugbuf[0x04] |= (gmodedef -> txdplinv & 0x01) << 7;
 		plugbuf[0x04] |= (dpltable[(txdpl & 0007)]) << 4;
 		plugbuf[0x04] |= (dpltable[(txdpl & 0070) >> 3]) << 1;
@@ -485,18 +487,26 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 		plugbuf[0x05] |= (dpltable[(txdpl & 0700) >> 6] & 0003) << 3;
 		plugbuf[0x05] |= 0x07;
 	}
-	else
+	else if (gmodedef -> txplflag)
 	{
 		txpl = txplookup(gmodedef -> txpl);
+		plugbuf[0x04] = 0;
+		plugbuf[0x05] = 0;
 		plugbuf[0x04] |= (txpl & 0xff00) >> 8;
 		/* DPL/PL bit value 0 means PL, so it's already set */
-		/* DPL enable bit value 0 means PL, so it's already set */
 		plugbuf[0x05] |= txpl & 0x00ff;
 		plugbuf[0x05] |= (gmodedef -> txmpl & 0x01) << 7;
 	}
-	if (gmodedef -> rxdpl != 0)
+	else
+	{
+		plugbuf[0x04] = 0xff;
+		plugbuf[0x05] = 0xdf;
+	}
+	if (gmodedef -> rxdplflag)
 	{
 		rxdpl = gmodedef -> rxdpl;
+		plugbuf[0x06] = 0;
+		plugbuf[0x07] = 0;
 		plugbuf[0x06] |= (gmodedef -> rxdplinv & 0x01) << 7;
 		plugbuf[0x06] |= (dpltable[(rxdpl & 0007)]) << 4;
 		plugbuf[0x06] |= (dpltable[(rxdpl & 0070) >> 3]) << 1;
@@ -507,14 +517,20 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 		plugbuf[0x07] |= (dpltable[(rxdpl & 0700) >> 6] & 0003) << 3;
 		plugbuf[0x07] |= 0x07;
 	}
-	else
+	else if (gmodedef -> rxplflag)
 	{
 		rxpl = rxplookup(gmodedef -> rxpl);
+		plugbuf[0x06] = 0;
+		plugbuf[0x07] = 0;
 		plugbuf[0x06] |= (rxpl & 0xff00) >> 8;
 		/* DPL/PL bit value 0 means PL, so it's already set */
-		/* DPL enable bit value 0 means PL, so it's already set */
 		plugbuf[0x07] |= rxpl & 0x00ff;
 		plugbuf[0x07] |= (gmodedef -> rxmpl & 0x01) << 7;
+	}
+	else
+	{
+		plugbuf[0x06] = 0xff;
+		plugbuf[0x07] = 0xdf;
 	}
 	tot = totlookup(gmodedef -> timeout);
 	plugbuf[0x08] |= (tot & 0x1f) << 3;

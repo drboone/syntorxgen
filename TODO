@@ -1,12 +1,7 @@
 Stuff fer ta do:
 
-Motorola fills with FF; Syntorxgen fills with 00.  Syntorxgen needs
-to fill with FF, but this will change some of the defaults, so the
-docs need to be updated, and some issues may arise in gen.
-
-Semantics of PL/DPL bits are wrong in decode, and probably in gen.
-To disable PL, you choose DPL, but set the "disable DPL" bit.
-I.e. DPL disable bit only works when optioned for DPL.
+Thorough function test; a high-band rig ought to be enough for most
+parts except frequency bits and the rx extender on the low band rigs.
 
 Convert a UHF rig, gather a cable and head, and then test UHF.
 
