@@ -4,6 +4,7 @@
 
 # Modifications:
 # 06/02/02 Boone      Initial coding
+# 06/30/02 Boone      Added calcplug
 # End Modifications
 
 YACC=bison
@@ -12,7 +13,7 @@ LEX=flex
 LFLAGS=-s
 LIBS=-lfl
 
-syntorxgen: synxparser.o synxlexer.o
+syntorxgen: synxparser.o synxlexer.o calcplug.o
 	$(CC) -o $@ $^ $(LIBS)
 
 clean:
