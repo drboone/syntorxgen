@@ -69,13 +69,13 @@ void decode(unsigned int *binbuf)
 	if (binbuf[0] || binbuf[1] || binbuf[2] || binbuf[3])
 	{
 		printf("\tnpscanlist");
-		for (i = 0; i < 4; i ++)
+		for (i = 0; i < 4; i++)
 		{
-			for (j = 1; j < 9; j++)
+			for (j = 8; j > 0; j--)
 			{
-				bit = (binbuf[i] & (1 << (8 - j))) >> (8 - j);
+				bit = (binbuf[i] & (1 << (j - 1))) >> (j - 1);
 				if (bit)
-					printf(" %d", (i * 8) + j);
+					printf(" %d", (i * 8) + (8 - j) + 1);
 			}
 		}
 		printf(";\n");
@@ -193,8 +193,8 @@ void decode(unsigned int *binbuf)
 	else
 		puts("\ttbscan no;");
 
-	printf("\tp1scanmode %d;\n", binbuf[10] & 0x1f);
-	printf("\tp2scanmode %d;\n", binbuf[9] & 0x1f);
+	printf("\tp1scanmode %d;\n", binbuf[10] & 0x1f + 1);
+	printf("\tp2scanmode %d;\n", binbuf[9] & 0x1f + 1);
 
 	if (binbuf[10] & 0x80)
 		puts("\tnpscansource fixed;");
