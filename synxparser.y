@@ -15,7 +15,10 @@
 #include <getopt.h>
 #include <unistd.h>
 
+#define INSTANTIATE
 #include "syntorxgen.h"
+
+void calcbits(Modestruct *gmodedef, int *plugbuf);
 
 void yyerror(char *s)
 
@@ -31,12 +34,16 @@ void initmode(Modestruct *m)
 	memset(m -> npscanlist, 0, sizeof(m -> npscanlist));
 	m -> txdplflag = 0;
 	m -> txdpl = 0;
+	m -> txdplinv = 0;
 	m -> txplflag = 0;
 	m -> txpl = 0.0;
+	m -> txmpl = 0;
 	m -> rxdplflag = 0;
 	m -> rxdpl = 0;
+	m -> rxdplinv = 0;
 	m -> rxplflag = 0;
 	m -> rxpl = 0.0;
+	m -> rxmpl = 0;
 	m -> timeout = 0;
 	m -> txpower = 0;
 	m -> refreq = -1.0;
@@ -66,8 +73,8 @@ void initmode(Modestruct *m)
 %token <ival> INTEGER
 
 %token <keyword> GREFFREQ SPLITFREQ NMODES REFFREQ RANGE MODE
-%token <keyword> NPSCANLIST TXDPL TXPL RXDPL RXPL TIMEOUT TXPOWER 
-%token <keyword> SCANTYPE TBSCAN
+%token <keyword> NPSCANLIST TXDPL TXDPLINV TXPL RXDPL RXDPLINV RXPL
+%token <keyword> SCANTYPE TBSCAN TIMEOUT TXPOWER 
 %token <keyword> P2SCANMODE NPSCANSOURCE
 %token <keyword> SQUELCHTYPE P1SCANMODE TXFREQ RXFREQ
 %token <keyword> HIGH LOW NONE NONPRI SGLPRI DBLPRI YES NO
@@ -164,10 +171,14 @@ mstmt:				NPSCANLIST intlist
 						{
 							char tooct[16];
 
-						gscratchmodedef.txdplflag = 1;
+							gscratchmodedef.txdplflag = 1;
 							gscratchmodedef.txplflag = 0;
 							sprintf(tooct, "%d", $2);
 							sscanf(tooct, "%o", &gscratchmodedef.txdpl);
+						}
+					| TXDPLINV
+						{
+							gscratchmodedef.txdplinv = 1;
 						}
 					| TXPL DOUBLE
 						{
@@ -183,6 +194,10 @@ mstmt:				NPSCANLIST intlist
 							gscratchmodedef.rxplflag = 0;
 							sprintf(tooct, "%d", $2);
 							sscanf(tooct, "%o", &gscratchmodedef.rxdpl);
+						}
+					| RXDPLINV
+						{
+							gscratchmodedef.txdplinv = 1;
 						}
 					| RXPL DOUBLE
 						{
@@ -483,11 +498,6 @@ void dumpmodes()
 		else
 			printf("Mode %d not defined\n", i+1);
 	}
-}
-
-void calcbits(Modestruct *gmodedef, unsigned char bitbuf[])
-
-{
 }
 
 void zerobits(unsigned char bitbuf[])

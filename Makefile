@@ -17,4 +17,4 @@ syntorxgen: synxparser.o synxlexer.o calcplug.o
 	$(CC) -o $@ $^ $(LIBS)
 
 clean:
-	rm *.c *.o y.tab.h
+	rm *.o y.tab.h

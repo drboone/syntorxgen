@@ -6,6 +6,12 @@
    06/30/02 Boone      Initial coding
    End Modifications */
 
+#ifdef INSTANTIATE
+#define EXTERN
+#else
+#define EXTERN extern
+#endif
+
 #define MAXMODES 256
 #define YYERROR_VERBOSE 1
 
@@ -42,12 +48,16 @@ typedef struct
 	int npscanlist[MAXMODES];
 	int txdplflag;
 	int txdpl;
+	int txdplinv;
 	int txplflag;
 	double txpl;
+	int txmpl;
 	int rxdplflag;
 	int rxdpl;
+	int rxdplinv;
 	int rxplflag;
 	double rxpl;
+	int rxmpl;
 	int timeout;
 	int txpower;
 	int refreq;
