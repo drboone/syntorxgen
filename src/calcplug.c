@@ -433,11 +433,11 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 
 	/* Divisor math is all integer */
 
-	txfreq = (unsigned int)floor((gmodedef -> txfreq) * 1000000.0L);
-	rxfreq = (unsigned int)floor((gmodedef -> rxfreq) * 1000000.0L);
+	txfreq = (unsigned int)round((gmodedef -> txfreq) * 1000000.0L);
+	rxfreq = (unsigned int)round((gmodedef -> rxfreq) * 1000000.0L);
 
-	pmtxsplit = (unsigned int)floor((gmodedef -> pmtxsplit) * 1000000.0L);
-	pmrxsplit = (unsigned int)floor((gmodedef -> pmrxsplit) * 1000000.0L);
+	pmtxsplit = (unsigned int)round((gmodedef -> pmtxsplit) * 1000000.0L);
+	pmrxsplit = (unsigned int)round((gmodedef -> pmrxsplit) * 1000000.0L);
 
 	/* Figure VCO range splits */
 

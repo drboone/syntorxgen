@@ -29,7 +29,7 @@
 #include <math.h>
 #include "version.h"
 
-#define USAGE     "decode [-LHUW8bsh] [-f inputfile]"
+#define USAGE     "decode [-LHUW8bsh] [-f inputfile]\n"
 #define BINARY    1
 #define HEX       2
 #define SRECORD   3
@@ -471,6 +471,7 @@ int main(int argc, char *argv[])
 				break;
 			default:
 				fprintf(stderr, USAGE);
+				exit(EINVAL);
 		};
 	}
 
