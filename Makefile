@@ -9,6 +9,7 @@
 
 YACC=bison
 YFLAGS=-d -y -t
+CFLAGS=-g
 LEX=flex
 LFLAGS=-s
 LIBS=-lfl
