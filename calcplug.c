@@ -93,30 +93,32 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 	txvcosplit = (int)(gtxvcosplit * 1000000.0L);
 	rxvcosplit = (int)(grxvcosplit * 1000000.0L);
 
+	if (rxfreq < MAXLOWBAND)
+	{
+		if (rxfreq < glbvco1splitrx)
+			*rxvbits = 0;
+		else
+			if (rxfreq < glbvco2splitrx)
+				*rxvbits = 2;
+			else
+				if (rxfreq < glbvco3splitrx)
+					*rxvbits = 1;
+				else
+					*rxvbits = 3;
+	}
+
 	if (txfreq < MAXLOWBAND)
 	{
-		if (txfreq < glbvco1split)
-		{
-			*txvbits = 0;
-			*rxvbits = 0;
-		}
+		if (txfreq < glbvco1splittx)
+			*txvbits = 3;
 		else
-			if (txfreq < glbvco2split)
-			{
-				*txvbits = 2;
-				*rxvbits = 2;
-			}
+			if (txfreq < glbvco2splittx)
+				*txvbits = 1;
 			else
-				if (txfreq < glbvco3split)
-				{
-					*txvbits = 1;
-					*rxvbits = 1;
-				}
+				if (txfreq < glbvco3splittx)
+					*txvbits = 2;
 				else
-				{
-					*txvbits = 3;
-					*rxvbits = 3;
-				}
+					*txvbits = 0;
 	}
 	else if (txfreq < MAXHIGHBAND)
 	{

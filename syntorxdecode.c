@@ -248,6 +248,8 @@ void decode(unsigned int *binbuf)
 
 		printf("\ttxfreq %8.4f;\n", (double)ftx / 1000000.0);
 		printf("\trxfreq %8.4f;\n", (double)frx / 1000000.0);
+		if (! (rxc & 1))
+			puts("\trxextender yes;");
 	}
 	else if ((radio == HIGHBAND) || (radio == UHFR1BAND))
 	{

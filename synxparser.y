@@ -132,15 +132,15 @@ stmt:				/* empty */
 						}
 					| LBVCO1SPLIT DOUBLE
 						{
-							glbvco1split = $2;
+							glbvco1splittx = $2;
 						}
 					| LBVCO2SPLIT DOUBLE
 						{
-							glbvco2split = $2;
+							glbvco2splittx = $2;
 						}
 					| LBVCO3SPLIT DOUBLE
 						{
-							glbvco2split = $2;
+							glbvco2splittx = $2;
 						}
 					| NMODES INTEGER
 						{
@@ -758,9 +758,12 @@ int main(int argc, char *argv[])
 	gdebug = 0;
 	gtxvcosplit = -1;
 	grxvcosplit = -1;
-	glbvco1split = DEFLBVCO1SPLIT;
-	glbvco2split = DEFLBVCO2SPLIT;
-	glbvco3split = DEFLBVCO3SPLIT;
+	glbvco1splittx = DEFLBVCO1SPLITTX;
+	glbvco2splittx = DEFLBVCO2SPLITTX;
+	glbvco3splittx = DEFLBVCO3SPLITTX;
+	glbvco1splitrx = DEFLBVCO1SPLITRX;
+	glbvco2splitrx = DEFLBVCO2SPLITRX;
+	glbvco3splitrx = DEFLBVCO3SPLITRX;
 
 	if ((outfile = fdopen(fileno(stdout), "w")) == NULL)
 	{

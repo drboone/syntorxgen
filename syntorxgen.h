@@ -54,9 +54,13 @@
 /* Low-band radios have four sub-splits.  These are the operating
    frequencies which correspond to the default splits. */
 
-#define DEFLBVCO1SPLIT 38100000
-#define DEFLBVCO2SPLIT 47100000
-#define DEFLBVCO3SPLIT 56900000
+#define DEFLBVCO1SPLITTX 40200000
+#define DEFLBVCO2SPLITTX 50000000
+#define DEFLBVCO3SPLITTX 59000000
+
+#define DEFLBVCO1SPLITRX 38100000
+#define DEFLBVCO2SPLITRX 47100000
+#define DEFLBVCO3SPLITRX 56900000
 
 /* UHF Range 1 radios use high-side injection, all others low-side, so
    we need to be able to tell the difference.  This definition assumes
@@ -106,9 +110,12 @@ typedef struct
 EXTERN int greffreq;
 EXTERN double gtxvcosplit;
 EXTERN double grxvcosplit;
-EXTERN double glbvco1split;
-EXTERN double glbvco2split;
-EXTERN double glbvco3split;
+EXTERN double glbvco1splittx;
+EXTERN double glbvco2splittx;
+EXTERN double glbvco3splittx;
+EXTERN double glbvco1splitrx;
+EXTERN double glbvco2splitrx;
+EXTERN double glbvco3splitrx;
 EXTERN Modestruct gmodedef[MAXMODES];
 EXTERN Modestruct gscratchmodedef;
 EXTERN int gscratchlist[MAXMODES];
