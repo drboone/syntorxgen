@@ -1,0 +1,22 @@
+HOW TO INSTALL SYNTORXGEN
+
+The syntorxgen program is developed on Linux.  Nearly any modern unix
+system should be able to build and run it, if the proper tools are
+installed.  In fact, it might even be possible to build it on a DOS
+(or Windows) machine, though that hasn't been tried yet.
+
+Required tools
+
+	bison
+	flex
+	make
+	an ANSI C compiler
+
+Assuming those tools are installed, building the program should be as
+simple as typing "make".
+
+The supplied Makefile does not provide a means of installing the program.
+To install the compiled program, copy the syntorxgen binary to a directory
+in your path, e.g. /usr/local/bin.  You may also copy the two man pages
+to the appropriate places.  For syntorxgen.1, that would probably be
+/usr/local/man/man1.  For syntorxgen.5, it would be /usr/local/man/man5.
