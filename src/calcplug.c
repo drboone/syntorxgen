@@ -162,6 +162,7 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 				else
 					*txvbits = 0;
 	}
+	/* The rest of the bands assume rx band == tx band, however foolish */
 	else if (txfreq < MAXHIGHBAND)
 	{
 		if (txfreq < txvcosplit)
