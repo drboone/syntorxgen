@@ -1,5 +1,24 @@
 Changes to syntorxgen by version
 
+1.31rel
+
+	Fix for floating point rounding errors, which led to messages like
+	"no valid ref. frequencies for 145.38999123123"
+
+	Added ability to set v-bit splits per-mode
+
+	Allow "mode" without number to automagically assign the next one
+	in sequence
+
+	203._5_ is the correct PL; was fixed in code, but not in doco
+
+	Added ability to invert v-bits, useful e.g. for swapping VCOs from
+	different range radios
+
+	Band upper limits now have defaults, but can be configured with
+	input file statements, to ease hacking radios into different
+	bands
+
 1.20rel
 
 	Conversion to GNU build tools

@@ -1,0 +1,824 @@
+#!syntorxgen
+# floattest,sxg, Boone, 02/13/05
+# Test for floating point rounding errors in frequency calculations
+# Copyright (C) 2005, Dennis Boone, East Lansing, MI
+#
+# Modifications:
+# 02/13/05 Boone      Initial coding
+# End Modifications
+#
+# Syntorxgen is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published
+# by the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# Syntorxgen is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with syntorxgen; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+nmodes 200;
+mode 1
+{
+	txfreq 145.0000;
+};
+mode 2
+{
+	txfreq 145.0050;
+};
+mode 3
+{
+	txfreq 145.0100;
+};
+mode 4
+{
+	txfreq 145.0150;
+};
+mode 5
+{
+	txfreq 145.0200;
+};
+mode 6
+{
+	txfreq 145.0250;
+};
+mode 7
+{
+	txfreq 145.0300;
+};
+mode 8
+{
+	txfreq 145.0350;
+};
+mode 9
+{
+	txfreq 145.0400;
+};
+mode 10
+{
+	txfreq 145.0450;
+};
+mode 11
+{
+	txfreq 145.0500;
+};
+mode 12
+{
+	txfreq 145.0550;
+};
+mode 13
+{
+	txfreq 145.0600;
+};
+mode 14
+{
+	txfreq 145.0650;
+};
+mode 15
+{
+	txfreq 145.0700;
+};
+mode 16
+{
+	txfreq 145.0750;
+};
+mode 17
+{
+	txfreq 145.0800;
+};
+mode 18
+{
+	txfreq 145.0850;
+};
+mode 19
+{
+	txfreq 145.0900;
+};
+mode 20
+{
+	txfreq 145.0950;
+};
+mode 21
+{
+	txfreq 145.1000;
+};
+mode 22
+{
+	txfreq 145.1050;
+};
+mode 23
+{
+	txfreq 145.1100;
+};
+mode 24
+{
+	txfreq 145.1150;
+};
+mode 25
+{
+	txfreq 145.1200;
+};
+mode 26
+{
+	txfreq 145.1250;
+};
+mode 27
+{
+	txfreq 145.1300;
+};
+mode 28
+{
+	txfreq 145.1350;
+};
+mode 29
+{
+	txfreq 145.1400;
+};
+mode 30
+{
+	txfreq 145.1450;
+};
+mode 31
+{
+	txfreq 145.1500;
+};
+mode 32
+{
+	txfreq 145.1550;
+};
+mode 33
+{
+	txfreq 145.1600;
+};
+mode 34
+{
+	txfreq 145.1650;
+};
+mode 35
+{
+	txfreq 145.1700;
+};
+mode 36
+{
+	txfreq 145.1750;
+};
+mode 37
+{
+	txfreq 145.1800;
+};
+mode 38
+{
+	txfreq 145.1850;
+};
+mode 39
+{
+	txfreq 145.1900;
+};
+mode 40
+{
+	txfreq 145.1950;
+};
+mode 41
+{
+	txfreq 145.2000;
+};
+mode 42
+{
+	txfreq 145.2050;
+};
+mode 43
+{
+	txfreq 145.2100;
+};
+mode 44
+{
+	txfreq 145.2150;
+};
+mode 45
+{
+	txfreq 145.2200;
+};
+mode 46
+{
+	txfreq 145.2250;
+};
+mode 47
+{
+	txfreq 145.2300;
+};
+mode 48
+{
+	txfreq 145.2350;
+};
+mode 49
+{
+	txfreq 145.2400;
+};
+mode 50
+{
+	txfreq 145.2450;
+};
+mode 51
+{
+	txfreq 145.2500;
+};
+mode 52
+{
+	txfreq 145.2550;
+};
+mode 53
+{
+	txfreq 145.2600;
+};
+mode 54
+{
+	txfreq 145.2650;
+};
+mode 55
+{
+	txfreq 145.2700;
+};
+mode 56
+{
+	txfreq 145.2750;
+};
+mode 57
+{
+	txfreq 145.2800;
+};
+mode 58
+{
+	txfreq 145.2850;
+};
+mode 59
+{
+	txfreq 145.2900;
+};
+mode 60
+{
+	txfreq 145.2950;
+};
+mode 61
+{
+	txfreq 145.3000;
+};
+mode 62
+{
+	txfreq 145.3050;
+};
+mode 63
+{
+	txfreq 145.3100;
+};
+mode 64
+{
+	txfreq 145.3150;
+};
+mode 65
+{
+	txfreq 145.3200;
+};
+mode 66
+{
+	txfreq 145.3250;
+};
+mode 67
+{
+	txfreq 145.3300;
+};
+mode 68
+{
+	txfreq 145.3350;
+};
+mode 69
+{
+	txfreq 145.3400;
+};
+mode 70
+{
+	txfreq 145.3450;
+};
+mode 71
+{
+	txfreq 145.3500;
+};
+mode 72
+{
+	txfreq 145.3550;
+};
+mode 73
+{
+	txfreq 145.3600;
+};
+mode 74
+{
+	txfreq 145.3650;
+};
+mode 75
+{
+	txfreq 145.3700;
+};
+mode 76
+{
+	txfreq 145.3750;
+};
+mode 77
+{
+	txfreq 145.3800;
+};
+mode 78
+{
+	txfreq 145.3850;
+};
+mode 79
+{
+	txfreq 145.3900;
+};
+mode 80
+{
+	txfreq 145.3950;
+};
+mode 81
+{
+	txfreq 145.4000;
+};
+mode 82
+{
+	txfreq 145.4050;
+};
+mode 83
+{
+	txfreq 145.4100;
+};
+mode 84
+{
+	txfreq 145.4150;
+};
+mode 85
+{
+	txfreq 145.4200;
+};
+mode 86
+{
+	txfreq 145.4250;
+};
+mode 87
+{
+	txfreq 145.4300;
+};
+mode 88
+{
+	txfreq 145.4350;
+};
+mode 89
+{
+	txfreq 145.4400;
+};
+mode 90
+{
+	txfreq 145.4450;
+};
+mode 91
+{
+	txfreq 145.4500;
+};
+mode 92
+{
+	txfreq 145.4550;
+};
+mode 93
+{
+	txfreq 145.4600;
+};
+mode 94
+{
+	txfreq 145.4650;
+};
+mode 95
+{
+	txfreq 145.4700;
+};
+mode 96
+{
+	txfreq 145.4750;
+};
+mode 97
+{
+	txfreq 145.4800;
+};
+mode 98
+{
+	txfreq 145.4850;
+};
+mode 99
+{
+	txfreq 145.4900;
+};
+mode 100
+{
+	txfreq 145.4950;
+};
+mode 101
+{
+	txfreq 145.5000;
+};
+mode 102
+{
+	txfreq 145.5050;
+};
+mode 103
+{
+	txfreq 145.5100;
+};
+mode 104
+{
+	txfreq 145.5150;
+};
+mode 105
+{
+	txfreq 145.5200;
+};
+mode 106
+{
+	txfreq 145.5250;
+};
+mode 107
+{
+	txfreq 145.5300;
+};
+mode 108
+{
+	txfreq 145.5350;
+};
+mode 109
+{
+	txfreq 145.5400;
+};
+mode 110
+{
+	txfreq 145.5450;
+};
+mode 111
+{
+	txfreq 145.5500;
+};
+mode 112
+{
+	txfreq 145.5550;
+};
+mode 113
+{
+	txfreq 145.5600;
+};
+mode 114
+{
+	txfreq 145.5650;
+};
+mode 115
+{
+	txfreq 145.5700;
+};
+mode 116
+{
+	txfreq 145.5750;
+};
+mode 117
+{
+	txfreq 145.5800;
+};
+mode 118
+{
+	txfreq 145.5850;
+};
+mode 119
+{
+	txfreq 145.5900;
+};
+mode 120
+{
+	txfreq 145.5950;
+};
+mode 121
+{
+	txfreq 145.6000;
+};
+mode 122
+{
+	txfreq 145.6050;
+};
+mode 123
+{
+	txfreq 145.6100;
+};
+mode 124
+{
+	txfreq 145.6150;
+};
+mode 125
+{
+	txfreq 145.6200;
+};
+mode 126
+{
+	txfreq 145.6250;
+};
+mode 127
+{
+	txfreq 145.6300;
+};
+mode 128
+{
+	txfreq 145.6350;
+};
+mode 129
+{
+	txfreq 145.6400;
+};
+mode 130
+{
+	txfreq 145.6450;
+};
+mode 131
+{
+	txfreq 145.6500;
+};
+mode 132
+{
+	txfreq 145.6550;
+};
+mode 133
+{
+	txfreq 145.6600;
+};
+mode 134
+{
+	txfreq 145.6650;
+};
+mode 135
+{
+	txfreq 145.6700;
+};
+mode 136
+{
+	txfreq 145.6750;
+};
+mode 137
+{
+	txfreq 145.6800;
+};
+mode 138
+{
+	txfreq 145.6850;
+};
+mode 139
+{
+	txfreq 145.6900;
+};
+mode 140
+{
+	txfreq 145.6950;
+};
+mode 141
+{
+	txfreq 145.7000;
+};
+mode 142
+{
+	txfreq 145.7050;
+};
+mode 143
+{
+	txfreq 145.7100;
+};
+mode 144
+{
+	txfreq 145.7150;
+};
+mode 145
+{
+	txfreq 145.7200;
+};
+mode 146
+{
+	txfreq 145.7250;
+};
+mode 147
+{
+	txfreq 145.7300;
+};
+mode 148
+{
+	txfreq 145.7350;
+};
+mode 149
+{
+	txfreq 145.7400;
+};
+mode 150
+{
+	txfreq 145.7450;
+};
+mode 151
+{
+	txfreq 145.7500;
+};
+mode 152
+{
+	txfreq 145.7550;
+};
+mode 153
+{
+	txfreq 145.7600;
+};
+mode 154
+{
+	txfreq 145.7650;
+};
+mode 155
+{
+	txfreq 145.7700;
+};
+mode 156
+{
+	txfreq 145.7750;
+};
+mode 157
+{
+	txfreq 145.7800;
+};
+mode 158
+{
+	txfreq 145.7850;
+};
+mode 159
+{
+	txfreq 145.7900;
+};
+mode 160
+{
+	txfreq 145.7950;
+};
+mode 161
+{
+	txfreq 145.8000;
+};
+mode 162
+{
+	txfreq 145.8050;
+};
+mode 163
+{
+	txfreq 145.8100;
+};
+mode 164
+{
+	txfreq 145.8150;
+};
+mode 165
+{
+	txfreq 145.8200;
+};
+mode 166
+{
+	txfreq 145.8250;
+};
+mode 167
+{
+	txfreq 145.8300;
+};
+mode 168
+{
+	txfreq 145.8350;
+};
+mode 169
+{
+	txfreq 145.8400;
+};
+mode 170
+{
+	txfreq 145.8450;
+};
+mode 171
+{
+	txfreq 145.8500;
+};
+mode 172
+{
+	txfreq 145.8550;
+};
+mode 173
+{
+	txfreq 145.8600;
+};
+mode 174
+{
+	txfreq 145.8650;
+};
+mode 175
+{
+	txfreq 145.8700;
+};
+mode 176
+{
+	txfreq 145.8750;
+};
+mode 177
+{
+	txfreq 145.8800;
+};
+mode 178
+{
+	txfreq 145.8850;
+};
+mode 179
+{
+	txfreq 145.8900;
+};
+mode 180
+{
+	txfreq 145.8950;
+};
+mode 181
+{
+	txfreq 145.9000;
+};
+mode 182
+{
+	txfreq 145.9050;
+};
+mode 183
+{
+	txfreq 145.9100;
+};
+mode 184
+{
+	txfreq 145.9150;
+};
+mode 185
+{
+	txfreq 145.9200;
+};
+mode 186
+{
+	txfreq 145.9250;
+};
+mode 187
+{
+	txfreq 145.9300;
+};
+mode 188
+{
+	txfreq 145.9350;
+};
+mode 189
+{
+	txfreq 145.9400;
+};
+mode 190
+{
+	txfreq 145.9450;
+};
+mode 191
+{
+	txfreq 145.9500;
+};
+mode 192
+{
+	txfreq 145.9550;
+};
+mode 193
+{
+	txfreq 145.9600;
+};
+mode 194
+{
+	txfreq 145.9650;
+};
+mode 195
+{
+	txfreq 145.9700;
+};
+mode 196
+{
+	txfreq 145.9750;
+};
+mode 197
+{
+	txfreq 145.9800;
+};
+mode 198
+{
+	txfreq 145.9850;
+};
+mode 199
+{
+	txfreq 145.9900;
+};
+mode 200
+{
+	txfreq 145.9950;
+};

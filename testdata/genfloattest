@@ -1,0 +1,34 @@
+#!/usr/bin/perl
+# genfloattest, Boone, 02/13/05
+# Generate a syntorxgen input file to test for floating point rounding errors
+# Copyright (C) 2005, Dennis Boone, East Lansing, MI
+#
+# Modifications:
+# 02/13/05 Boone      Initial coding
+# End Modifications
+#
+# Syntorxgen is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published
+# by the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# Syntorxgen is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with syntorxgen; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+
+	$startfreq = 145.0;
+
+	print "nmodes 200;\n";
+	for ($i = 0; $i < 200; $i++)
+	{
+		print "mode ", $i+1, "\n",
+			"{\n",
+			"\ttxfreq ", sprintf("%8.4f", $startfreq + (0.005 * $i)), ";\n",
+			"};\n";
+	}

@@ -1,0 +1,234 @@
+#!syntorxgen
+# plfloattest.sxg, Boone, 02/13/05
+# Test for floating point rounding errors in PL calculations
+# Copyright (C) 2005, Dennis Boone, East Lansing, MI
+#
+# Modifications:
+# 02/13/05 Boone      Initial coding
+# End Modifications
+#
+# Syntorxgen is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published
+# by the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# Syntorxgen is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with syntorxgen; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+nmodes 42;
+mode 1
+{
+	txfreq 145.000;
+	txpl 67.0;
+};
+mode 2
+{
+	txfreq 145.000;
+	txpl 69.3;
+};
+mode 3
+{
+	txfreq 145.000;
+	txpl 71.9;
+};
+mode 4
+{
+	txfreq 145.000;
+	txpl 74.4;
+};
+mode 5
+{
+	txfreq 145.000;
+	txpl 77.0;
+};
+mode 6
+{
+	txfreq 145.000;
+	txpl 79.7;
+};
+mode 7
+{
+	txfreq 145.000;
+	txpl 82.5;
+};
+mode 8
+{
+	txfreq 145.000;
+	txpl 85.4;
+};
+mode 9
+{
+	txfreq 145.000;
+	txpl 88.5;
+};
+mode 10
+{
+	txfreq 145.000;
+	txpl 91.5;
+};
+mode 11
+{
+	txfreq 145.000;
+	txpl 94.8;
+};
+mode 12
+{
+	txfreq 145.000;
+	txpl 97.4;
+};
+mode 13
+{
+	txfreq 145.000;
+	txpl 100.0;
+};
+mode 14
+{
+	txfreq 145.000;
+	txpl 103.5;
+};
+mode 15
+{
+	txfreq 145.000;
+	txpl 107.2;
+};
+mode 16
+{
+	txfreq 145.000;
+	txpl 110.9;
+};
+mode 17
+{
+	txfreq 145.000;
+	txpl 114.8;
+};
+mode 18
+{
+	txfreq 145.000;
+	txpl 118.8;
+};
+mode 19
+{
+	txfreq 145.000;
+	txpl 123.0;
+};
+mode 20
+{
+	txfreq 145.000;
+	txpl 127.3;
+};
+mode 21
+{
+	txfreq 145.000;
+	txpl 131.8;
+};
+mode 22
+{
+	txfreq 145.000;
+	txpl 136.5;
+};
+mode 23
+{
+	txfreq 145.000;
+	txpl 141.3;
+};
+mode 24
+{
+	txfreq 145.000;
+	txpl 146.2;
+};
+mode 25
+{
+	txfreq 145.000;
+	txpl 151.4;
+};
+mode 26
+{
+	txfreq 145.000;
+	txpl 156.7;
+};
+mode 27
+{
+	txfreq 145.000;
+	txpl 162.2;
+};
+mode 28
+{
+	txfreq 145.000;
+	txpl 167.9;
+};
+mode 29
+{
+	txfreq 145.000;
+	txpl 173.8;
+};
+mode 30
+{
+	txfreq 145.000;
+	txpl 179.9;
+};
+mode 31
+{
+	txfreq 145.000;
+	txpl 186.2;
+};
+mode 32
+{
+	txfreq 145.000;
+	txpl 192.8;
+};
+mode 33
+{
+	txfreq 145.000;
+	txpl 203.5;
+};
+mode 34
+{
+	txfreq 145.000;
+	txpl 206.5;
+};
+mode 35
+{
+	txfreq 145.000;
+	txpl 210.7;
+};
+mode 36
+{
+	txfreq 145.000;
+	txpl 218.1;
+};
+mode 37
+{
+	txfreq 145.000;
+	txpl 225.7;
+};
+mode 38
+{
+	txfreq 145.000;
+	txpl 229.1;
+};
+mode 39
+{
+	txfreq 145.000;
+	txpl 233.6;
+};
+mode 40
+{
+	txfreq 145.000;
+	txpl 241.8;
+};
+mode 41
+{
+	txfreq 145.000;
+	txpl 250.3;
+};
+mode 42
+{
+	txfreq 145.000;
+	txpl 254.1;
+};
