@@ -711,15 +711,18 @@ int writesrecord(unsigned char bitbuf[], FILE *outfile, int offset)
 
 {
 	int i;
-	unsigned char checksum = 0;
+	unsigned char checksum = 19;
 
 	fprintf(outfile, "S113%04X", offset);
+	checksum += ((offset >> 8) & 0xff);
+	checksum += (offset & 0xff);
 	for (i = 0; i < MODEBITSIZE; i++)
 	{
 		fprintf(outfile, "%02X", bitbuf[i]);
 		checksum += bitbuf[i];
 	}
 	checksum = ~checksum;
+	checksum &= 0xff;
 	fprintf(outfile, "%02X\n", checksum);
 }
 
@@ -730,6 +733,9 @@ void writeplug(int outfmt, FILE *outfile)
 	unsigned char bitbuf[MODEBITSIZE];
 	unsigned int offset = 0;
 	unsigned char checksum = 0;
+
+	if (outfmt == SRECORD)
+		fprintf(outfile, "S00D000073796E746F727867656E91\n");
 
 	for (i = 0; i < gnmodes; i++)
 	{
@@ -757,6 +763,7 @@ void writeplug(int outfmt, FILE *outfile)
 	{
 		checksum = 3 + ((gnmodes >> 8) & 0xff) + (gnmodes & 0xff);
 		checksum = ~checksum;
+		checksum &= 0xff;
 		fprintf(outfile, "S503%04X%02X\n", gnmodes, checksum);
 		fputs("S9030000FC\n", outfile);
 	}
