@@ -276,7 +276,7 @@
 		rxmpl yes;
 		timeout 165;
 		txpower high;
-		refreq 5000;
+		reffreq 5000;
 		scantype none;
 		tbscan no;
 		npscansource fixed;
@@ -291,7 +291,7 @@
 		rxmpl yes;
 		timeout 165;
 		txpower high;
-		refreq 6250;
+		reffreq 6250;
 		scantype none;
 		tbscan no;
 		npscansource fixed;
@@ -427,33 +427,49 @@
 
 mode 33
 {
+	txfreq 150.000;
+	rxfreq 150.000;
 	txdpl 023;
 };
 mode 34
 {
+	txfreq 150.000;
+	rxfreq 150.000;
 	txdpl 116;
 };
 mode 35
 {
+	txfreq 150.000;
+	rxfreq 150.000;
 	txdpl 244;
 };
 mode 36
 {
+	txfreq 150.000;
+	rxfreq 150.000;
 	txdpl 411;
 };
 mode 37
 {
+	txfreq 150.000;
+	rxfreq 150.000;
 	txpl 77.0;
 };
 mode 38
 {
+	txfreq 150.000;
+	rxfreq 150.000;
 	txpl 94.8;
 };
 mode 39
 {
+	txfreq 150.000;
+	rxfreq 150.000;
 	txpl 100.0;
 };
 mode 40
 {
+	txfreq 150.000;
+	rxfreq 150.000;
 	txpl 141.3;
 };

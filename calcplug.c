@@ -171,22 +171,20 @@ unsigned int selrefreq(unsigned int refreq, unsigned int txfreq)
 	{
 		if (refreq == 5000)
 			if (txfreq % 6250)
-				fprintf(stderr, "no valid ref. frequencies for %7.3g\n",
-					(double)txfreq / 1000000.0L);
+				fprintf(stderr, "no valid ref. frequencies for %'d\n", txfreq);
 			else
 			{
-				fprintf(stderr, "using ref. frequency of %5.3g for %7.3g\n",
-					6.250, (double)txfreq / 1000000.0L);
+				fprintf(stderr, "using ref. frequency of 6250 for %'d\n",
+					txfreq);
 				newrefreq = 6250;
 			}
 		else
 			if (txfreq % 5000)
-				fprintf(stderr, "no valid ref. frequencies for %7.3g\n",
-					(double)txfreq / 1000000.0L);
+				fprintf(stderr, "no valid ref. frequencies for %'d\n", txfreq);
 			else
 			{
-				fprintf(stderr, "using ref. frequency of %5.3g for %7.3g\n",
-					5.000, (double)txfreq / 1000000.0L);
+				fprintf(stderr, "using ref. frequency of 5000 for %'d\n",
+					txfreq);
 				newrefreq = 5000;
 			}
 	}

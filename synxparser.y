@@ -264,9 +264,9 @@ mstmt:				NPSCANLIST intlist
 						}
 					| REFFREQ INTEGER
 						{
-							if (($1 == 4166) ||
-								($1 == 5000) ||
-								($1 == 6250))
+							if (($2 == 4166) ||
+								($2 == 5000) ||
+								($2 == 6250))
 							{
 								gscratchmodedef.refreq = $2;
 							}
@@ -630,6 +630,8 @@ int main(int argc, char *argv[])
 	int rc;
 
 /* Initialize */
+
+	setvbuf(stdout, NULL, _IONBF, 0);
 
 	for (i = 0; i < MAXMODES; i++)
 	{

@@ -107,7 +107,7 @@ DEFAULT			[^#;{} \n\t0-9A-Za-z]
 {RBRACE}		return('}');
 {DOUBLE}		{
 					yylval.dval = atof(yytext);
-					yylval.dval = (floor(yylval.dval * 1000.0) / 1000.0);
+					yylval.dval = (floor(yylval.dval * 1000000.0) / 1000000.0);
 					return(DOUBLE);
 				}
 {INTEGER}		yylval.ival = atoi(yytext); return(INTEGER);
