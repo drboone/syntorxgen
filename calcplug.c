@@ -409,9 +409,14 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	txn = txvcofreq / refreq;
 	txc = txn % 3;
 	txcix = txc;
-	txn1 = txn / 3;
-	if (txc == 0)
-		txn1--;
+	if (txfreq < MAXLOWBAND)
+		txn1 = txn;
+	else
+	{
+		txn1 = txn / 3;
+		if (txc == 0)
+			txn1--;
+	}
 	txa = txn1 % 63;
 	if (txa == 0)
 	{
@@ -428,9 +433,14 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	rxn = rxvcofreq / refreq;
 	rxc = rxn % 3;
 	rxcix = rxc;
-	rxn1 = rxn / 3;
-	if (rxc == 0)
-		rxn1--;
+	if (rxfreq < MAXLOWBAND)
+		rxn1 = rxn;
+	else
+	{
+		rxn1 = rxn / 3;
+		if (rxc == 0)
+			rxn1--;
+	}
 	rxa = rxn1 % 63;
 	if (rxa == 0)
 	{
@@ -503,11 +513,6 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	plugbuf[0x0a] |= (gmodedef -> npscansource) << 7;
 	plugbuf[0x0a] |= (gmodedef -> squelchtype) << 6;
 	plugbuf[0x0a] |= gmodedef -> p1scanmode;
-/*	accum = 0x40;
-	if (txfreq < 155800)
-		accum |= 0x80;
-	if (rxvcofreq > 203900)
-		accum |= 0x08; */
 	accum = (txvbits << 6);
 	accum |= (rxvbits << 2);
 	if (txfreq < MAXLOWBAND)
