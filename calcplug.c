@@ -68,6 +68,37 @@ Dplinv dplinv[] =
 	0115, 0152, 0243, 0351, 0371, 0734, 0606, 0631
 };
 
+typedef struct
+{
+	unsigned int dpl;
+	unsigned int funnybits;
+} Dplfunnybits;
+
+Dplfunnybits dplfunnybits[] =
+{
+    { 0023, 1 }, { 0025, 0 }, { 0026, 6 }, { 0031, 0 }, { 0032, 2 },
+	{ 0036, 4 }, { 0043, 4 }, { 0047, 2 }, { 0051, 5 }, { 0053, 2 },
+	{ 0054, 6 }, { 0065, 3 }, { 0071, 7 }, { 0072, 1 }, { 0073, 4 },
+	{ 0074, 4 }, { 0114, 4 }, { 0115, 1 }, { 0116, 3 }, { 0122, 5 },
+	{ 0125, 1 }, { 0131, 1 }, { 0132, 3 }, { 0134, 2 }, { 0143, 5 },
+	{ 0145, 4 }, { 0152, 7 }, { 0155, 2 }, { 0156, 0 }, { 0162, 7 },
+	{ 0165, 2 }, { 0172, 0 }, { 0174, 1 }, { 0205, 3 }, { 0212, 1 },
+	{ 0223, 4 }, { 0225, 5 }, { 0226, 7 }, { 0243, 1 }, { 0244, 5 },
+	{ 0245, 4 }, { 0246, 2 }, { 0251, 4 }, { 0252, 2 }, { 0255, 6 },
+	{ 0261, 0 }, { 0263, 7 }, { 0265, 6 }, { 0266, 4 }, { 0271, 6 },
+	{ 0274, 5 }, { 0306, 0 }, { 0311, 2 }, { 0315, 4 }, { 0325, 4 },
+	{ 0331, 4 }, { 0332, 6 }, { 0343, 0 }, { 0346, 3 }, { 0351, 1 },
+	{ 0356, 5 }, { 0364, 2 }, { 0365, 7 }, { 0371, 7 }, { 0411, 4 },
+	{ 0412, 6 }, { 0413, 3 }, { 0423, 7 }, { 0431, 2 }, { 0432, 0 },
+	{ 0445, 7 }, { 0446, 5 }, { 0452, 5 }, { 0454, 4 }, { 0455, 1 },
+	{ 0462, 5 }, { 0464, 4 }, { 0465, 1 }, { 0466, 3 }, { 0503, 4 },
+	{ 0506, 7 }, { 0516, 1 }, { 0523, 2 }, { 0526, 1 }, { 0532, 1 },
+	{ 0546, 4 }, { 0565, 0 }, { 0606, 3 }, { 0612, 3 }, { 0624, 2 },
+	{ 0627, 0 }, { 0631, 7 }, { 0632, 5 }, { 0654, 1 }, { 0662, 0 },
+	{ 0664, 1 }, { 0703, 1 }, { 0712, 2 }, { 0723, 7 }, { 0731, 6 },
+	{ 0732, 4 }, { 0734, 5 }, { 0743, 2 }, { 0754, 0 }, { 0000, 0 }
+};
+
 int selvbits(unsigned int txfreq, unsigned int rxfreq,
 	unsigned int *txvbits, unsigned int *rxvbits)
 
@@ -279,6 +310,26 @@ int rxplookup(float ipl)
 	return(answer);
 }
 
+int dplookup(int ipl)
+
+{
+	int i;
+	int dplfound = 0;
+	int funnybits;
+
+	for (i = 0; dplfunnybits[i].dpl != 0; i++)
+		if (dplfunnybits[i].dpl == ipl)
+		{
+			funnybits = dplfunnybits[i].funnybits;
+			dplfound = 1;
+			break;
+		}
+	if (found)
+		return(funnybits);
+	else
+		return(7);
+}
+
 int totlookup(int secs)
 
 {
@@ -446,7 +497,7 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 		plugbuf[0x05] |= (1 << 6);
 		plugbuf[0x05] |= (1 << 5);
 		plugbuf[0x05] |= (dpltable[(txdpl & 0700) >> 6] & 0003) << 3;
-		plugbuf[0x05] |= 0x07;
+		plugbuf[0x05] |= dplookup(txdpl);
 	}
 	else if (gmodedef -> txplflag)
 	{
@@ -472,7 +523,7 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 		plugbuf[0x07] |= (1 << 6);
 		plugbuf[0x07] |= (1 << 5);
 		plugbuf[0x07] |= (dpltable[(rxdpl & 0700) >> 6] & 0003) << 3;
-		plugbuf[0x07] |= 0x07;
+		plugbuf[0x07] |= dplookup(rxdpl);
 	}
 	else if (gmodedef -> rxplflag)
 	{
