@@ -100,10 +100,9 @@ void decode(unsigned int *binbuf)
 			puts("\ttxdpl no;");
 			puts("\ttxpl no;");
 			break;
-		case 0:	/* ?? PL */
-			puts("\t# TX PL/DPL bits in nonstandard config; probably PL");
-			/* yes, it's supposed to fall through */
 		case 1:	/* PL */
+			/* yes, it's supposed to fall through */
+		case 0:	/* PL */
 			{
 				double pl;
 
@@ -134,8 +133,7 @@ void decode(unsigned int *binbuf)
 			puts("\trxdpl no;");
 			puts("\trxpl no;");
 			break;
-		case 1:	/* ?? PL */
-			puts("\t# RX PL/DPL bits in nonstandard config; probably PL");
+		case 1:	/* PL */
 			/* yes, it's supposed to fall through */
 		case 0:	/* PL */
 			{
