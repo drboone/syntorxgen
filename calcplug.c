@@ -183,7 +183,7 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	unsigned tot;
 
 	/* Default: "VHF RSS prefers the 5 KHz reference frequency. All other
-	   radios prefer the 6.25 KHz frequency." -- From Pakman's code plug
+	   radios prefer the 6.25 kHz frequency." -- From Pakman's code plug
 	   documentation at http://home.xnet.com/~pakman/syntor/syntorx.htm */
 
 	if (gmodedef -> txfreq < MAXLOWBAND)

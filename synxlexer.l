@@ -4,7 +4,7 @@
 
 %{
 #include "y.tab.h"
-#define KWLISTSIZE 37
+#define KWLISTSIZE 39
 
 struct key
 {
@@ -22,9 +22,11 @@ struct key
 	"TXDPL",		TXDPL,
 	"TXDPLINV",		TXDPLINV,
 	"TXPL",			TXPL,
+	"TXMPL",		TXMPL,
 	"RXDPL",		RXDPL,
 	"RXDPLINV",		RXDPLINV,
 	"RXPL",			RXPL,
+	"RXMPL",		RXMPL,
 	"TIMEOUT",		TIMEOUT,
 	"TXPOWER",		TXPOWER,
 	"SCANTYPE",		SCANTYPE,

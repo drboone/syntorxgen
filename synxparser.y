@@ -74,6 +74,7 @@ void initmode(Modestruct *m)
 
 %token <keyword> GREFFREQ SPLITFREQ NMODES REFFREQ RANGE MODE
 %token <keyword> NPSCANLIST TXDPL TXDPLINV TXPL RXDPL RXDPLINV RXPL
+%token <keyword> TXMPL RXMPL
 %token <keyword> SCANTYPE TBSCAN TIMEOUT TXPOWER 
 %token <keyword> P2SCANMODE NPSCANSOURCE
 %token <keyword> SQUELCHTYPE P1SCANMODE TXFREQ RXFREQ
@@ -117,7 +118,7 @@ stmt:				/* empty */
 							{
 								fprintf(stderr, "mode %d is larger than "
 									"MAXMODES (%d) at line %d\n",
-									$2, MAXMODES, @$.first_line);
+									$2, MAXMODES, glineno);
 								exit(EINVAL);
 							}
 							gmodedef[$2-1] = gscratchmodedef;
@@ -138,7 +139,7 @@ mstmtblock:			'{' mstmtstream '}'
 						{
 							fprintf(stderr, "unexpected token %s;"
 								" expecting a left brace at line %d\n",
-								yylval.sval, @$.first_line);
+								yylval.sval, glineno);
 						}
 					;
 
@@ -148,7 +149,7 @@ mstmtstream:		/* empty */
 						{
 							fprintf(stderr, "unexpected token %s;"
 								" expecting mode config statments at line %d\n",
-								yylval.sval, @$.first_line);
+								yylval.sval, glineno);
 						}
 					;
 
@@ -156,8 +157,8 @@ xmstmt:				/* empty */
 					| mstmt ';'
 					| ERROR
 						{
-							fprintf(stderr, "unexpected token %s"
-								" at line %d\n", yylval.sval, @$.first_line);
+								fprintf(stderr, "unexpected token at line %d\n",
+									glineno);
 						}
 					;
 
@@ -176,15 +177,19 @@ mstmt:				NPSCANLIST intlist
 							sprintf(tooct, "%d", $2);
 							sscanf(tooct, "%o", &gscratchmodedef.txdpl);
 						}
-					| TXDPLINV
+					| TXDPLINV yesorno
 						{
-							gscratchmodedef.txdplinv = 1;
+							gscratchmodedef.txdplinv = $2;
 						}
 					| TXPL DOUBLE
 						{
 							gscratchmodedef.txplflag = 1;
 							gscratchmodedef.txdplflag = 0;
 							gscratchmodedef.txpl = $2;
+						}
+					| TXMPL yesorno
+						{
+							gscratchmodedef.txmpl = $2;
 						}
 					| RXDPL INTEGER
 						{
@@ -195,15 +200,19 @@ mstmt:				NPSCANLIST intlist
 							sprintf(tooct, "%d", $2);
 							sscanf(tooct, "%o", &gscratchmodedef.rxdpl);
 						}
-					| RXDPLINV
+					| RXDPLINV yesorno
 						{
-							gscratchmodedef.txdplinv = 1;
+							gscratchmodedef.txdplinv = $2;
 						}
 					| RXPL DOUBLE
 						{
 							gscratchmodedef.rxplflag = 1;
 							gscratchmodedef.rxdplflag = 0;
 							gscratchmodedef.rxpl = $2;
+						}
+					| RXMPL yesorno
+						{
+							gscratchmodedef.rxmpl = $2;
 						}
 					| TIMEOUT INTEGER
 						{
@@ -213,7 +222,7 @@ mstmt:				NPSCANLIST intlist
 								fprintf(stderr, "timeout value %d invalid "
 									"at line %d; must be 0-465, evenly "
 									"divisible by 15 seconds\n",
-									$2, @$.first_line);
+									$2, glineno);
 								exit(EINVAL);
 							}
 							gscratchmodedef.timeout = $2;
@@ -234,7 +243,7 @@ mstmt:				NPSCANLIST intlist
 							{
 								fprintf(stderr, "reference frequency "
 									"%6.4g is invalid at line %d\n",
-									$1, @$.first_line);
+									$1, glineno);
 								exit(EINVAL);
 							}
 						}
@@ -273,7 +282,7 @@ mstmt:				NPSCANLIST intlist
 					| ERROR
 						{
 							fprintf(stderr, "unexpected token %s"
-								" at line %d\n", yylval.sval, @$.first_line);
+								" at line %d\n", yylval.sval, glineno);
 						}
 					;
 
@@ -287,13 +296,13 @@ intlist:			/* empty */
 						{
 							fprintf(stderr, "unexpected token %s;"
 								" expecting an integer at line %d\n",
-								yylval.sval, @$.first_line);
+								yylval.sval, glineno);
 						}
 					| ERROR
 						{
 							fprintf(stderr, "unexpected token %s;"
 								" expecting an integer at line %d\n",
-								yylval.sval, @$.first_line);
+								yylval.sval, glineno);
 						}
 					;
 
@@ -321,7 +330,7 @@ scantype:			none
 						{
 							fprintf(stderr, "unexpected token %s;"
 								" expecting scan type at line %d\n",
-								yylval.sval, @$.first_line);
+								yylval.sval, glineno);
 						}
 					;
 					
@@ -355,7 +364,7 @@ yesorno:			yes
 						{
 							fprintf(stderr, "unexpected token %s;"
 								" expecting YES or NO at line %d\n",
-								yylval.sval, @$.first_line);
+								yylval.sval, glineno);
 						}
 					;
 					
@@ -378,7 +387,7 @@ selorfixed:			selectable
 							fprintf(stderr, "unexpected token %s;"
 								" expecting SELECTABLE or FIXED"
 								" at line %d\n",
-								yylval.sval, @$.first_line);
+								yylval.sval, glineno);
 						}
 					;
 					
@@ -401,7 +410,7 @@ sqtype:				stdstd
 						{
 							fprintf(stderr, "unexpected token %s;"
 								" expecting squelch type at line %d\n",
-								yylval.sval, @$.first_line);
+								yylval.sval, glineno);
 						}
 					;
 					
