@@ -533,15 +533,16 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 		plugbuf[0x07] = 0xdf;
 	}
 	tot = totlookup(gmodedef -> timeout);
-	plugbuf[0x08] |= (tot & 0x1f) << 3;
+	plugbuf[0x08] = (tot & 0x1f) << 3;
 	plugbuf[0x08] |= (gmodedef -> txpower & 0x01) << 2;
 	plugbuf[0x08] |= encoderefreq(refreq);
 	plugbuf[0x09] = (gmodedef -> scantype) << 6;
 	plugbuf[0x09] |= (gmodedef -> tbscan) << 5;
-	plugbuf[0x09] |= ((gmodedef -> p2scanmode) & 0x1f);
+	plugbuf[0x09] |= (gmodedef -> p2scanmode - 1) & 0x1f;
+	plugbuf[0x0a] = 0;
 	plugbuf[0x0a] |= (gmodedef -> npscansource) << 7;
 	plugbuf[0x0a] |= (gmodedef -> squelchtype) << 6;
-	plugbuf[0x0a] |= gmodedef -> p1scanmode;
+	plugbuf[0x0a] |= (gmodedef -> p1scanmode - 1) & 0x1f;
 	accum = (txvbits << 6);
 	accum |= (rxvbits << 2);
 	if (txfreq < MAXLOWBAND)
@@ -556,6 +557,10 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	else
 		accum |= ctable[rxcix];
 	plugbuf[0x0b] = accum;
+	plugbuf[0x0c] = 0;
+	plugbuf[0x0d] = 0;
+	plugbuf[0x0e] = 0;
+	plugbuf[0x0f] = 0;
 	plugbuf[0x0c] |= ((txb & 0x03c0) >> 2);
 	plugbuf[0x0c] |= ((rxb & 0x03c0) >> 6);
 	plugbuf[0x0d] |= ((txb & 0x003c) << 2);

@@ -59,17 +59,17 @@ void initmode(Modestruct *m)
 	m -> rxpl = 0.0;
 	m -> rxmpl = 0;
 	m -> timeout = 0;
-	m -> txpower = 0;
+	m -> txpower = 1;
 	m -> refreq = -1;
-	m -> scantype = 0;
+	m -> scantype = 2;
 	m -> tbscan = 0;
-	m -> p2scanmode = 0;
-	m -> npscansource = 0;
-	m -> squelchtype = 0;
-	m -> p1scanmode = 0;
+	m -> p2scanmode = 32;
+	m -> npscansource = 1;
+	m -> squelchtype = 3;
+	m -> p1scanmode = 32;
 	m -> txfreq = 0.0;
 	m -> rxfreq = 0.0;
-	m -> rxextender = 0;
+	m -> rxextender = 1;
 }
 
 %}
