@@ -1,5 +1,9 @@
 Changes to syntorxgen by version
 
+1.20rel
+
+	Conversion to GNU build tools
+
 1.10rel
 
 	Fix s-record checksums.

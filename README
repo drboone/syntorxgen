@@ -1,0 +1,25 @@
+HOW TO INSTALL SYNTORXGEN
+
+Syntorxgen comes from http://msuarc.egr.msu.edu/syntorx/.
+
+The syntorxgen program is developed on Linux.  Nearly any modern
+unix system should be able to build and run it, if the proper tools
+are installed.  It has also been built on MS-DOS using djgpp and on
+Windows using Cygwin.
+
+Required tools
+
+	autoconf
+	automake
+	bison
+	flex
+	make
+	an ANSI C compiler
+
+Assuming those tools are installed, building the program should be as
+simple as typing:
+
+	./bootstrap
+	./configure
+	make
+	make install

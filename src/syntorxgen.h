@@ -22,6 +22,9 @@
    along with syntorxgen; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA */
 
+#ifndef SYNXGEN_H
+#define SYNXGEN_H
+
 #ifdef INSTANTIATE
 #define EXTERN
 #else
@@ -124,3 +127,5 @@ EXTERN int glineno;
 EXTERN int gnmodes;
 EXTERN int gdebug;
 EXTERN char *optarg;
+
+#endif /* !SYNXGEN_H */
