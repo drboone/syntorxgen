@@ -451,8 +451,17 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 		accum |= 0x08; */
 	accum = (txvbits << 6);
 	accum |= (rxvbits << 2);
-	accum |= (ctable[txcix] << 4);
-	accum |= ctable[rxcix];
+	if (txfreq < MAXLOWBAND)
+		accum |= 3 << 4;
+	else
+		accum |= (ctable[txcix] << 4);
+	if (rxfreq < MAXLOWBAND)
+		if (gmodedef -> rxextender)
+			accum |= 2;
+		else
+			accum |= 3;
+	else
+		accum |= ctable[rxcix];
 	plugbuf[0x0b] = accum;
 	plugbuf[0x0c] |= ((txb & 0x03c0) >> 2);
 	plugbuf[0x0c] |= ((rxb & 0x03c0) >> 6);

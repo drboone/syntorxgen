@@ -4,7 +4,7 @@
 
 %{
 #include "y.tab.h"
-#define KWLISTSIZE 39
+#define KWLISTSIZE 40
 
 struct key
 {
@@ -37,6 +37,7 @@ struct key
 	"P1SCANMODE",	P1SCANMODE,
 	"TXFREQ",		TXFREQ,
 	"RXFREQ",		RXFREQ,
+	"RXEXTENDER",	RXEXTENDER,
 	"HIGH",			HIGH,
 	"LOW",			LOW,
 	"NONE",			NONE,

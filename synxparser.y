@@ -52,6 +52,7 @@ void initmode(Modestruct *m)
 	m -> p1scanmode = 0;
 	m -> txfreq = 0.0;
 	m -> rxfreq = 0.0;
+	m -> rxextender = 0;
 }
 
 %}
@@ -74,7 +75,7 @@ void initmode(Modestruct *m)
 %token <keyword> TXMPL RXMPL
 %token <keyword> SCANTYPE TBSCAN TIMEOUT TXPOWER 
 %token <keyword> P2SCANMODE NPSCANSOURCE
-%token <keyword> SQUELCHTYPE P1SCANMODE TXFREQ RXFREQ
+%token <keyword> SQUELCHTYPE P1SCANMODE TXFREQ RXFREQ RXEXTENDER
 %token <keyword> HIGH LOW NONE NONPRI SGLPRI DBLPRI YES NO
 %token <keyword> SELECTABLE FIXED STDSTD ANDSTD ANDOR
 %token <keyword> ERROR
@@ -279,6 +280,10 @@ mstmt:				NPSCANLIST intlist
 					| RXFREQ DOUBLE
 						{
 							gscratchmodedef.rxfreq = $2;
+						}
+					| RXEXTENDER yesorno
+						{
+							gscratchmodedef.rxextender = $2;
 						}
 					| ERROR
 						{

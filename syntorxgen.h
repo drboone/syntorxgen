@@ -75,6 +75,7 @@ typedef struct
 	int p1scanmode;
 	double txfreq;
 	double rxfreq;
+	int rxextender;
 } Modestruct;
 
 EXTERN int greffreq;
