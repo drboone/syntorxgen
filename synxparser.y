@@ -660,7 +660,7 @@ void zerobits(unsigned char bitbuf[])
 {
 	int i;
 	for (i = 0; i < MODEBITSIZE; i++)
-		bitbuf[i] = 0;
+		bitbuf[i] = 0xff;
 }
 
 void writebinary(unsigned char bitbuf[], FILE *outfile)
