@@ -14,6 +14,33 @@
 unsigned char ctable[3] = { 2, 1, 3 };
 unsigned char dpltable[8] = { 0, 4, 2, 6, 1, 5, 3, 7 };
 
+typedef struct 
+{
+	unsigned int normal;
+	unsigned int inverted;
+} Dplinv;
+
+Dplinv dplinv[] =
+{
+	023, 047, 116, 754, 244, 025, 411, 226, 612, 346,
+	025, 244, 125, 365, 245, 072, 412, 143, 624, 632,
+	026, 464, 131, 364, 251, 165, 413, 054, 627, 031,
+	031, 627, 132, 546, 261, 732, 423, 315, 631, 606,
+	032, 051, 134, 223, 263, 205, 431, 723, 632, 624,
+	036, 172, 143, 412, 265, 156, 432, 516, 654, 743,
+	043, 445, 152, 115, 271, 065, 445, 043, 662, 466,
+	047, 023, 155, 731, 306, 071, 464, 026, 664, 311,
+	051, 032, 156, 265, 311, 664, 465, 331, 703, 565,
+	054, 413, 162, 503, 315, 423, 466, 662, 712, 114,
+	065, 271, 165, 251, 331, 465, 503, 162, 723, 431,
+	071, 306, 172, 036, 343, 532, 506, 073, 731, 155,
+	072, 245, 174, 074, 346, 612, 516, 432, 732, 261,
+	073, 506, 205, 263, 351, 243, 532, 343, 734, 371,
+	074, 174, 223, 134, 364, 131, 546, 132, 743, 654,
+	114, 712, 226, 411, 365, 125, 565, 703, 754, 116,
+	115, 152, 243, 351, 371, 734, 606, 631
+};
+
 int selvbits(unsigned int txfreq, unsigned int rxfreq,
 	unsigned int *txvbits, unsigned int *rxvbits)
 
@@ -252,6 +279,7 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	unsigned int rxif;
 	unsigned int txfreq, rxfreq;
 	unsigned int scanlist = 0xffffffff;
+	unsigned int txdpl, rxdpl;
 	unsigned int txpl, rxpl;
 	unsigned int tot;
 	unsigned int txvbits, rxvbits;
@@ -363,6 +391,13 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	plugbuf[0x03] = (scanlist & 0x000000ff);
 	if (gmodedef -> txdpl != 0)
 	{
+		txdpl = gmodedef -> txdpl;
+		if (gmodedef -> txdplinv)
+			for (i = 0; i < 84; i++)
+			{
+				if (dplinv[i].normal == txdpl)
+					txdpl = dplinv[i].inverted;
+			}
 		plugbuf[0x04] |= (gmodedef -> txdplinv & 0x01) << 7;
 		plugbuf[0x04] |= (dpltable[(gmodedef -> txdpl & 0007)]) << 4;
 		plugbuf[0x04] |= (dpltable[(gmodedef -> txdpl & 0070)]) << 1;
@@ -384,6 +419,13 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	}
 	if (gmodedef -> rxdpl != 0)
 	{
+		rxdpl = gmodedef -> rxdpl;
+		if (gmodedef -> rxdplinv)
+			for (i = 0; i < 84; i++)
+			{
+				if (dplinv[i].normal == rxdpl)
+					rxdpl = dplinv[i].inverted;
+			}
 		plugbuf[0x06] |= (gmodedef -> rxdplinv & 0x01) << 7;
 		plugbuf[0x06] |= (dpltable[(gmodedef -> rxdpl & 0007)]) << 4;
 		plugbuf[0x06] |= (dpltable[(gmodedef -> rxdpl & 0070)]) << 1;
