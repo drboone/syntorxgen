@@ -1,3 +1,9 @@
+syntorxgen (1.31rel-1) unstable; urgency=low
+
+  * Upstream fixes.
+
+ -- root <drb@msu.edu>  Sun, 13 Feb 2005 15:08:56 -0500
+
 syntorxgen (1.20rel-1) unstable; urgency=low
 
   * Initial Release.
