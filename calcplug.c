@@ -106,6 +106,8 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 	unsigned int txvcosplit;
 	unsigned int rxvcosplit;
 
+	*txvbits = 0;
+	*rxvbits = 0;
 	if (gtxvcosplit == -1)
 		if (txfreq < MAXLOWBAND)
 			gtxvcosplit = 47.1;
@@ -199,7 +201,7 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 			*txvbits = 2;
 		else
 			*txvbits = 0;
-		rxvbits = 0;
+		*rxvbits = 0;
 	}
 }
 
@@ -209,26 +211,57 @@ unsigned int selrefreq(unsigned int refreq, unsigned int txfreq)
 	unsigned int newrefreq;
 
 	newrefreq = refreq;
-	if (txfreq % refreq)
+	if (txfreq < MAXUHFBAND)
 	{
-		if (refreq == 5000)
-			if (txfreq % 6250)
-				fprintf(stderr, "no valid ref. frequencies for %'d\n", txfreq);
+		if (txfreq % refreq)
+		{
+			if (refreq == 5000)
+				if (txfreq % 6250)
+					fprintf(stderr, "no valid ref. frequencies for %d\n",
+						txfreq);
+				else
+				{
+					fprintf(stderr, "using ref. frequency of 6250 for %d\n",
+						txfreq);
+					newrefreq = 6250;
+				}
 			else
-			{
-				fprintf(stderr, "using ref. frequency of 6250 for %'d\n",
-					txfreq);
-				newrefreq = 6250;
-			}
-		else
-			if (txfreq % 5000)
-				fprintf(stderr, "no valid ref. frequencies for %'d\n", txfreq);
+				if (txfreq % 5000)
+					fprintf(stderr, "no valid ref. frequencies for %d\n",
+						txfreq);
+				else
+				{
+					fprintf(stderr, "using ref. frequency of 5000 for %d\n",
+						txfreq);
+					newrefreq = 5000;
+				}
+		}
+	}
+	else
+	{
+		if ((txfreq / 2) % refreq)
+		{
+			if (refreq == 5000)
+				if ((txfreq / 2) % 6250)
+					fprintf(stderr, "no valid ref. frequencies for %d\n",
+						txfreq);
+				else
+				{
+					fprintf(stderr, "using ref. frequency of 6250 for %d\n",
+						txfreq);
+					newrefreq = 6250;
+				}
 			else
-			{
-				fprintf(stderr, "using ref. frequency of 5000 for %'d\n",
-					txfreq);
-				newrefreq = 5000;
-			}
+				if ((txfreq / 2) % 5000)
+					fprintf(stderr, "no valid ref. frequencies for %d\n",
+						txfreq);
+				else
+				{
+					fprintf(stderr, "using ref. frequency of 5000 for %d\n",
+						txfreq);
+					newrefreq = 5000;
+				}
+		}
 	}
 
 	return(newrefreq);
@@ -558,7 +591,7 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	accum = (txvbits << 6);
 	accum |= (rxvbits << 2);
 	if (txfreq < MAXLOWBAND)
-		accum |= 3 << 4;
+		accum |= (3 << 4);
 	else
 		accum |= (ctable[txcix] << 4);
 	if (rxfreq < MAXLOWBAND)

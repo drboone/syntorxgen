@@ -227,6 +227,9 @@ mstmt:				LABEL STRING
 							sprintf(tooct, "%03d", $2);
 							sscanf(tooct, "%o", &gscratchmodedef.txdpl);
 						}
+					| TXDPL NO
+						{
+						}
 					| TXDPLINV yesorno
 						{
 							gscratchmodedef.txdplinv = $2;
@@ -236,6 +239,9 @@ mstmt:				LABEL STRING
 							gscratchmodedef.txplflag = 1;
 							gscratchmodedef.txdplflag = 0;
 							gscratchmodedef.txpl = $2;
+						}
+					| TXPL NO
+						{
 						}
 					| TXMPL yesorno
 						{
@@ -250,6 +256,9 @@ mstmt:				LABEL STRING
 							sprintf(tooct, "%03d", $2);
 							sscanf(tooct, "%o", &gscratchmodedef.rxdpl);
 						}
+					| RXDPL NO
+						{
+						}
 					| RXDPLINV yesorno
 						{
 							gscratchmodedef.rxdplinv = $2;
@@ -259,6 +268,9 @@ mstmt:				LABEL STRING
 							gscratchmodedef.rxplflag = 1;
 							gscratchmodedef.rxdplflag = 0;
 							gscratchmodedef.rxpl = $2;
+						}
+					| RXPL NO
+						{
 						}
 					| RXMPL yesorno
 						{

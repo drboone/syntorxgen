@@ -210,8 +210,11 @@ void decode(unsigned int *binbuf)
 	else
 		puts("\ttbscan yes;");
 
-	printf("\tp1scanmode %d;\n", (binbuf[10] & 0x1f) + 1);
-	printf("\tp2scanmode %d;\n", (binbuf[9] & 0x1f) + 1);
+	bits = (binbuf[9] & 0xc0) >> 6;
+	if (bits < 2)
+		printf("\tp1scanmode %d;\n", (binbuf[10] & 0x1f) + 1);
+	if (bits < 1)
+		printf("\tp2scanmode %d;\n", (binbuf[9] & 0x1f) + 1);
 
 	if (binbuf[10] & 0x80)
 		puts("\tnpscansource fixed;");
