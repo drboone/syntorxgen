@@ -1,0 +1,4 @@
+?package(syntorxgen):needs=text section=Apps/Hamradio\
+  title="syntorxgen" command="/usr/bin/syntorxgen"
+?package(syntorxgen):needs=text section=Apps/Hamradio\
+  title="syntorxdecode" command="/usr/bin/syntorxdecode"

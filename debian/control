@@ -1,0 +1,26 @@
+Source: syntorxgen
+Section: hamradio
+Priority: optional
+Maintainer: Dennis Boone <drb@msu.edu>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.0
+
+Package: syntorxgen
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: srecord
+Description: Generate code plugs for conventional Syntor X radios
+ Syntorxgen reads a text file describing the contents of the desired
+ code plug from standard input.  A hex or binary representation of
+ the code plug is generated on standard output.
+
+ Syntorxdecode reads a code plug in hex format, and generates a file
+ suitable for feeding to syntorxgen which describes the contents of
+ the input file.
+
+ The package supports low, high, uhf and 800 band radios.  The software
+ appears to be capable of programming radios converted from 800 to the
+ 900 ham band.  Trunking is not supported.  Virtually every parameter
+ in the code plug can be adjusted, including the V-bits.
+
+ Some examples and utility scripts are included.
