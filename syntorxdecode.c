@@ -46,7 +46,10 @@ char rtype[6][16] =
 	"invalid", "low band", "high band",
 	"UHF range 1", "UHF ranges 2-5", "800"
 };
+
 unsigned int radio = HIGHBAND;
+unsigned char bigbuf[128][16];
+int offset;
 
 void decode(unsigned int *binbuf)
 {
@@ -281,11 +284,11 @@ void decode(unsigned int *binbuf)
 	}
 }
 
-void srecbin(char *inbuf, unsigned int *binbuf)
+void srecbin(char *inbuf)
 {
 }
 
-void hexbin(char *inbuf, unsigned int *binbuf)
+void hexbin(char *inbuf)
 {
 	int rc;
 
@@ -311,6 +314,7 @@ int main(int argc, char *argv[])
 	unsigned int binbuf[16];
 	int n;
 	time_t now;
+	int maxused;
 
 	while ((c = getopt(argc, argv, "LHU8shf:")) != -1)
 	{
@@ -363,20 +367,25 @@ int main(int argc, char *argv[])
 	now = time(NULL);
 	printf("# Decoded %s\n", ctime(&now));
 
-	n = 1;
+	offset = 0;
 	while (fgets(inbuf, MAXSTR, stdin) != NULL)
 	{
 		if (infmt == HEX)
-			hexbin(inbuf, binbuf);
+			maxused = hexbin(inbuf);
 		else
 			if (infmt == SRECORD)
-				srecbin(inbuf, binbuf);
+				maxused = srecbin(inbuf);
 			else
 			{
 				fprintf(stderr, "unknown input file format\n");
 			}
+	}
+
+	for (n = 1; n < (maxused / 16); n++)
+	{
+		memcpy(binbuf, bigbuf[n-1], 16);
 		printf("mode %d\n{\n", n++);
 		decode(binbuf);
-		puts("}");
+		puts("};");
 	}
 }
