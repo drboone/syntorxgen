@@ -1,9 +1,6 @@
 Copyright, header comment cleanup in testdata directory.  Additional
 test data too.  Also utilities to generate more test data.
 
-Remove old generator material to a separate CVS entity.  Restructure
-test data directories appropriately.
-
 Test rx extender on low-band rig.
 
 Test frequency calculation on an 800 rig.

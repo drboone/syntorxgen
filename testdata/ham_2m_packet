@@ -1,3 +1,26 @@
+#!syntorxgen
+# ham_2m_packet, Boone, 07/27/02
+# Complete(?) coverage of 2m packet freqs for Michigan, other w/same band plan
+# Copyright (C) 2002, Dennis Boone, East Lansing, MI
+#
+# Modifications:
+# 07/27/02 Boone      Initial coding
+# End Modifications
+#
+# Syntorxgen is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published
+# by the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# Syntorxgen is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with syntorxgen; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
 nmodes 34;
 txvcosplit 161.800;
 rxvcosplit 154.000;
