@@ -25,7 +25,6 @@
 
 #include <stdio.h>
 #include <errno.h>
-#include <getopt.h>
 #include <unistd.h>
 #include "version.h"
 

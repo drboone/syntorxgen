@@ -2,8 +2,9 @@ HOW TO INSTALL SYNTORXGEN
 
 The syntorxgen program is developed on Linux.  Nearly any modern unix
 system should be able to build and run it, if the proper tools are
-installed.  In fact, it might even be possible to build it on a DOS
-(or Windows) machine, though that hasn't been tried yet.
+installed.  It is possible, with some manual intervention, to build
+it on a DOS machine using the DJGPP tools.  Windows, Mac and others
+have not been tried.
 
 Required tools
 

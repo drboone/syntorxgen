@@ -123,4 +123,4 @@ EXTERN int gscratchlistsize;
 EXTERN int glineno;
 EXTERN int gnmodes;
 EXTERN int gdebug;
-
+EXTERN char *optarg;

@@ -24,7 +24,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>
 #include <errno.h>
 #include <time.h>
 #include <math.h>
@@ -53,6 +52,7 @@ unsigned int radio = HIGHBAND;
 unsigned int bigbuf[128][16];
 int offset;
 int maxused;
+extern char *optarg;
 
 void decode(unsigned int *binbuf)
 {
