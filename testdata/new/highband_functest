@@ -1,0 +1,41 @@
+#!syntorxgen
+# functionality_test_rom, Boone, 07/27/02
+# Test syntorxgen code plugs for correct operation - high-band radios
+# Copyright (C) 2002, Dennis Boone, East Lansing, MI
+#
+# Modifications:
+# 07/27/02 Boone      Initial coding
+# End Modifications
+#
+# Syntorxgen is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published
+# by the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# Syntorxgen is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with syntorxgen; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+nmodes 32;
+txvcosplit 150.000;
+rxvcosplit 154.000;
+
+# Power: mode 1=high; mode 2=low
+
+mode 1
+{
+	txfreq 150.000;
+	rxfreq 150.000;
+	txpower high;
+};
+mode 2
+{
+	txfreq 150.000;
+	rxfreq 150.000;
+	txpower low;
+};
