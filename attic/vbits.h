@@ -1,9 +1,9 @@
-/* vbits.h, Boone, 06/30/02
+/* vbits.h, Boone, 07/23/02
    Table of frequency limits for various v-bit settings
    Copyright (C) 2002, Dennis Boone, East Lansing, MI  */
 
 /* Modifications:
-   06/30/02 Boone      Initial coding
+   07/23/02 Boone      Initial coding
    End Modifications */
 
 /* Magic numbers for bands */

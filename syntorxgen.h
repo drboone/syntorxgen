@@ -1,9 +1,9 @@
-/* syntorxgen.h, Boone, 06/30/02
+/* syntorxgen.h, Boone, 07/23/02
    Global definitions for syntorxgen
    Copyright (C) 2002, Dennis Boone, East Lansing, MI */
 
 /* Modifications:
-   06/30/02 Boone      Initial coding
+   07/23/02 Boone      Initial coding
    End Modifications */
 
 #ifdef INSTANTIATE

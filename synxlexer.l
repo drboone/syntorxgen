@@ -1,6 +1,10 @@
-/* synxgrammar.l, Boone, 05/26/02
+/* synxgrammar.l, Boone, 07/23/02
    Lexer for Syntor X code plug generator
    Copyright (C) 2002, Dennis Boone, East Lansing, MI */
+
+/* Modifications:
+   07/23/02 Boone      Initial coding
+   End Modifications */
 
 %{
 #include "y.tab.h"

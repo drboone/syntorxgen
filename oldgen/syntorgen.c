@@ -1,3 +1,7 @@
+/* syntorgen.c, Boone, 02/??/02
+   Primitive program to generate a code plug for a high-band Syntor X
+   Copyright (C) 2002, Dennis Boone, East Lansing, MI */
+
 #include <stdio.h>
 
 #define MAXSTR        255

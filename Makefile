@@ -1,10 +1,9 @@
-# Makefile, Boone, 06/02/02
+# Makefile, Boone, 07/23/02
 # Build syntorxgen
 # Copyright (C) 2002, Dennis Boone, East Lansing, MI
 
 # Modifications:
-# 06/02/02 Boone      Initial coding
-# 06/30/02 Boone      Added calcplug
+# 07/23/02 Boone      Initial coding
 # End Modifications
 
 YACC=bison

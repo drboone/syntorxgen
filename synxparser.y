@@ -1,10 +1,10 @@
 %{
-/* synxgrammar.y, Boone, 06/02/02
+/* synxgrammar.y, Boone, 07/23/02
    Bison grammar for Syntor X code plug generator
    Copyright (C) 2002, Dennis Boone, East Lansing, MI */
 
 /* Modifications:
-   06/02/02 Boone      Initial coding
+   07/23/02 Boone      Initial coding
    End Modifications */
 
 #include <stdio.h>

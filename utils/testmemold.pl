@@ -1,4 +1,7 @@
 #!/usr/bin/perl
+# testmemold.pl, Boone, 07/23/02
+# Generate an old style syntorgen input file for a "test ROM" style code plug
+# Copyright (C) 2002, Dennis Boone, East Lansing, MI
 
 for ($i = 0; $i < 32; $i++)
 {

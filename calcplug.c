@@ -1,15 +1,15 @@
-/* calcplug.c, Boone, 06/30/02
+/* calcplug.c, Boone, 07/23/02
    Compute the bit string for one mode in a code plug
    Copyright (C) 2002, Dennis Boone, East Lansing, MI */
 
 /* Modifications:
-   06/30/02 Boone      Initial coding
+   07/23/02 Boone      Initial coding
    End Modifications */
 
 #include <stdio.h>
 
 #include "syntorxgen.h"
-#include "vbits.h"
+/* #include "vbits.h" */
 
 unsigned char ctable[3] = { 2, 1, 3 };
 /* unsigned char dpltable[8] = { 0, 4, 2, 6, 1, 5, 3, 7 }; */
