@@ -103,13 +103,12 @@ A left brace is required after "MODE n", but it was omitted.
 .IP "unexpected token %s; expecting mode config statements at line %d"
 An unrecognized word was found in the input file where a mode configuration
 keyword was expected.
-.IP "timeout value %d invalid at line %d; must be 0-465, evenly divisible
-by 15 seconds"
+.IP "timeout value %d invalid at line %d; must be 0-465, evenly divisible by 15 seconds"
 Timeout values can be infinite (0), or anything between 15 seconds and
 7 minutes 45 seconds.  Timeout values are specified in seconds.  They
 must be evenly divisible by 15.
 .IP "reference frequency %d is invalid at line %d"
-Valid reference frequencies are 41656, 5000 and 6250.
+Valid reference frequencies are 4166, 5000 and 6250.
 .IP "unexpected token %s at line %d"
 The specified word was found in a place it is not allowed.
 .IP "unexpected token %s; expecting an integer at line %d"
@@ -135,9 +134,6 @@ The only characters which may appear in an input file are: sharps (#),
 semicolons, curly braces, digits, upper or lower case alphabetics,
 spaces and tabs.  The exception is inside of comments, where any
 character is allowed.
-.IP "not implemented yet"
-Proper selection of v-bits is not implemented for low-band radios.  It
-should be completed Real Soon Now (TM).
 .IP "no valid ref. frequencies for %g"
 The specified transmit or receive frequency cannot be programmed into a
 Syntor X radio, because it is not evenly divisible by a reference frequency
@@ -158,7 +154,7 @@ uses a table to enforce use of only standard PL codes.
 See "tx pl code %f is invalid..." above.
 .IP "tot of %d seconds is too large, using 15 seconds"
 The specified timeout value is too large.  Timeouts may be infinite (0), 
-or 15-765 seconds.
+or any value between 15-765 seconds which is evenly divisibly by 15.
 .IP "invalid argument"
 The program has a bug related to handling the
 .B -o

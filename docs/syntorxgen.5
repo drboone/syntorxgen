@@ -242,6 +242,16 @@ The recognized DPL codes and their inverts appear here as
 115 / 152, 243 / 351, 371 / 734, 606 / 631
 .fi
 .ad
+.LP
+The program will actually generate bit patterns for any DPL value.
+However, at least some radios (notably the Yaesu VX-5R handheld)
+are particular about a few bits for which there is no documentation.
+These bits are generally set to all ones by aftermarket software,
+but Motorola sets them to other values.  For standard DPL codes, the
+correct values of these bits have been determined by exhaustive test
+and are contained in a table in the program.  For others, you're on
+your own, but the author would appreciate any information you have
+on the subject or any patterns you determine empirically.
 .SH "PL FREQUENCIES"
 .LP
 The recognized PL frequencies are:

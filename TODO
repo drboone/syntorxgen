@@ -1,7 +1,8 @@
-Stuff fer ta do:
-
 Thorough function test; a high-band rig ought to be enough for most
 parts except frequency bits and the rx extender on the low band rigs.
+
+	Update: Extender, frequency testing still remain; the rest is
+	mostly done.
 
 Convert a UHF rig, gather a cable and head, and then test UHF.
 
@@ -9,5 +10,3 @@ Find (beg, borrow) an 800 rig, gather a cable and head, and then
 test 800.
 
 Build a web interface, so this can be used to provide a public service.
-
-Use this to get access to HackersRussia. :-)
