@@ -74,6 +74,8 @@ void initmode(Modestruct *m)
 	m -> pmrxsplit = 0.0;
 }
 
+static int lastmode = 0;
+
 %}
 
 %union
@@ -174,6 +176,22 @@ stmt:				/* empty */
 							gmodedef[$2-1].defined = 1;
 							gscratchlistsize = 0;
 							initmode(&gscratchmodedef);
+							lastmode = $2;
+						}
+					| MODE mstmtblock
+						{
+							if ((lastmode+1) > MAXMODES)
+							{
+								fprintf(stderr, "mode %d is larger than "
+									"MAXMODES (%d) at line %d\n",
+									lastmode+1, MAXMODES, glineno);
+								exit(EINVAL);
+							}
+							gmodedef[lastmode] = gscratchmodedef;
+							gmodedef[lastmode].defined = 1;
+							gscratchlistsize = 0;
+							initmode(&gscratchmodedef);
+							lastmode++;
 						}
 					| ERROR
 						{
