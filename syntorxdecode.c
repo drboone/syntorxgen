@@ -28,6 +28,7 @@
 #include <errno.h>
 #include <time.h>
 #include <math.h>
+#include "version.h"
 
 #define USAGE     "decode [-LHUW8bsh] [-f inputfile]"
 #define BINARY    1
@@ -416,6 +417,9 @@ int main(int argc, char *argv[])
 			case 's':
 				infmt = SRECORD;
 				break;
+			case 'v':
+				fprintf(stderr, "syntorxdecode v%s\n", VERSION);
+				exit(0);
 			case 'f':
 				strncpy(filename, optarg, MAXSTR);
 				if (freopen(filename, "r", stdin) == NULL)

@@ -27,6 +27,7 @@
 #include <errno.h>
 #include <getopt.h>
 #include <unistd.h>
+#include "version.h"
 
 #define INSTANTIATE
 #include "syntorxgen.h"
@@ -675,7 +676,7 @@ int main(int argc, char *argv[])
 
 /* Command line */
 
-	while ((c = getopt(argc, argv, "o:bdhsxy")) != -1)
+	while ((c = getopt(argc, argv, "o:bdhsvxy")) != -1)
 	{
 		switch (c)
 		{
@@ -695,6 +696,9 @@ int main(int argc, char *argv[])
 			case 's':
 				outfmt = SRECORD;
 				break;
+			case 'v':
+				fprintf(stderr, "syntorxgen v%s\n", VERSION);
+				exit(0);
 			case 'x':
 				outfmt = HEX;
 				break;
@@ -703,7 +707,7 @@ int main(int argc, char *argv[])
 				break;
 			case 'h':
 			default:
-				fprintf(stderr, "usage: %s [-dhsxy] [-o outfile]\n", argv[0]);
+				fprintf(stderr, "usage: %s [-dhsvxy] [-o outfile]\n", argv[0]);
 				exit(EINVAL);
 		}
 	}
