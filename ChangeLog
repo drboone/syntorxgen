@@ -4,6 +4,12 @@ Changes to syntorxgen by version
 
 	Conversion to GNU build tools
 
+	Port to Solaris.
+
+	Fixed a bug in PL/DPL bit pattern generation -- if 0.0 PL or 0 DPL
+	were specified in the input file, the program did not treat them
+	the same as not specifying anything.
+
 1.10rel
 
 	Fix s-record checksums.
