@@ -191,7 +191,13 @@ unsigned int selrefreq(unsigned int refreq, unsigned int txfreq)
 			}
 	}
 
-	switch(newrefreq)
+	return(newrefreq);
+}
+
+unsigned int encoderefreq(unsigned int refreq)
+
+{
+	switch(refreq)
 	{
 		case 5000:
 			return(3);
@@ -345,6 +351,7 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	unsigned int txpl, rxpl;
 	unsigned int tot;
 	unsigned int txvbits, rxvbits;
+	unsigned int foundab = 0;
 
 	/* Divisor math is all integer */
 
@@ -376,6 +383,10 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 
 	if (gmodedef -> refreq != -1)
 		refreq = gmodedef -> refreq;
+
+	/* But if it won't work, use whatever will */
+
+	refreq = selrefreq(refreq, txfreq);
 
 	txa = txb = txc = txn = txn1 = txn2 = 0;
 	rxa = rxb = rxc = rxn = rxn1 = rxn2 = 0;
@@ -508,7 +519,7 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	tot = totlookup(gmodedef -> timeout);
 	plugbuf[0x08] |= (tot & 0x1f) << 3;
 	plugbuf[0x08] |= (gmodedef -> txpower & 0x01) << 2;
-	plugbuf[0x08] |= selrefreq(refreq, txfreq);
+	plugbuf[0x08] |= encoderefreq(refreq);
 	plugbuf[0x09] = (gmodedef -> scantype) << 6;
 	plugbuf[0x09] |= (gmodedef -> tbscan) << 5;
 	plugbuf[0x09] |= ((gmodedef -> p2scanmode) & 0x1f);
