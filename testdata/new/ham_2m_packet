@@ -1,5 +1,6 @@
 nmodes 34;
-txvcosplit 155.800;
+txvcosplit 161.800;
+rxvcosplit 154.000;
 mode 1
 {	txfreq 144.390;
 	rxfreq 144.390;
