@@ -34,6 +34,13 @@
 #define MAXUHFBAND 550000000
 #define MAX800BAND 950000000
 
+/* Low-band radios have four sub-splits.  These are the operating
+   frequencies which correspond to the default splits. */
+
+#define DEFLBVCO1SPLIT 38100000
+#define DEFLBVCO2SPLIT 47100000
+#define DEFLBVCO3SPLIT 56900000
+
 /* UHF Range 1 radios use high-side injection, all others low-side, so
    we need to be able to tell the difference.  This definition assumes
    that anyone programming an R1 frequency will be using an unmodified

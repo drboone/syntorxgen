@@ -626,6 +626,9 @@ int main(int argc, char *argv[])
 	glineno = 1;
 	gnmodes = 32;
 	gdebug = 0;
+	glbvco1split = DEFLBVCO1SPLIT;
+	glbvco2split = DEFLBVCO2SPLIT;
+	glbvco3split = DEFLBVCO3SPLIT;
 
 	if ((outfile = fdopen(fileno(stdout), "w")) == NULL)
 	{

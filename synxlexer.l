@@ -4,7 +4,7 @@
 
 %{
 #include "y.tab.h"
-#define KWLISTSIZE 40
+#define KWLISTSIZE 43
 
 struct key
 {

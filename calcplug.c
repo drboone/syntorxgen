@@ -54,8 +54,28 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 
 	if (txfreq < MAXLOWBAND)
 	{
-		fprintf(stderr, "not implemented yet\n");
-		exit(1);
+		if (txfreq < glbvco1split)
+		{
+			*txvbits = 0;
+			*rxvbits = 0;
+		}
+		else
+			if (txfreq < glbvco2split)
+			{
+				*txvbits = 2;
+				*rxvbits = 2;
+			}
+			else
+				if (txfreq < glbvco3split)
+				{
+					*txvbits = 1;
+					*rxvbits = 1;
+				}
+				else
+				{
+					*txvbits = 3;
+					*rxvbits = 3;
+				}
 	}
 	else if (txfreq < MAXHIGHBAND)
 	{
