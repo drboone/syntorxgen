@@ -116,6 +116,28 @@ that this is not the VCO frequency, but the actual operating frequency.
 For the low-band radio only, defines the highest receive
 frequency which can be generated using the third VCO subrange.  Note
 that this is not the VCO frequency, but the actual operating frequency.
+.IP "MAXLOWBAND highest-lowband-frequency"
+Sets the highest frequency which will be considered a low-band
+frequency.  The default is 100 MHz.  This should allow for low-band
+to mid-band conversions, etc.
+.IP "MAXHIGHBAND highest-highband-frequency"
+Sets the highest frequency which will be considered a high-band
+frequency.  The default is 250 MHz.  This should allow for high-band
+to 220 MHz ham band conversions, etc.
+.IP "MAXUHFBAND highest-uhf-frequency"
+Sets the highest frequency which will be considered a UHF frequency.
+The default is 550 MHz, though it isn't clear what use this would
+serve.
+.IP "MAX800BAND highest-800-frequency"
+Sets the highest frequency which will be considered an 800-band
+frequency.  The default is 950 MHz.  This should allow for 800-band
+to 900-ham band conversions, etc.
+.IP "MAXUHFR1BAND highest-uhfrange1-frequency"
+Sets the highest frequency which will be considered a range-1 UHF
+frequency.  The default is 435 MHz.
+.IP "TALKAROUND800 highest-non-ta-800-frequency"
+Sets the highest frequency which will be considered a non-talkaround
+800-band frequency.  The default is 825 MHz.
 .IP "NMODES number-of-modes-in-code-plug"
 Defines the number of modes to be emitted in the produced code
 plug.  The EEPROM can contain 128, but more than 32 require hardware
@@ -124,12 +146,11 @@ than 32 modes also affects MPL, and possibly other, options.
 .IP "TRVBITINVERT { yes | no }"
 If yes, inverts the V0 bit, typically causing the radio to use the
 transmit range of the VCO for receive, and vice versa.  The setting
-defaults to no.  This directive is primarily for radio hacking,
-such as replacing the VCO from a Range 1 UHF radio with the VCO from
-a Range 3 or 4 radio to move it into the ham bands.  The directive
-does nothing if the specified frequency is in the low-band range.
-On 800 radios, the bit which needs to be flipped is the V1 bit, and
-the program does this properly.
+defaults to no.  This directive is primarily for radio hacking, such as
+replacing the VCO in a Range 1 UHF radio with one taken from a Range 3
+or 4 radio to move it into the ham bands.  The directive does nothing
+if the specified frequency is in the low-band range.  On 800 radios,
+the bit which needs to be (and is) flipped is the V1 bit.
 .SH "PER-MODE DIRECTIVES"
 .IP "MODE [mode-number] { mode-definition }"
 Announces that directives between { and } apply to the specified
