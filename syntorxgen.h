@@ -29,17 +29,23 @@
    for example; the program isn't that smart.  The main hope is that these
    are wide enough for normal use, without overlapping. */
 
-#define MAXLOWBAND 100.0L
-#define MAXHIGHBAND 250.0L
-#define MAXUHFBAND 550.0L
-#define MAX800BAND 950.0L
+#define MAXLOWBAND 100000000
+#define MAXHIGHBAND 250000000
+#define MAXUHFBAND 550000000
+#define MAX800BAND 950000000
 
 /* UHF Range 1 radios use high-side injection, all others low-side, so
    we need to be able to tell the difference.  This definition assumes
    that anyone programming an R1 frequency will be using an unmodified
    radio in a factory-approved way. */
 
-#define MAXUHFR1BAND 420.0L
+#define MAXUHFR1BAND 420000000
+
+/* 800 radios use one range for rx and tx, except in talkaround, when
+   they shift transmit up to the receive range.  The split frequency
+   is needed to calculate v-bits. */
+
+#define TALKAROUND800 825000000
 
 typedef struct
 {
@@ -71,8 +77,9 @@ typedef struct
 	double rxfreq;
 } Modestruct;
 
-EXTERN double greffreq;
-EXTERN double gsplitfreq;
+EXTERN int greffreq;
+EXTERN double gtxvcosplit;
+EXTERN double grxvcosplit;
 EXTERN Modestruct gmodedef[MAXMODES];
 EXTERN Modestruct gscratchmodedef;
 EXTERN int gscratchlist[MAXMODES];

@@ -14,9 +14,70 @@
 unsigned char ctable[3] = { 2, 1, 3 };
 unsigned char dpltable[8] = { 0, 4, 2, 6, 1, 5, 3, 7 };
 
-int selrefreq(unsigned int refreq, unsigned int txfreq)
+int selvbits(unsigned int txfreq, unsigned int rxfreq,
+	unsigned int *txvbits, unsigned int *rxvbits)
 
 {
+	unsigned int txvcosplit;
+	unsigned int rxvcosplit;
+
+	txvcosplit = (int)(gtxvcosplit * 1000000.0L);
+	rxvcosplit = (int)(grxvcosplit * 1000000.0L);
+
+	if (txfreq < MAXLOWBAND)
+	{
+		fprintf(stderr, "not implemented yet\n");
+		exit(1);
+	}
+	else if (txfreq < MAXHIGHBAND)
+	{
+		if (txfreq < txvcosplit)
+			*txvbits = 3;
+		else
+			*txvbits = 1;
+		if (rxfreq < rxvcosplit)
+			*rxvbits = 0;
+		else
+			*rxvbits = 2;
+	}
+	else if (txfreq < MAXUHFR1BAND)
+	{
+		if (txfreq < txvcosplit)
+			*txvbits = 2;
+		else
+			*txvbits = 0;
+		if (rxfreq < rxvcosplit)
+			*rxvbits = 3;
+		else
+			*rxvbits = 1;
+	}
+	else if (txfreq < MAXUHFBAND)
+	{
+		if (txfreq < txvcosplit)
+			*txvbits = 3;
+		else
+			*txvbits = 1;
+		if (rxfreq < rxvcosplit)
+			*rxvbits = 2;
+		else
+			*rxvbits = 0;
+	}
+	else if (txfreq < MAX800BAND)
+	{
+		if (txfreq > TALKAROUND800)
+			*txvbits = 2;
+		else
+			*txvbits = 0;
+		rxvbits = 0;
+	}
+}
+
+unsigned int selrefreq(unsigned int refreq, unsigned int txfreq)
+
+{
+	unsigned int newrefreq;
+
+	newrefreq = refreq;
 	if (txfreq % refreq)
 	{
 		if (refreq == 5000)
@@ -27,7 +88,7 @@ int selrefreq(unsigned int refreq, unsigned int txfreq)
 			{
 				fprintf(stderr, "using ref. frequency of %5.3g for %7.3g\n",
 					6.250, (double)txfreq / 1000000.0L);
-				return(6250);
+				newrefreq = 6250;
 			}
 		else
 			if (txfreq % 5000)
@@ -37,8 +98,20 @@ int selrefreq(unsigned int refreq, unsigned int txfreq)
 			{
 				fprintf(stderr, "using ref. frequency of %5.3g for %7.3g\n",
 					5.000, (double)txfreq / 1000000.0L);
-				return(5000);
+				newrefreq = 5000;
 			}
+	}
+
+	switch(newrefreq)
+	{
+		case 5000:
+			return(3);
+		case 6250:
+			return(0);
+		case 4166:
+			return(2);
+		default:
+			return(1);
 	}
 }
 
@@ -170,26 +243,36 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 
 {
 	unsigned int i;
-	unsigned int rxvcofreq;
+	unsigned int txvcofreq, rxvcofreq;
 	unsigned int refreq;
 	unsigned char accum;
 	unsigned int txa, txb, txc, txn, txn1, txn2;
 	unsigned int rxa, rxb, rxc, rxn, rxn1, rxn2;
 	unsigned int txcix, rxcix;
-	double rxif;
+	unsigned int rxif;
 	unsigned int txfreq, rxfreq;
 	unsigned int scanlist = 0xffffffff;
 	unsigned int txpl, rxpl;
-	unsigned tot;
+	unsigned int tot;
+	unsigned int txvbits, rxvbits;
+
+	/* Divisor math is all integer */
+
+	txfreq = (unsigned int)((gmodedef -> txfreq) * 1000000.0L);
+	rxfreq = (unsigned int)((gmodedef -> rxfreq) * 1000000.0L);
+
+	/* Figure VCO range splits */
+
+	selvbits(txfreq, rxfreq, &txvbits, &rxvbits);
 
 	/* Default: "VHF RSS prefers the 5 KHz reference frequency. All other
 	   radios prefer the 6.25 kHz frequency." -- From Pakman's code plug
 	   documentation at http://home.xnet.com/~pakman/syntor/syntorx.htm */
 
-	if (gmodedef -> txfreq < MAXLOWBAND)
+	if (txfreq < MAXLOWBAND)
 		refreq = 6250;
 	else
-		if (gmodedef -> txfreq < MAXHIGHBAND)
+		if (txfreq < MAXHIGHBAND)
 			refreq = 5000;
 		else
 			refreq = 6250;
@@ -197,12 +280,12 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	/* A global reference frequency spec overrides a default */
 
 	if (greffreq != -1)
-		refreq = greffreq * 1000;
+		refreq = greffreq;
 
 	/* Else a mode reference frequency spec overrides a global */
 
 	if (gmodedef -> refreq != -1)
-		refreq = gmodedef -> refreq * 1000;
+		refreq = gmodedef -> refreq;
 
 	txa = txb = txc = txn = txn1 = txn2 = 0;
 	rxa = rxb = rxc = rxn = rxn1 = rxn2 = 0;
@@ -210,30 +293,32 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 
 	/* RX IF varies between bands */
 
-	if (gmodedef -> rxfreq < MAXLOWBAND)
+	if (rxfreq < MAXLOWBAND)
 		rxif = 75700000;
 	else
-		if (gmodedef -> rxfreq < MAXHIGHBAND)
+		if (rxfreq < MAXHIGHBAND)
 			rxif = 53900000;
 		else
-			if (gmodedef -> rxfreq < MAXUHFR1BAND)
+			if (rxfreq < MAXUHFR1BAND)
 				rxif = 53900000;
 			else
-				if (gmodedef -> rxfreq < MAXUHFBAND)
+				if (rxfreq < MAXUHFBAND)
 					rxif = -53900000;
 				else
-					if (gmodedef -> rxfreq < MAX800BAND)
+					if (rxfreq < MAX800BAND)
 						rxif = -53900000;
-
-	/* Divisor math is all integer */
-
-	txfreq = (int)(gmodedef -> txfreq * 1000000.0L);
-	rxfreq = (int)(gmodedef -> rxfreq * 1000000.0L);
 
 	for (i = 0; i < 16; i++)
 		plugbuf[i] = 0;
 
-	txn = txfreq / refreq;
+	if (txfreq < MAXLOWBAND)
+		txvcofreq = 172800000 - txfreq;
+	else
+		if (txfreq > MAXUHFBAND)
+			txvcofreq = txfreq / 2;
+		else
+			txvcofreq = txfreq;
+	txn = txvcofreq / refreq;
 	txc = txn % 3;
 	txcix = txc;
 	txn1 = txn / 3;
@@ -248,7 +333,10 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	txn2 = txn1 / 63;
 	txb = txn2 - txa;
 
-	rxvcofreq = rxfreq + rxif;
+	if (rxfreq > MAXUHFBAND)
+		rxvcofreq = (rxfreq + rxif) / 2;
+	else
+		rxvcofreq = rxfreq + rxif;
 	rxn = rxvcofreq / refreq;
 	rxc = rxn % 3;
 	rxcix = rxc;
@@ -319,17 +407,19 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	plugbuf[0x08] |= (tot & 0x1f) << 3;
 	plugbuf[0x08] |= (gmodedef -> txpower & 0x01) << 2;
 	plugbuf[0x08] |= selrefreq(refreq, txfreq);
-	plugbuf[0x09] |= gmodedef -> scantype << 6;
-	plugbuf[0x09] |= gmodedef -> tbscan << 5;
-	plugbuf[0x09] |= (gmodedef -> p2scanmode & 0x1f);
-	plugbuf[0x0a] |= gmodedef -> npscansource << 7;
-	plugbuf[0x0a] |= gmodedef -> squelchtype << 6;
+	plugbuf[0x09] = (gmodedef -> scantype) << 6;
+	plugbuf[0x09] |= (gmodedef -> tbscan) << 5;
+	plugbuf[0x09] |= ((gmodedef -> p2scanmode) & 0x1f);
+	plugbuf[0x0a] |= (gmodedef -> npscansource) << 7;
+	plugbuf[0x0a] |= (gmodedef -> squelchtype) << 6;
 	plugbuf[0x0a] |= gmodedef -> p1scanmode;
-	accum = 0x40;
+/*	accum = 0x40;
 	if (txfreq < 155800)
 		accum |= 0x80;
 	if (rxvcofreq > 203900)
-		accum |= 0x08;
+		accum |= 0x08; */
+	accum = (txvbits << 6);
+	accum |= (rxvbits << 2);
 	accum |= (ctable[txcix] << 4);
 	accum |= ctable[rxcix];
 	plugbuf[0x0b] = accum;

@@ -7,9 +7,6 @@
    06/02/02 Boone      Initial coding
    End Modifications */
 
-/* ### Initialize mode structures somehow at startup */
-/* ### reffreq needs to default to -1 */
-
 #include <stdio.h>
 #include <errno.h>
 #include <getopt.h>
@@ -46,7 +43,7 @@ void initmode(Modestruct *m)
 	m -> rxmpl = 0;
 	m -> timeout = 0;
 	m -> txpower = 0;
-	m -> refreq = -1.0;
+	m -> refreq = -1;
 	m -> scantype = 0;
 	m -> tbscan = 0;
 	m -> p2scanmode = 0;
@@ -72,7 +69,7 @@ void initmode(Modestruct *m)
 %token <dval> DOUBLE
 %token <ival> INTEGER
 
-%token <keyword> GREFFREQ SPLITFREQ NMODES REFFREQ RANGE MODE
+%token <keyword> GREFFREQ NMODES REFFREQ MODE TXVCOSPLIT RXVCOSPLIT
 %token <keyword> NPSCANLIST TXDPL TXDPLINV TXPL RXDPL RXDPLINV RXPL
 %token <keyword> TXMPL RXMPL
 %token <keyword> SCANTYPE TBSCAN TIMEOUT TXPOWER 
@@ -104,9 +101,13 @@ stmt:				/* empty */
 						{
 							greffreq = $2;
 						}
-					| SPLITFREQ DOUBLE
+					| TXVCOSPLIT DOUBLE
 						{
-							gsplitfreq = $2;
+							gtxvcosplit = $2;
+						}
+					| RXVCOSPLIT DOUBLE
+						{
+							grxvcosplit = $2;
 						}
 					| NMODES INTEGER
 						{
@@ -231,18 +232,18 @@ mstmt:				NPSCANLIST intlist
 						{
 							gscratchmodedef.txpower = $2;
 						}
-					| REFFREQ DOUBLE
+					| REFFREQ INTEGER
 						{
-							if (($1 == 4.1667) ||
-								($1 == 5.0) ||
-								($1 == 6.25))
+							if (($1 == 4166) ||
+								($1 == 5000) ||
+								($1 == 6250))
 							{
 								gscratchmodedef.refreq = $2;
 							}
 							else
 							{
 								fprintf(stderr, "reference frequency "
-									"%6.4g is invalid at line %d\n",
+									"%d is invalid at line %d\n",
 									$1, glineno);
 								exit(EINVAL);
 							}
@@ -464,10 +465,10 @@ void dumpmodes()
 			printf("\tTimeout (secs): %d\n", gmodedef[i].timeout);
 			printf("\tTX power: %s\n", 
 				gmodedef[i].txpower ? "high" : "low");
-			if (gmodedef[i].refreq == -1.0)
+			if (gmodedef[i].refreq == -1)
 				puts("\tReference frequency: default");
 			else
-				printf("\tReference frequency: %6.4g\n", gmodedef[i].refreq);
+				printf("\tReference frequency: %d\n", gmodedef[i].refreq);
 			switch (gmodedef[i].scantype)
 			{
 				case 0:

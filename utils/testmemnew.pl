@@ -1,6 +1,10 @@
 #!/usr/bin/perl
 
-print "nmodes 32;\n";
+print <<"EOF";
+nmodes 32;
+txvcosplit 155.8;
+rxvcosplit 150.0;
+EOF
 for ($i = 0; $i < 32; $i++)
 {
 	$a = (144.250 + ($i * 0.75));
