@@ -29,9 +29,10 @@
 #include <time.h>
 #include <math.h>
 
-#define USAGE     "decode [-LHUW8sh] [-f inputfile]"
-#define HEX       1
-#define SRECORD   2
+#define USAGE     "decode [-LHUW8bsh] [-f inputfile]"
+#define BINARY    1
+#define HEX       2
+#define SRECORD   3
 #define MAXSTR    256
 #define LOWBAND   1
 #define HIGHBAND  2
@@ -48,8 +49,9 @@ char rtype[6][16] =
 };
 
 unsigned int radio = HIGHBAND;
-unsigned char bigbuf[128][16];
+unsigned int bigbuf[128][16];
 int offset;
+int maxused;
 
 void decode(unsigned int *binbuf)
 {
@@ -284,24 +286,87 @@ void decode(unsigned int *binbuf)
 	}
 }
 
-void srecbin(char *inbuf)
+int srecbin(char *inbuf)
 {
+	unsigned int length;
+	unsigned int address;
+	unsigned int *outbuf;
+	int payloadlen;
+	int i;
+	int sawdata = 0;
+
+	if (inbuf[0] != 'S')
+	{
+		fprintf(stderr, "invalid hex input line format\n");
+		exit(EINVAL);
+	}
+
+	outbuf = (unsigned int *)bigbuf;
+
+	sscanf(inbuf+2, "%2x", &length);
+	switch (inbuf[1])
+	{
+		case '0':
+			break;
+		case '1':
+			sawdata = 1;
+			sscanf(inbuf+4, "%4x", &address);
+			payloadlen = length - 3;
+			for (i = 0; i < payloadlen ; i++)
+				sscanf(inbuf+4+4+(2*i), "%2x", outbuf+address+i);
+			break;
+		case '2':
+			sawdata = 1;
+			sscanf(inbuf+4, "%6x", &address);
+			payloadlen = length - 4;
+			for (i = 0; i < payloadlen ; i++)
+				sscanf(inbuf+4+6+(2*i), "%2x", outbuf+address+i);
+			break;
+		case '3':
+			sawdata = 1;
+			sscanf(inbuf+4, "%4x", &address);
+			payloadlen = length - 5;
+			for (i = 0; i < payloadlen; i++)
+				sscanf(inbuf+4+8+(2*i), "%2x", outbuf+address+i);
+			break;
+		case '4':
+			break;
+		case '5':
+			break;
+		case '6':
+			break;
+		case '7':
+			break;
+		case '8':
+			break;
+		case '9':
+			break;
+	};
+	if (sawdata && ((address + payloadlen) > maxused))
+		return(address + payloadlen);
+	else
+		return(maxused);
 }
 
-void hexbin(char *inbuf)
+int hexbin(char *inbuf)
 {
 	int rc;
 
 	rc = sscanf(inbuf, "%x %x %x %x %x %x %x %x %x %x %x %x %x %x %x %x",
-		&binbuf[0], &binbuf[1], &binbuf[2], &binbuf[3],
-		&binbuf[4], &binbuf[5], &binbuf[6], &binbuf[7],
-		&binbuf[8], &binbuf[9], &binbuf[10], &binbuf[11],
-		&binbuf[12], &binbuf[13], &binbuf[14], &binbuf[15]);
+		&(bigbuf[offset][0]), &(bigbuf[offset][1]), &(bigbuf[offset][2]),
+		&(bigbuf[offset][3]), &(bigbuf[offset][4]), &(bigbuf[offset][5]),
+		&(bigbuf[offset][6]), &(bigbuf[offset][7]), &(bigbuf[offset][8]),
+		&(bigbuf[offset][9]), &(bigbuf[offset][10]), &(bigbuf[offset][11]),
+		&(bigbuf[offset][12]), &(bigbuf[offset][13]), &(bigbuf[offset][14]),
+		&(bigbuf[offset][15]));
 	if (rc != 16)
 	{
 		fprintf(stderr, "invalid hex input line format\n");
 		exit(EINVAL);
 	}
+	offset++;
+
+	return((offset) * 16);
 }
 
 int main(int argc, char *argv[])
@@ -314,7 +379,6 @@ int main(int argc, char *argv[])
 	unsigned int binbuf[16];
 	int n;
 	time_t now;
-	int maxused;
 
 	while ((c = getopt(argc, argv, "LHU8shf:")) != -1)
 	{
@@ -340,10 +404,13 @@ int main(int argc, char *argv[])
 				radio = X800BAND;
 				rtypespec = 1;
 				break;
-			case 's':
-				infmt = HEX;
+			case 'b':
+				infmt = BINARY;
 				break;
 			case 'h':
+				infmt = HEX;
+				break;
+			case 's':
 				infmt = SRECORD;
 				break;
 			case 'f':
@@ -368,23 +435,29 @@ int main(int argc, char *argv[])
 	printf("# Decoded %s\n", ctime(&now));
 
 	offset = 0;
+	maxused = 0;
 	while (fgets(inbuf, MAXSTR, stdin) != NULL)
 	{
-		if (infmt == HEX)
-			maxused = hexbin(inbuf);
-		else
-			if (infmt == SRECORD)
+		switch (infmt)
+		{
+			case BINARY:
+				break;
+			case HEX:
+				maxused = hexbin(inbuf);
+				break;
+			case SRECORD:
 				maxused = srecbin(inbuf);
-			else
-			{
+				break;
+			DEFAULT:
 				fprintf(stderr, "unknown input file format\n");
-			}
+				break;
+		};
 	}
 
-	for (n = 1; n < (maxused / 16); n++)
+	for (n = 1; n <= (maxused / 16); n++)
 	{
-		memcpy(binbuf, bigbuf[n-1], 16);
-		printf("mode %d\n{\n", n++);
+		memcpy(binbuf, bigbuf[n-1], 16 * sizeof(unsigned int));
+		printf("mode %d\n{\n", n);
 		decode(binbuf);
 		puts("};");
 	}
