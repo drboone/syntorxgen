@@ -1,0 +1,72 @@
+How to figure out what your v-bit settings should be using syntorxgen
+
+	This file is part of syntorxgen.
+
+	Syntorxgen is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published
+	by the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+
+	Syntorxgen is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+	General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with syntorxgen; if not, write to the Free Software Foundation,
+	Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+This document will make a lot more sense if you start by reading and
+understanding the material presented at:
+
+	http://www.open.org/~blenderm/syntorx/efreqx.html
+
+The procedure goes something like this:
+
+Generate a syntorxgen input file containing as many modes as possible.
+Each mode should contain identical settings except for the frequencies,
+which should be evenly spaced across the desired operating range of
+the radio.  Set the TXVCOSPLIT and RXVCOSPLIT directives to frequencies
+at or below the lowest operating frequency you used.  This means that
+the radio will try to generate all of the frequencies in this code
+plug using the upper range of the VCO.
+
+(The testfreq.pl perl script from the utilities directory of
+the source tarball is an aid to building this kind of input file;
+though the result will need some editing, the program does the most
+repetitive parts.)
+
+Run syntorxgen on this input file.  Write the resulting hex file into
+an EEPROM.  Install the EEPROM in the radio.
+
+Connect a voltmeter to the VCO steering lines as described in the
+web page referenced above.  Remember that the VCO will probably work
+differently with the cover on, so pick a place outside the VCO can
+to make this connection.
+
+Turn on the radio.  Step through each mode in the code plug while
+watching the PLL unlock light and the voltmeter until you find the
+first mode where the light is not lit and the voltage is within the
+desired range.  Take careful notes.  Do this for both transmit and
+receive.  You've now found the lowest operating frequency at which
+the upper range of the VCO becomes reliable.
+
+Change the input file so that the TXVCOSPLIT and RXVCOSPLIT directives
+list a frequency at or above the _highest_ desired operating frequency.
+Process the file.  Don't forget to disconnect the power from the
+radio before you pull the EEPROM out of it.  Write the new hex file
+into the EEPROM.  Load the EEPROM back into the radio.
+
+(Tip: This process goes a lot faster if you leave the plastic EEPROM
+case aside while you do the quick burn-and-swap routine.  The chip
+side of the EEPROM module circuit board faces the "back" of the radio,
+i.e. where the fins are.)
+
+Fire up the radio.  Go through each mode again, until you find the
+place where the voltage goes out of limits and/or the PLL unlock
+light comes on.  Keep taking notes.  Do it for both transmit and
+receive.  You've now found the highest operating frequency at which
+the low range of the VCO will work reliably.
+
+You can now set your TXVCOSPLIT and RXVCOSPLIT values somewhere in
+the area where the two VCO ranges overlap.

@@ -1,8 +1,6 @@
 Copyright, header comment cleanup in testdata directory.  Additional
 test data too.  Also utilities to generate more test data.
 
-Add "how to" on v-bit determination to the stuff in the docs directory.
-
 Remove old generator material to a separate CVS entity.  Restructure
 test data directories appropriately.
 
