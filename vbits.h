@@ -44,7 +44,7 @@ typedef struct
    programming a modified radio.  This default data is based on the
    Pakman code plug documentation. */
 
-Vbitstruct gvbittbl[39] =
+Vbitstruct gvbittbl[] =
 {
 	B_LOW, R_1, 0, 0, 29.7L, 38.1L, RX,
 	B_LOW, R_1, 1, 0, 38.1L, 47.1L, RX,
@@ -87,5 +87,5 @@ Vbitstruct gvbittbl[39] =
 	B_UHF, R_5, 1, 0, 512.0L, 512.0L, TX,
 	B_800, R_1, 0, 0, 851.0L, 878.9L, RX,
 	B_800, R_1, 0, 0, 797.1L, 825.0L, TX,
-	B_800, R_1, 0, 1, 851.0L, 870.0L, TX
+	B_800, R_1, 0, 1, 851.0L, 870.0L, TX,
 };

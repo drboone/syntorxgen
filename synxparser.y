@@ -18,7 +18,7 @@
 #define INSTANTIATE
 #include "syntorxgen.h"
 
-void calcbits(Modestruct *gmodedef, int *plugbuf);
+void calcbits(Modestruct *, unsigned char *);
 
 void yyerror(char *s)
 
@@ -593,6 +593,11 @@ int main(int argc, char *argv[])
 		initmode(&(gmodedef[i]));
 	}
 	initmode(&gscratchmodedef);
+	greffreq = -1;
+	gscratchlistsize = 0;
+	glineno = 1;
+	gnmodes = 32;
+	gdebug = 0;
 
 	if ((outfile = fdopen(fileno(stdout), "w")) == NULL)
 	{

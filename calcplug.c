@@ -166,7 +166,7 @@ int totlookup(int secs)
 	return (i);
 }
 
-void calcbits(Modestruct *gmodedef, int plugbuf[])
+void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 
 {
 	unsigned int i;
@@ -227,8 +227,8 @@ void calcbits(Modestruct *gmodedef, int plugbuf[])
 
 	/* Divisor math is all integer */
 
-	txfreq = int(gmodedef -> txfreq * 1000000.0L);
-	rxfreq = int(gmodedef -> rxfreq * 1000000.0L);
+	txfreq = (int)(gmodedef -> txfreq * 1000000.0L);
+	rxfreq = (int)(gmodedef -> rxfreq * 1000000.0L);
 
 	for (i = 0; i < 16; i++)
 		plugbuf[i] = 0;
@@ -294,7 +294,7 @@ void calcbits(Modestruct *gmodedef, int plugbuf[])
 		plugbuf[0x05] |= txpl & 0x00ff;
 		plugbuf[0x05] |= (gmodedef -> txmpl & 0x01) << 7;
 	}
-	if (rxdpl != 0)
+	if (gmodedef -> rxdpl != 0)
 	{
 		plugbuf[0x06] |= (gmodedef -> rxdplinv & 0x01) << 7;
 		plugbuf[0x06] |= (dpltable[(gmodedef -> rxdpl & 0007)]) << 4;
@@ -320,8 +320,8 @@ void calcbits(Modestruct *gmodedef, int plugbuf[])
 	plugbuf[0x08] |= (gmodedef -> txpower & 0x01) << 2;
 	plugbuf[0x08] |= selrefreq(refreq, txfreq);
 	plugbuf[0x09] |= gmodedef -> scantype << 6;
-	plugbuf[0x09] |= tbscan << 5;
-	plugbuf[0x09] |= (p2scanmode & 0x1f);
+	plugbuf[0x09] |= gmodedef -> tbscan << 5;
+	plugbuf[0x09] |= (gmodedef -> p2scanmode & 0x1f);
 	plugbuf[0x0a] |= gmodedef -> npscansource << 7;
 	plugbuf[0x0a] |= gmodedef -> squelchtype << 6;
 	plugbuf[0x0a] |= gmodedef -> p1scanmode;

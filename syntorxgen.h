@@ -71,13 +71,13 @@ typedef struct
 	double rxfreq;
 } Modestruct;
 
-double greffreq = -1;
-double gsplitfreq;
-Modestruct gmodedef[MAXMODES];
-Modestruct gscratchmodedef;
-int gscratchlist[MAXMODES];
-int gscratchlistsize = 0;
-int glineno = 1;
-int gnmodes = 32;
-int gdebug = 0;
+EXTERN double greffreq;
+EXTERN double gsplitfreq;
+EXTERN Modestruct gmodedef[MAXMODES];
+EXTERN Modestruct gscratchmodedef;
+EXTERN int gscratchlist[MAXMODES];
+EXTERN int gscratchlistsize;
+EXTERN int glineno;
+EXTERN int gnmodes;
+EXTERN int gdebug;
 
