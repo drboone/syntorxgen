@@ -9,9 +9,38 @@
 #include <stdio.h>
 
 #include "syntorxgen.h"
+#include "vbits.h"
 
 unsigned char ctable[3] = { 2, 1, 3 };
 unsigned char dpltable[8] = { 0, 4, 2, 6, 1, 5, 3, 7 };
+
+int selrefreq(unsigned int refreq, unsigned int txfreq)
+
+{
+	if (txfreq % refreq)
+	{
+		if (refreq == 5000)
+			if (txfreq % 6250)
+				fprintf(stderr, "no valid ref. frequencies for %7.3g\n",
+					(double)txfreq / 1000000.0L);
+			else
+			{
+				fprintf(stderr, "using ref. frequency of %5.3g for %7.3g\n",
+					6.250, (double)txfreq / 1000000.0L);
+				return(6250);
+			}
+		else
+			if (txfreq % 5000)
+				fprintf(stderr, "no valid ref. frequencies for %7.3g\n",
+					(double)txfreq / 1000000.0L);
+			else
+			{
+				fprintf(stderr, "using ref. frequency of %5.3g for %7.3g\n",
+					5.000, (double)txfreq / 1000000.0L);
+				return(5000);
+			}
+	}
+}
 
 int txplookup(float ipl)
 
@@ -147,30 +176,33 @@ void calcbits(Modestruct *gmodedef, int plugbuf[])
 	unsigned int txa, txb, txc, txn, txn1, txn2;
 	unsigned int rxa, rxb, rxc, rxn, rxn1, rxn2;
 	unsigned int txcix, rxcix;
-	float rxif;
+	double rxif;
 	unsigned int txfreq, rxfreq;
+	unsigned int scanlist = 0xffffffff;
+	unsigned int txpl, rxpl;
+	unsigned tot;
 
 	/* Default: "VHF RSS prefers the 5 KHz reference frequency. All other
 	   radios prefer the 6.25 KHz frequency." -- From Pakman's code plug
 	   documentation at http://home.xnet.com/~pakman/syntor/syntorx.htm */
 
 	if (gmodedef -> txfreq < MAXLOWBAND)
-		refreq = 6.25;
+		refreq = 6250;
 	else
 		if (gmodedef -> txfreq < MAXHIGHBAND)
-			refreq = 5.0;
+			refreq = 5000;
 		else
-			refreq = 6.25;
+			refreq = 6250;
 
 	/* A global reference frequency spec overrides a default */
 
 	if (greffreq != -1)
-		refreq = greffreq;
+		refreq = greffreq * 1000;
 
 	/* Else a mode reference frequency spec overrides a global */
 
 	if (gmodedef -> refreq != -1)
-		refreq = gmodedef -> refreq;
+		refreq = gmodedef -> refreq * 1000;
 
 	txa = txb = txc = txn = txn1 = txn2 = 0;
 	rxa = rxb = rxc = rxn = rxn1 = rxn2 = 0;
@@ -179,24 +211,24 @@ void calcbits(Modestruct *gmodedef, int plugbuf[])
 	/* RX IF varies between bands */
 
 	if (gmodedef -> rxfreq < MAXLOWBAND)
-		rxif = 75.7;
+		rxif = 75700000;
 	else
 		if (gmodedef -> rxfreq < MAXHIGHBAND)
-			rxif = 53.9;
+			rxif = 53900000;
 		else
 			if (gmodedef -> rxfreq < MAXUHFR1BAND)
-				rxif = 53.9;
+				rxif = 53900000;
 			else
 				if (gmodedef -> rxfreq < MAXUHFBAND)
-					rxif = -53.9;
+					rxif = -53900000;
 				else
 					if (gmodedef -> rxfreq < MAX800BAND)
-						rxif = -53.9;
+						rxif = -53900000;
 
 	/* Divisor math is all integer */
 
-	txfreq = int(gmodedef -> txfreq * 1000.0L);
-	rxfreq = int(gmodedef -> rxfreq * 1000.0L);
+	txfreq = int(gmodedef -> txfreq * 1000000.0L);
+	rxfreq = int(gmodedef -> rxfreq * 1000000.0L);
 
 	for (i = 0; i < 16; i++)
 		plugbuf[i] = 0;
@@ -232,59 +264,67 @@ void calcbits(Modestruct *gmodedef, int plugbuf[])
 	rxn2 = rxn1 / 63;
 	rxb = rxn2 - rxa;
 
+	for (i = 0; i < gmodedef -> scanlistsize; i++)
+	{
+		scanlist &= ~(1 << (32 - (gmodedef -> npscanlist[i])));
+	}
+
 	plugbuf[0x00] = (scanlist & 0xff000000) >> 24;
 	plugbuf[0x01] = (scanlist & 0x00ff0000) >> 16;
 	plugbuf[0x02] = (scanlist & 0x0000ff00) >> 8;
 	plugbuf[0x03] = (scanlist & 0x000000ff);
-	if (txdpl != 0)
+	if (gmodedef -> txdpl != 0)
 	{
-		plugbuf[0x04] |= (txdplinv & 0x01) << 7;
-		plugbuf[0x04] |= (dpltable[(txdpl & 0007)]) << 4;
-		plugbuf[0x04] |= (dpltable[(txdpl & 0070)]) << 1;
-		plugbuf[0x04] |= (dpltable[(txdpl & 0700)] & 0001);
-		plugbuf[0x05] |= (txmpl & 0x01) << 7;
+		plugbuf[0x04] |= (gmodedef -> txdplinv & 0x01) << 7;
+		plugbuf[0x04] |= (dpltable[(gmodedef -> txdpl & 0007)]) << 4;
+		plugbuf[0x04] |= (dpltable[(gmodedef -> txdpl & 0070)]) << 1;
+		plugbuf[0x04] |= (dpltable[(gmodedef -> txdpl & 0700)] & 0001);
+		plugbuf[0x05] |= (gmodedef -> txmpl & 0x01) << 7;
 		plugbuf[0x05] |= (1 << 6);
 		plugbuf[0x05] |= (1 << 5);
-		plugbuf[0x05] |= (dpltable[(txdpl & 0700)] & 0006) << 3;
+		plugbuf[0x05] |= (dpltable[(gmodedef -> txdpl & 0700)] & 0006) << 3;
 		plugbuf[0x05] |= 0x07;
 	}
 	else
 	{
+		txpl = txplookup(gmodedef -> txpl);
 		plugbuf[0x04] |= (txpl & 0xff00) >> 8;
 		/* DPL/PL bit value 0 means PL, so it's already set */
 		/* DPL enable bit value 0 means PL, so it's already set */
 		plugbuf[0x05] |= txpl & 0x00ff;
-		plugbuf[0x05] |= (txmpl & 0x01) << 7;
+		plugbuf[0x05] |= (gmodedef -> txmpl & 0x01) << 7;
 	}
 	if (rxdpl != 0)
 	{
-		plugbuf[0x06] |= (rxdplinv & 0x01) << 7;
-		plugbuf[0x06] |= (dpltable[(rxdpl & 0007)]) << 4;
-		plugbuf[0x06] |= (dpltable[(rxdpl & 0070)]) << 1;
-		plugbuf[0x06] |= (dpltable[(rxdpl & 0700)] & 0001);
-		plugbuf[0x07] |= (rxmpl & 0x01) << 7;
+		plugbuf[0x06] |= (gmodedef -> rxdplinv & 0x01) << 7;
+		plugbuf[0x06] |= (dpltable[(gmodedef -> rxdpl & 0007)]) << 4;
+		plugbuf[0x06] |= (dpltable[(gmodedef -> rxdpl & 0070)]) << 1;
+		plugbuf[0x06] |= (dpltable[(gmodedef -> rxdpl & 0700)] & 0001);
+		plugbuf[0x07] |= (gmodedef -> rxmpl & 0x01) << 7;
 		plugbuf[0x07] |= (1 << 6);
 		plugbuf[0x07] |= (1 << 5);
-		plugbuf[0x07] |= (dpltable[(rxdpl & 0700)] & 0006) << 3;
+		plugbuf[0x07] |= (dpltable[(gmodedef -> rxdpl & 0700)] & 0006) << 3;
 		plugbuf[0x07] |= 0x07;
 	}
 	else
 	{
+		rxpl = txplookup(gmodedef -> rxpl);
 		plugbuf[0x06] |= (rxpl & 0xff00) >> 8;
 		/* DPL/PL bit value 0 means PL, so it's already set */
 		/* DPL enable bit value 0 means PL, so it's already set */
 		plugbuf[0x07] |= rxpl & 0x00ff;
-		plugbuf[0x07] |= (rxmpl & 0x01) << 7;
+		plugbuf[0x07] |= (gmodedef -> rxmpl & 0x01) << 7;
 	}
+	tot = totlookup(gmodedef -> timeout);
 	plugbuf[0x08] |= (tot & 0x1f) << 3;
-	plugbuf[0x08] |= (pwr & 0x01) << 2;
-	plugbuf[0x08] |= 0x03;
-	plugbuf[0x09] |= scantype << 6;
+	plugbuf[0x08] |= (gmodedef -> txpower & 0x01) << 2;
+	plugbuf[0x08] |= selrefreq(refreq, txfreq);
+	plugbuf[0x09] |= gmodedef -> scantype << 6;
 	plugbuf[0x09] |= tbscan << 5;
-	plugbuf[0x09] |= (p2scan & 0x1f);
-	plugbuf[0x0a] |= scansource << 7;
-	plugbuf[0x0a] |= squelchtype << 6;
-	plugbuf[0x0a] |= p2scan;
+	plugbuf[0x09] |= (p2scanmode & 0x1f);
+	plugbuf[0x0a] |= gmodedef -> npscansource << 7;
+	plugbuf[0x0a] |= gmodedef -> squelchtype << 6;
+	plugbuf[0x0a] |= gmodedef -> p1scanmode;
 	accum = 0x40;
 	if (txfreq < 155800)
 		accum |= 0x80;

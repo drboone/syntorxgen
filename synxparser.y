@@ -162,9 +162,12 @@ mstmt:				NPSCANLIST intlist
 						}
 					| TXDPL INTEGER
 						{
-							gscratchmodedef.txdplflag = 1;
+							char tooct[16];
+
+						gscratchmodedef.txdplflag = 1;
 							gscratchmodedef.txplflag = 0;
-							gscratchmodedef.txdpl = $2;
+							sprintf(tooct, "%d", $2);
+							sscanf(tooct, "%o", &gscratchmodedef.txdpl);
 						}
 					| TXPL DOUBLE
 						{
@@ -174,9 +177,12 @@ mstmt:				NPSCANLIST intlist
 						}
 					| RXDPL INTEGER
 						{
+							char tooct[16];
+
 							gscratchmodedef.rxdplflag = 1;
 							gscratchmodedef.rxplflag = 0;
-							gscratchmodedef.rxdpl = $2;
+							sprintf(tooct, "%d", $2);
+							sscanf(tooct, "%o", &gscratchmodedef.rxdpl);
 						}
 					| RXPL DOUBLE
 						{

@@ -41,14 +41,19 @@ typedef struct
 
 /* This table assumes factory standard radios.  You have to use the
    config file to adjust these if you're programming out of band and/or
-   programming a modified radio. */
+   programming a modified radio.  This default data is based on the
+   Pakman code plug documentation. */
 
-Vbitstruct gvbittbl[16] =
+Vbitstruct gvbittbl[39] =
 {
 	B_LOW, R_1, 0, 0, 29.7L, 38.1L, RX,
 	B_LOW, R_1, 1, 0, 38.1L, 47.1L, RX,
 	B_LOW, R_1, 0, 1, 47.1L, 56.9L, RX,
 	B_LOW, R_1, 1, 1, 56.9L, 67.5L, RX,
+	B_LOW, R_1, 0, 0, 29.7L, 38.1L, TX,
+	B_LOW, R_1, 1, 0, 38.1L, 47.1L, TX,
+	B_LOW, R_1, 0, 1, 47.1L, 56.9L, TX,
+	B_LOW, R_1, 1, 1, 56.9L, 67.5L, TX,
 	B_HIGH, R_1, 0, 0, 136.0L, 144.6L, RX,
 	B_HIGH, R_1, 0, 1, 144.6L, 154.4L, RX,
 	B_HIGH, R_1, 1, 1, 136.0L, 144.0L, TX,
@@ -70,16 +75,16 @@ Vbitstruct gvbittbl[16] =
    a source. */
 	B_UHF, R_3, 0, 1, 470.0L, 470.0L, RX,
 	B_UHF, R_3, 0, 0, 488.0L, 488.0L, RX,
-	B_UHF, R_3, 1, 1, 470.0L, 470.0L, RX,
-	B_UHF, R_3, 1, 0, 488.0L, 488.0L, RX,
+	B_UHF, R_3, 1, 1, 470.0L, 470.0L, TX,
+	B_UHF, R_3, 1, 0, 488.0L, 488.0L, TX,
 	B_UHF, R_4, 0, 1, 482.0L, 482.0L, RX,
 	B_UHF, R_4, 0, 0, 500.0L, 500.0L, RX,
-	B_UHF, R_4, 1, 1, 482.0L, 482.0L, RX,
-	B_UHF, R_4, 1, 0, 500.0L, 500.0L, RX,
+	B_UHF, R_4, 1, 1, 482.0L, 482.0L, TX,
+	B_UHF, R_4, 1, 0, 500.0L, 500.0L, TX,
 	B_UHF, R_5, 0, 1, 494.0L, 494.0L, RX,
 	B_UHF, R_5, 0, 0, 512.0L, 512.0L, RX,
-	B_UHF, R_5, 1, 1, 494.0L, 494.0L, RX,
-	B_UHF, R_5, 1, 0, 512.0L, 512.0L, RX,
+	B_UHF, R_5, 1, 1, 494.0L, 494.0L, TX,
+	B_UHF, R_5, 1, 0, 512.0L, 512.0L, TX,
 	B_800, R_1, 0, 0, 851.0L, 878.9L, RX
 	B_800, R_1, 0, 0, 797.1L, 825.0L, TX,
 	B_800, R_1, 0, 1, 851.0L, 870.0L, TX,
