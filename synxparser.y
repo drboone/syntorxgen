@@ -20,6 +20,8 @@
 
 #define MAXSTR 256
 
+#define MODEBITSIZE 16
+
 #define HEX 1
 #define SRECORD 2
 
@@ -521,10 +523,85 @@ void dumpmodes()
 	}
 }
 
-void writehex()
+void calcbits(Modestruct *gmodedef, unsigned char bitbuf[])
 
 {
-	fprintf(stderr, "writing hex file...\n");
+}
+
+void zerobits(unsigned char bitbuf[])
+
+{
+	int i;
+	for (i = 0; i < MODEBITSIZE; i++)
+		bitbuf[i] = 0;
+}
+
+void writehex(unsigned char bitbuf[], FILE *outfile)
+
+{
+	int i;
+	int first = 1;
+
+	for (i = 0; i < MODEBITSIZE; i++)
+	{
+		if (! first)
+		{
+			putc(' ', outfile);
+		}
+		fprintf(outfile, "%02X", bitbuf[i]);
+		first = 0;
+	}
+	putc('\n', outfile);
+}
+
+int writesrecord(unsigned char bitbuf[], FILE *outfile, int offset)
+
+{
+	int i;
+	unsigned char checksum = 0;
+
+	fprintf(outfile, "S113%04X", offset);
+	for (i = 0; i < MODEBITSIZE; i++)
+	{
+		fprintf(outfile, "%02X", bitbuf[i]);
+		checksum += bitbuf[i];
+	}
+	checksum = ~checksum;
+	fprintf(outfile, "%02X\n", checksum);
+}
+
+void writeplug(int outfmt, FILE *outfile)
+
+{
+	int i;
+	unsigned char bitbuf[MODEBITSIZE];
+	unsigned int offset = 0;
+	unsigned char checksum = 0;
+
+	for (i = 0; i < gnmodes; i++)
+	{
+		if (gmodedef[i].defined)
+			calcbits(&(gmodedef[i]), bitbuf);
+		else
+			zerobits(bitbuf);
+
+		if (outfmt == HEX)
+			writehex(bitbuf, outfile);
+		else
+			if (outfmt == SRECORD)
+			{
+				writesrecord(bitbuf, outfile, offset);
+				offset += MODEBITSIZE;
+			}
+	}
+
+	if (outfmt == SRECORD)
+	{
+		checksum = 3 + ((gnmodes >> 8) & 0xff) + (gnmodes & 0xff);
+		checksum = ~checksum;
+		fprintf(outfile, "S503%04X%02X\n", gnmodes, checksum);
+		fputs("S9030000FC\n", outfile);
+	}
 }
 
 int main(int argc, char *argv[])
@@ -553,7 +630,7 @@ int main(int argc, char *argv[])
 
 /* Command line */
 
-	while ((c = getopt(argc, argv, "o:dhsy")) != -1)
+	while ((c = getopt(argc, argv, "o:dhsxy")) != -1)
 	{
 		switch (c)
 		{
@@ -567,7 +644,7 @@ int main(int argc, char *argv[])
 			case 'd':
 				gdebug = 1;
 				break;
-			case 'h':
+			case 'x':
 				outfmt = HEX;
 				break;
 			case 's':
@@ -576,8 +653,9 @@ int main(int argc, char *argv[])
 			case 'y':
 				yydebug = 1;
 				break;
+			case 'h':
 			default:
-				fprintf(stderr, "usage: %s [-dhsy] [-o outfile]\n", argv[0]);
+				fprintf(stderr, "usage: %s [-dhsxy] [-o outfile]\n", argv[0]);
 				exit(EINVAL);
 		}
 	}
@@ -592,5 +670,9 @@ int main(int argc, char *argv[])
 		dumpmodes();
 
 	if (! rc)
-		writehex();
+		writeplug(outfmt, outfile);
+
+/* Done */
+
+	exit(0);
 }
