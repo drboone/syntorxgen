@@ -61,6 +61,8 @@ void decode(unsigned int *binbuf)
 	unsigned int refreq;
 	unsigned int txa, txb, txc, txv;
 	unsigned int rxa, rxb, rxc, rxv;
+	unsigned int txnull = 0;
+	unsigned int rxnull = 0;
 
 	/* Non-priority scan list */
 
@@ -86,9 +88,7 @@ void decode(unsigned int *binbuf)
 	bits = (binbuf[5] & 0x60) >> 5;
 	switch (bits)
 	{
-		case 3:	/* NONE */
-			break;
-		case 2:	/* DPL */
+		case 3:	/* DPL */
 			bits = dpltable[(binbuf[4] & 0x70) >> 4]; /* C */
 			bits |= dpltable[(binbuf[4] & 0x0e) >> 1] << 3; /* B */
 			bit = (binbuf[4] & 0x01) << 2; /* A0 */
@@ -96,8 +96,14 @@ void decode(unsigned int *binbuf)
 			bits |= dpltable[bit] << 6;
 			printf("\ttxdpl %03o;\n", bits);
 			break;
-		case 1:
-		case 0:
+		case 2:	/* NONE */
+			puts("\ttxdpl no;");
+			puts("\ttxpl no;");
+			break;
+		case 0:	/* ?? PL */
+			puts("\t# TX PL/DPL bits in nonstandard config; probably PL");
+			/* yes, it's supposed to fall through */
+		case 1:	/* PL */
 			{
 				double pl;
 
@@ -116,17 +122,22 @@ void decode(unsigned int *binbuf)
 	bits = (binbuf[7] & 0x60) >> 5;
 	switch (bits)
 	{
-		case 3:
-			break;
-		case 2:
+		case 3:	/* DPL */
 			bits = dpltable[(binbuf[6] & 0x70) >> 4]; /* C */
 			bits |= dpltable[(binbuf[6] & 0x0e) >> 1] << 3; /* B */
 			bit = (binbuf[6] & 0x01) << 2; /* A0 */
 			bit |= (binbuf[7] & 0x18) >> 3; /* A1-2 */
 			bits |= dpltable[bit] << 6;
 			printf("\trxdpl %03o;\n", bits);
-		case 1:
-		case 0:
+			break;
+		case 2:	/* NONE */
+			puts("\trxdpl no;");
+			puts("\trxpl no;");
+			break;
+		case 1:	/* ?? PL */
+			puts("\t# RX PL/DPL bits in nonstandard config; probably PL");
+			/* yes, it's supposed to fall through */
+		case 0:	/* PL */
 			{
 				double pl;
 
@@ -245,6 +256,17 @@ void decode(unsigned int *binbuf)
 	txa |= (binbuf[15] & 0x00f0) >> 4;
 	rxa |= binbuf[15] & 0x000f;
 
+	if (((binbuf[12] & 0xf0) == 0xf0) &&
+		((binbuf[13] & 0xf0) == 0xf0) &&
+		((binbuf[14] & 0xf0) == 0xf0) &&
+		((binbuf[15] & 0xf0) == 0xf0))
+		txnull = 1;
+	if (((binbuf[12] & 0x0f) == 0x0f) &&
+		((binbuf[13] & 0x0f) == 0x0f) &&
+		((binbuf[14] & 0x0f) == 0x0f) &&
+		((binbuf[15] & 0x0f) == 0x0f))
+		rxnull = 1;
+
 	if (radio == LOWBAND)
 	{
 		int fvco, frx, ftx;
@@ -254,8 +276,10 @@ void decode(unsigned int *binbuf)
 		fvco = ((64 * txa) + (63 * txb)) * refreq;
 		ftx = 172800000 - fvco;
 
-		printf("\ttxfreq %8.4f;\n", (double)ftx / 1000000.0);
-		printf("\trxfreq %8.4f;\n", (double)frx / 1000000.0);
+		if (! txnull)
+			printf("\ttxfreq %8.4f;\n", (double)ftx / 1000000.0);
+		if (! rxnull)
+			printf("\trxfreq %8.4f;\n", (double)frx / 1000000.0);
 		if (! (rxc & 1))
 			puts("\trxextender yes;");
 	}
@@ -268,8 +292,10 @@ void decode(unsigned int *binbuf)
 		fvco = ((((64 * txa) + (63 * txb)) * 3) + ctable[txc]) * refreq;
 		ftx = fvco;
 
-		printf("\ttxfreq %8.4f;\n", (double)ftx / 1000000.0);
-		printf("\trxfreq %8.4f;\n", (double)frx / 1000000.0);
+		if (! txnull)
+			printf("\ttxfreq %8.4f;\n", (double)ftx / 1000000.0);
+		if (! rxnull)
+			printf("\trxfreq %8.4f;\n", (double)frx / 1000000.0);
 	}
 	else if (radio == UHFR2BAND) /* actually ranges 2-5 */
 	{
@@ -280,8 +306,10 @@ void decode(unsigned int *binbuf)
 		fvco = ((((64 * txa) + (63 * txb)) * 3) + ctable[txc]) * refreq;
 		ftx = fvco;
 
-		printf("\ttxfreq %8.4f;\n", (double)ftx / 1000000.0);
-		printf("\trxfreq %8.4f;\n", (double)frx / 1000000.0);
+		if (! txnull)
+			printf("\ttxfreq %8.4f;\n", (double)ftx / 1000000.0);
+		if (! rxnull)
+			printf("\trxfreq %8.4f;\n", (double)frx / 1000000.0);
 	}
 	else if (radio == X800BAND)
 	{
@@ -292,8 +320,10 @@ void decode(unsigned int *binbuf)
 		fvco = ((((64 * txa) + (63 * txb)) * 3) + ctable[txc]) * refreq;
 		ftx = fvco * 2;
 
-		printf("\ttxfreq %8.4f;\n", (double)ftx / 1000000.0);
-		printf("\trxfreq %8.4f;\n", (double)frx / 1000000.0);
+		if (! txnull)
+			printf("\ttxfreq %8.4f;\n", (double)ftx / 1000000.0);
+		if (! rxnull)
+			printf("\trxfreq %8.4f;\n", (double)frx / 1000000.0);
 	}
 }
 
