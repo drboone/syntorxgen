@@ -30,12 +30,12 @@ LEX=flex
 LFLAGS=-s
 LIBS=-lfl -lm
 
-all: syntorxgen decode
+all: syntorxgen syntorxdecode
 
 syntorxgen: synxparser.o synxlexer.o calcplug.o
 	$(CC) -o $@ $^ $(LIBS)
 
-decode: decode.o
+syntorxdecode: syntorxdecode.o
 
 clean:
 	rm *.o y.tab.h syntorxgen
