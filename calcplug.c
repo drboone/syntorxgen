@@ -49,6 +49,30 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 	unsigned int txvcosplit;
 	unsigned int rxvcosplit;
 
+	if (gtxvcosplit == -1)
+		if (txfreq < MAXLOWBAND)
+			gtxvcosplit = 47.1;
+		else
+			if (txfreq < MAXHIGHBAND)
+				gtxvcosplit = 161.8;
+			else
+				if (txfreq < MAXUHFBAND)
+					gtxvcosplit = 459.5;
+				else
+					gtxvcosplit = 825.0;
+
+	if (grxvcosplit == -1)
+		if (rxfreq < MAXLOWBAND)
+			grxvcosplit = 47.1;
+		else
+			if (rxfreq < MAXHIGHBAND)
+				grxvcosplit = 150.0;
+			else
+				if (rxfreq < MAXUHFBAND)
+					grxvcosplit = 459.5;
+				else
+					grxvcosplit = 825.0;
+
 	txvcosplit = (int)(gtxvcosplit * 1000000.0L);
 	rxvcosplit = (int)(grxvcosplit * 1000000.0L);
 

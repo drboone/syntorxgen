@@ -626,6 +626,8 @@ int main(int argc, char *argv[])
 	glineno = 1;
 	gnmodes = 32;
 	gdebug = 0;
+	gtxvcosplit = -1;
+	grxvcosplit = -1;
 	glbvco1split = DEFLBVCO1SPLIT;
 	glbvco2split = DEFLBVCO2SPLIT;
 	glbvco3split = DEFLBVCO3SPLIT;
