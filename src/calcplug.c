@@ -523,6 +523,8 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	plugbuf[0x01] = (scanlist & 0x00ff0000) >> 16;
 	plugbuf[0x02] = (scanlist & 0x0000ff00) >> 8;
 	plugbuf[0x03] = (scanlist & 0x000000ff);
+	if (gmodedef -> txdpl == 0) { gmodedef -> txdplflag = 0; }
+	if (gmodedef -> txpl == 0.0) { gmodedef -> txplflag = 0; }
 	if (gmodedef -> txdplflag)
 	{
 		txdpl = gmodedef -> txdpl;
@@ -549,6 +551,8 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 		plugbuf[0x04] = 0xff;
 		plugbuf[0x05] = 0xdf;
 	}
+	if (gmodedef -> rxdpl == 0) { gmodedef -> rxdplflag = 0; }
+	if (gmodedef -> rxpl == 0.0) { gmodedef -> rxplflag = 0; }
 	if (gmodedef -> rxdplflag)
 	{
 		rxdpl = gmodedef -> rxdpl;
