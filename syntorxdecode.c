@@ -319,9 +319,9 @@ void decode(unsigned int *binbuf)
 		ftx = fvco * 2;
 
 		if (! txnull)
-			printf("\ttxfreq %8.4f;\n", (double)ftx / 1000000.0);
+			printf("\ttxfreq %10.6f;\n", (double)ftx / 1000000.0);
 		if (! rxnull)
-			printf("\trxfreq %8.4f;\n", (double)frx / 1000000.0);
+			printf("\trxfreq %10.6f;\n", (double)frx / 1000000.0);
 	}
 }
 
