@@ -660,6 +660,14 @@ void zerobits(unsigned char bitbuf[])
 {
 	int i;
 	for (i = 0; i < MODEBITSIZE; i++)
+		bitbuf[i] = 0x00;
+}
+
+void onebits(unsigned char bitbuf[])
+
+{
+	int i;
+	for (i = 0; i < MODEBITSIZE; i++)
 		bitbuf[i] = 0xff;
 }
 
@@ -716,7 +724,7 @@ void writeplug(int outfmt, FILE *outfile)
 		if (gmodedef[i].defined)
 			calcbits(&(gmodedef[i]), bitbuf);
 		else
-			zerobits(bitbuf);
+			onebits(bitbuf);
 
 		switch (outfmt)
 		{

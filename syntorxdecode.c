@@ -206,12 +206,12 @@ void decode(unsigned int *binbuf)
 	};
 
 	if (binbuf[9] & 0x20)
-		puts("\ttbscan yes;");
-	else
 		puts("\ttbscan no;");
+	else
+		puts("\ttbscan yes;");
 
-	printf("\tp1scanmode %d;\n", binbuf[10] & 0x1f + 1);
-	printf("\tp2scanmode %d;\n", binbuf[9] & 0x1f + 1);
+	printf("\tp1scanmode %d;\n", (binbuf[10] & 0x1f) + 1);
+	printf("\tp2scanmode %d;\n", (binbuf[9] & 0x1f) + 1);
 
 	if (binbuf[10] & 0x80)
 		puts("\tnpscansource fixed;");
@@ -422,7 +422,7 @@ int main(int argc, char *argv[])
 	int n;
 	time_t now;
 
-	while ((c = getopt(argc, argv, "LHU8bhsvf:")) != -1)
+	while ((c = getopt(argc, argv, "LHUW8bhsvf:")) != -1)
 	{
 		switch (c)
 		{

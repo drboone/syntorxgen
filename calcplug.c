@@ -475,13 +475,11 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	if (gmodedef -> txdplflag)
 	{
 		txdpl = gmodedef -> txdpl;
-		plugbuf[0x04] = 0;
-		plugbuf[0x05] = 0;
 		plugbuf[0x04] |= (gmodedef -> txdplinv & 0x01) << 7;
 		plugbuf[0x04] |= (dpltable[(txdpl & 0007)]) << 4;
 		plugbuf[0x04] |= (dpltable[(txdpl & 0070) >> 3]) << 1;
 		plugbuf[0x04] |= (dpltable[(txdpl & 0700) >> 6] & 0004) >> 2;
-		plugbuf[0x05] |= (! gmodedef -> txmpl & 0x01) << 7;
+		plugbuf[0x05] |= (! (gmodedef -> txmpl & 0x01)) << 7;
 		plugbuf[0x05] |= (1 << 6);
 		plugbuf[0x05] |= (1 << 5);
 		plugbuf[0x05] |= (dpltable[(txdpl & 0700) >> 6] & 0003) << 3;
@@ -490,8 +488,6 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	else if (gmodedef -> txplflag)
 	{
 		txpl = txplookup(gmodedef -> txpl);
-		plugbuf[0x04] = 0;
-		plugbuf[0x05] = 0;
 		plugbuf[0x04] |= (txpl & 0xff00) >> 8;
 		plugbuf[0x05] |= (! gmodedef -> txmpl & 0x01) << 7;
 		/* DPL/PL bit value 0 means PL, so it's already set */
@@ -505,8 +501,6 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	if (gmodedef -> rxdplflag)
 	{
 		rxdpl = gmodedef -> rxdpl;
-		plugbuf[0x06] = 0;
-		plugbuf[0x07] = 0;
 		plugbuf[0x06] |= (gmodedef -> rxdplinv & 0x01) << 7;
 		plugbuf[0x06] |= (dpltable[(rxdpl & 0007)]) << 4;
 		plugbuf[0x06] |= (dpltable[(rxdpl & 0070) >> 3]) << 1;
@@ -537,11 +531,11 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	plugbuf[0x08] |= (gmodedef -> txpower & 0x01) << 2;
 	plugbuf[0x08] |= encoderefreq(refreq);
 	plugbuf[0x09] = (gmodedef -> scantype) << 6;
-	plugbuf[0x09] |= (gmodedef -> tbscan) << 5;
+	if (! gmodedef -> tbscan)
+		plugbuf[0x09] |= 1 << 5;
 	plugbuf[0x09] |= (gmodedef -> p2scanmode - 1) & 0x1f;
-	plugbuf[0x0a] = 0;
 	plugbuf[0x0a] |= (gmodedef -> npscansource) << 7;
-	plugbuf[0x0a] |= (gmodedef -> squelchtype) << 6;
+	plugbuf[0x0a] |= (gmodedef -> squelchtype) << 5;
 	plugbuf[0x0a] |= (gmodedef -> p1scanmode - 1) & 0x1f;
 	accum = (txvbits << 6);
 	accum |= (rxvbits << 2);
@@ -557,10 +551,6 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	else
 		accum |= ctable[rxcix];
 	plugbuf[0x0b] = accum;
-	plugbuf[0x0c] = 0;
-	plugbuf[0x0d] = 0;
-	plugbuf[0x0e] = 0;
-	plugbuf[0x0f] = 0;
 	plugbuf[0x0c] |= ((txb & 0x03c0) >> 2);
 	plugbuf[0x0c] |= ((rxb & 0x03c0) >> 6);
 	plugbuf[0x0d] |= ((txb & 0x003c) << 2);
