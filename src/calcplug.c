@@ -37,7 +37,7 @@ float validpls[] =
 	67.0, 69.3, 71.9, 74.4, 77.0, 79.7, 82.5, 85.4, 88.5, 91.5, 94.8,
 	97.4, 100.0, 103.5, 107.2, 110.9, 114.8, 118.8, 123.0, 127.3,
 	131.8, 136.5, 141.3, 146.2, 151.4, 156.7, 162.2, 167.9, 173.8,
-	179.9, 186.2, 192.8, 203.3, 206.5, 210.7, 218.1, 225.7, 229.1,
+	179.9, 186.2, 192.8, 203.5, 206.5, 210.7, 218.1, 225.7, 229.1,
 	233.6, 241.8, 250.3, 254.1, 0.0
 };
 
@@ -433,11 +433,13 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 
 	/* Divisor math is all integer */
 
-	txfreq = (unsigned int)round((gmodedef -> txfreq) * 1000000.0L);
-	rxfreq = (unsigned int)round((gmodedef -> rxfreq) * 1000000.0L);
+	txfreq = (unsigned int)
+		floor(((gmodedef -> txfreq) * 1000000.0L) + 0.5L);
+	rxfreq = (unsigned int)
+		floor(((gmodedef -> rxfreq) * 1000000.0L) + 0.5L);
 
-	pmtxsplit = (unsigned int)round((gmodedef -> pmtxsplit) * 1000000.0L);
-	pmrxsplit = (unsigned int)round((gmodedef -> pmrxsplit) * 1000000.0L);
+	pmtxsplit = (unsigned int)floor((gmodedef -> pmtxsplit) * 1000000.0L);
+	pmrxsplit = (unsigned int)floor((gmodedef -> pmrxsplit) * 1000000.0L);
 
 	/* Figure VCO range splits */
 
