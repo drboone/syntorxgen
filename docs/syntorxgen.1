@@ -143,15 +143,25 @@ The specified reference frequency will be used to generate the specified
 transmit or receive frequency.  This message appears if the default or
 user-specified global or per-mode reference frequency cannot be used and
 must be changed.
-.IP "tx pl code %f is invalid, using 254.1"
-The specified transmit PL frequency is not standard.  The program has
-substituted 254.1 to annoy you.  Note that nearly any transmit PL frequency
-betwen about 18 Hz and 907 Hz, or any receive frequency between about
-62 Hz and 267 Hz can be programmed into the radio.  However, the filters
-in the radio may limit what you can actually achieve.  The program currently
-uses a table to enforce use of only standard PL codes.
-.IP "rx pl code %f is invalid, using 254.1"
-See "tx pl code %f is invalid..." above.
+.IP "tx pl code %f is out of range, using 254.1"
+The specified transmit PL frequency is outside of the range which can
+be programmed.  The program has substituted 254.1 Hz to annoy you.
+Nearly any transmit PL frequency betwen about 18.1 Hz and 907.1 Hz
+can be programmed.  However, the filters in the radio may limit what
+you can actually achieve.
+.IP "rx pl code %f is out of range, using 254.1"
+The programmable range is about 62 Hz to 267 Hz.  See "tx pl code %f
+is out of range..." above.
+.IP "non-standard tx pl %f will be programmed anyway"
+The specified transmit PL frequency is not standard.  Since it is in the
+programmable range, it will be programmed anyway.  The filters in the
+radio may still prevent proper functioning, or the tone may cause falsing
+or other problems.
+.IP "non-standard rx pl %f will be programmed anyway"
+The specified receive PL frequency is not standard.  Since it is in the
+programmable range, it will be programmed anyway.  The filters in the
+radio may still prevent proper functioning, or the tone may cause falsing
+or other problems.
 .IP "tot of %d seconds is too large, using 15 seconds"
 The specified timeout value is too large.  Timeouts may be infinite (0), 
 or any value between 15-765 seconds which is evenly divisibly by 15.

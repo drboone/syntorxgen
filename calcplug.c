@@ -32,6 +32,15 @@ unsigned char ctable[3] = { 2, 1, 3 };
 /* unsigned char dpltable[8] = { 0, 4, 2, 6, 1, 5, 3, 7 }; */
 unsigned int dpltable[8] = { 7, 3, 5, 1, 6, 2, 4, 0 };
 
+double validpls[] =
+{
+	67.0, 69.3, 71.9, 74.4, 77.0, 79.7, 82.5, 85.4, 88.5, 91.5, 94.8,
+	97.4, 100.0, 103.5, 107.2, 110.9, 114.8, 118.8, 123.0, 127.3,
+	131.8, 136.5, 141.3, 146.2, 151.4, 156.7, 162.2, 167.9, 173.8,
+	179.9, 186.2, 192.8, 203.3, 206.5, 210.7, 218.1, 225.7, 229.1,
+	233.6, 241.8, 250.3, 254.1, 0.0
+};
+
 typedef struct 
 {
 	unsigned int normal;
@@ -213,107 +222,61 @@ unsigned int encoderefreq(unsigned int refreq)
 int txplookup(float ipl)
 
 {
+	int i;
+	int foundpl = 0;
+	int freqbits;
+	int answer;
+
 	if (ipl == 0.0F) return (0xffdf);
-	else if (ipl == 67.0F) return (0x45bb);
-	else if (ipl == 69.3F) return (0x1cbb);
-	else if (ipl == 71.9F) return (0xedba);
-	else if (ipl == 74.4F) return (0xc0ba);
-	else if (ipl == 77.0F) return (0x91ba);
-	else if (ipl == 79.7F) return (0x60ba);
-	else if (ipl == 82.5F) return (0x2dba);
-	else if (ipl == 85.4F) return (0xf9b9);
-	else if (ipl == 88.5F) return (0xc1b9);
-	else if (ipl == 91.5F) return (0x8bb9);
-	else if (ipl == 94.8F) return (0x4fb9);
-	else if (ipl == 97.4F) return (0x20b9);
-	else if (ipl == 100.0F) return (0xf1b8);
-	else if (ipl == 103.5F) return (0xb2b8);
-	else if (ipl == 107.2F) return (0x6fb8);
-	else if (ipl == 110.9F) return (0x2cb8);
-	else if (ipl == 114.8F) return (0xe6b7);
-	else if (ipl == 118.8F) return (0x9eb7);
-	else if (ipl == 123.0F) return (0x52b7);
-	else if (ipl == 127.3F) return (0x04b7);
-	else if (ipl == 131.8F) return (0xb3b6);
-	else if (ipl == 136.5F) return (0x5eb6);
-	else if (ipl == 141.3F) return (0x07b6);
-	else if (ipl == 146.2F) return (0xafb5);
-	else if (ipl == 151.4F) return (0x51b5);
-	else if (ipl == 156.7F) return (0xf1b4);
-	else if (ipl == 162.2F) return (0x8eb4);
-	else if (ipl == 167.9F) return (0x27b4);
-	else if (ipl == 173.8F) return (0xbcb3);
-	else if (ipl == 179.9F) return (0x4eb3);
-	else if (ipl == 186.2F) return (0xdcb2);
-	else if (ipl == 192.8F) return (0x65b2);
-	else if (ipl == 203.3F) return (0xa4b1);
-	else if (ipl == 206.5F) return (0x6eb1);
-	else if (ipl == 210.7F) return (0x22b1);
-	else if (ipl == 218.1F) return (0x9cb0);
-	else if (ipl == 225.7F) return (0x13b0);
-	else if (ipl == 229.1F) return (0xd6af);
-	else if (ipl == 233.6F) return (0x84af);
-	else if (ipl == 241.8F) return (0xf0ae);
-	else if (ipl == 250.3F) return (0x57ae);
-	else if (ipl == 254.1F) return (0x12ae);
-	else
+	if ((ipl < 18.1F) || (ipl > 907.1F))
 	{
-		fprintf(stderr, "tx pl code %f is invalid, using 254.1\n", ipl);
+		fprintf(stderr, "tx pl code %f is out of range, using 254.1\n", ipl);
 		return(0x12ae);
 	}
+
+	for (i = 0; validpls[i] != 0.0F; i++)
+		if (validpls[i] == ipl)
+			foundpl = 1,
+			break;
+	if (! foundpl)
+		fprintf(stderr, "non-standard tx pl %5.1f will be programmed anyway\n",
+			ipl);
+	freqbits = (int)((double)ipl * 18.0616F);
+	answer = (freqbits & 0xff) << 8;
+	answer |= 0xa0;
+	answer |= (freqbits & 0x3f00) >> 8;
+
+	return(answer);
 }
 
 int rxplookup(float ipl)
 
 {
+	int i;
+	int foundpl = 0;
+	int freqbits;
+	int answer;
+
 	if (ipl == 0.0F) return (0xffdf);
-	else if (ipl == 67.0F) return (0xfdaf);
-	else if (ipl == 69.3F) return (0x70af);
-	else if (ipl == 71.9F) return (0xd1ae);
-	else if (ipl == 74.4F) return (0x38ae);
-	else if (ipl == 77.0F) return (0x99ad);
-	else if (ipl == 79.7F) return (0xf4ac);
-	else if (ipl == 82.5F) return (0x48ac);
-	else if (ipl == 85.4F) return (0x97ab);
-	else if (ipl == 88.5F) return (0xd9aa);
-	else if (ipl == 91.5F) return (0x22aa);
-	else if (ipl == 94.8F) return (0x58a9);
-	else if (ipl == 97.4F) return (0xb9a8);
-	else if (ipl == 100.0F) return (0x1aa8);
-	else if (ipl == 103.5F) return (0x44a7);
-	else if (ipl == 107.2F) return (0x62a6);
-	else if (ipl == 110.9F) return (0x7fa5);
-	else if (ipl == 114.8F) return (0x91a4);
-	else if (ipl == 118.8F) return (0x9ca3);
-	else if (ipl == 123.0F) return (0x9ba2);
-	else if (ipl == 127.3F) return (0x94a1);
-	else if (ipl == 131.8F) return (0x81a0);
-	else if (ipl == 136.5F) return (0x619f);
-	else if (ipl == 141.3F) return (0x3c9e);
-	else if (ipl == 146.2F) return (0x109d);
-	else if (ipl == 151.4F) return (0xd29b);
-	else if (ipl == 156.7F) return (0x8e9a);
-	else if (ipl == 162.2F) return (0x3d99);
-	else if (ipl == 167.9F) return (0xe197);
-	else if (ipl == 173.8F) return (0x7896);
-	else if (ipl == 179.9F) return (0x0395);
-	else if (ipl == 186.2F) return (0x8193);
-	else if (ipl == 192.8F) return (0xed91);
-	else if (ipl == 203.3F) return (0x5f8f);
-	else if (ipl == 206.5F) return (0xa78e);
-	else if (ipl == 210.7F) return (0xa68d);
-	else if (ipl == 218.1F) return (0xe28b);
-	else if (ipl == 225.7F) return (0x118a);
-	else if (ipl == 229.1F) return (0x4189);
-	else if (ipl == 233.6F) return (0x2e88);
-	else if (ipl == 241.8F) return (0x3886);
-	else if (ipl == 250.3F) return (0x3084);
-	else if (ipl == 254.1F) return (0x4883);
-	else
+	if ((ipl < 61.2F) || (ipl > 267.8F))
 	{
-		fprintf(stderr, "rx pl code %.3f is invalid, using 254.1\n", ipl);
+		fprintf(stderr, "rx pl code %f is out of range, using 254.1\n", ipl);
 		return(0x4883);
 	}
+
+	for (i = 0; validpls[i] != 0.0F; i++)
+		if (validpls[i] == ipl)
+			foundpl = 1,
+			break;
+	if (! foundpl)
+		fprintf(stderr, "non-standard rx pl %5.1f will be programmed anyway\n",
+			ipl);
+	freqbits = (int)((double)ipl * 61.17F);
+	answer = (freqbits & 0xff) << 8;
+	answer |= 0xa0;
+	answer |= (freqbits & 0x3f00) >> 8;
+
+	return(answer);
 }
 
 int totlookup(int secs)
