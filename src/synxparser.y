@@ -94,6 +94,8 @@ static int lastmode = 0;
 %token <keyword> GREFFREQ NMODES REFFREQ MODE TXVCOSPLIT RXVCOSPLIT
 %token <keyword> LBVCO1SPLITTX LBVCO2SPLITTX LBVCO3SPLITTX
 %token <keyword> LBVCO1SPLITRX LBVCO2SPLITRX LBVCO3SPLITRX
+%token <keyword> MAXLOWBAND MAXHIGHBAND MAXUHFBAND MAX800BAND
+%token <keyword> MAXUHFR1BAND TALKAROUND800
 %token <keyword> PMTXVCOSPLIT PMRXVCOSPLIT TRVBITINVERT
 %token <keyword> NPSCANLIST TXDPL TXDPLINV TXPL RXDPL RXDPLINV RXPL
 %token <keyword> TXMPL RXMPL
@@ -158,6 +160,30 @@ stmt:				/* empty */
 					| LBVCO3SPLITRX DOUBLE
 						{
 							glbvco2splitrx = $2;
+						}
+					| MAXLOWBAND DOUBLE
+						{
+							gmaxlowband = (int)($2 * 1000000.0L);
+						}
+					| MAXHIGHBAND DOUBLE
+						{
+							gmaxhighband = (int)($2 * 1000000.0L);
+						}
+					| MAXUHFBAND DOUBLE
+						{
+							gmaxuhfband = (int)($2 * 1000000.0L);
+						}
+					| MAX800BAND DOUBLE
+						{
+							gmax800band = (int)($2 * 1000000.0L);
+						}
+					| MAXUHFR1BAND DOUBLE
+						{
+							gmaxuhfr1band = (int)($2 * 1000000.0L);
+						}
+					| TALKAROUND800 DOUBLE
+						{
+							gtalkaround800 = (int)($2 * 1000000.0L);
 						}
 					| TRVBITINVERT yesorno
 						{
@@ -836,6 +862,12 @@ int main(int argc, char *argv[])
 	glbvco1splitrx = DEFLBVCO1SPLITRX;
 	glbvco2splitrx = DEFLBVCO2SPLITRX;
 	glbvco3splitrx = DEFLBVCO3SPLITRX;
+	gmaxlowband = DEFMAXLOWBAND;
+	gmaxhighband = DEFMAXHIGHBAND;
+	gmaxuhfband = DEFMAXUHFBAND;
+	gmax800band = DEFMAX800BAND;
+	gmaxuhfr1band = DEFMAXUHFR1BAND;
+	gtalkaround800 = DEFTALKAROUND800;
 
 	if ((outfile = fdopen(fileno(stdout), "w")) == NULL)
 	{

@@ -110,25 +110,25 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 	*txvbits = 0;
 	*rxvbits = 0;
 	if (gtxvcosplit == -1)
-		if (txfreq < MAXLOWBAND)
+		if (txfreq < gmaxlowband)
 			gtxvcosplit = 47.1;
 		else
-			if (txfreq < MAXHIGHBAND)
+			if (txfreq < gmaxhighband)
 				gtxvcosplit = 161.8;
 			else
-				if (txfreq < MAXUHFBAND)
+				if (txfreq < gmaxuhfband)
 					gtxvcosplit = 459.5;
 				else
 					gtxvcosplit = 825.0;
 
 	if (grxvcosplit == -1)
-		if (rxfreq < MAXLOWBAND)
+		if (rxfreq < gmaxlowband)
 			grxvcosplit = 47.1;
 		else
-			if (rxfreq < MAXHIGHBAND)
+			if (rxfreq < gmaxhighband)
 				grxvcosplit = 150.0;
 			else
-				if (rxfreq < MAXUHFBAND)
+				if (rxfreq < gmaxuhfband)
 					grxvcosplit = 459.5;
 				else
 					grxvcosplit = 825.0;
@@ -143,7 +143,7 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 	else
 		rxvcosplit = pmrxsplit;
 
-	if (rxfreq < MAXLOWBAND)
+	if (rxfreq < gmaxlowband)
 	{
 		if (rxfreq < glbvco1splitrx)
 			*rxvbits = 0;
@@ -157,7 +157,7 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 					*rxvbits = 3;
 	}
 
-	if (txfreq < MAXLOWBAND)
+	if (txfreq < gmaxlowband)
 	{
 		if (txfreq < glbvco1splittx)
 			*txvbits = 3;
@@ -171,7 +171,7 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 					*txvbits = 0;
 	}
 	/* The rest of the bands assume rx band == tx band, however foolish */
-	else if (txfreq < MAXHIGHBAND)
+	else if (txfreq < gmaxhighband)
 	{
 		if (txfreq < txvcosplit)
 			*txvbits = 3;
@@ -182,7 +182,7 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 		else
 			*rxvbits = 2;
 	}
-	else if (txfreq < MAXUHFR1BAND)
+	else if (txfreq < gmaxuhfr1band)
 	{
 		if (txfreq < txvcosplit)
 			*txvbits = 2;
@@ -193,7 +193,7 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 		else
 			*rxvbits = 1;
 	}
-	else if (txfreq < MAXUHFBAND)
+	else if (txfreq < gmaxuhfband)
 	{
 		if (txfreq < txvcosplit)
 			*txvbits = 3;
@@ -204,26 +204,26 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 		else
 			*rxvbits = 0;
 	}
-	else if (txfreq < MAX800BAND)
+	else if (txfreq < gmax800band)
 	{
-		if (txfreq > TALKAROUND800)
+		if (txfreq > gtalkaround800)
 			*txvbits = 2;
 		else
 			*txvbits = 0;
 		*rxvbits = 0;
 	}
 
-	if (txfreq < MAXLOWBAND)
+	if (txfreq < gmaxlowband)
 		return;
 
-	if (gtrvbitinvert && (txfreq > MAXUHFBAND))
+	if (gtrvbitinvert && (txfreq > gmaxuhfband))
 	{
 		*txvbits ^= 0x10;
 		*rxvbits ^= 0x10;
 		return;
 	}
 
-	if (gtrvbitinvert && (txfreq > MAXLOWBAND))
+	if (gtrvbitinvert && (txfreq > gmaxlowband))
 	{
 		*txvbits ^= 0x01;
 		*rxvbits ^= 0x01;
@@ -237,7 +237,7 @@ unsigned int selrefreq(unsigned int refreq, unsigned int txfreq)
 	unsigned int newrefreq;
 
 	newrefreq = refreq;
-	if (txfreq < MAXUHFBAND)
+	if (txfreq < gmaxuhfband)
 	{
 		if (txfreq % refreq)
 		{
@@ -447,10 +447,10 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	   radios prefer the 6.25 kHz frequency." -- From Pakman's code plug
 	   documentation at http://home.xnet.com/~pakman/syntor/syntorx.htm */
 
-	if (txfreq < MAXLOWBAND)
+	if (txfreq < gmaxlowband)
 		refreq = 6250;
 	else
-		if (txfreq < MAXHIGHBAND)
+		if (txfreq < gmaxhighband)
 			refreq = 5000;
 		else
 			refreq = 6250;
@@ -475,35 +475,35 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 
 	/* RX IF varies between bands */
 
-	if (rxfreq < MAXLOWBAND)
+	if (rxfreq < gmaxlowband)
 		rxif = 75700000;
 	else
-		if (rxfreq < MAXHIGHBAND)
+		if (rxfreq < gmaxhighband)
 			rxif = 53900000;
 		else
-			if (rxfreq < MAXUHFR1BAND)
+			if (rxfreq < gmaxuhfr1band)
 				rxif = 53900000;
 			else
-				if (rxfreq < MAXUHFBAND)
+				if (rxfreq < gmaxuhfband)
 					rxif = -53900000;
 				else
-					if (rxfreq < MAX800BAND)
+					if (rxfreq < gmax800band)
 						rxif = -53900000;
 
 	for (i = 0; i < 16; i++)
 		plugbuf[i] = 0;
 
-	if (txfreq < MAXLOWBAND)
+	if (txfreq < gmaxlowband)
 		txvcofreq = 172800000 - txfreq;
 	else
-		if (txfreq > MAXUHFBAND)
+		if (txfreq > gmaxuhfband)
 			txvcofreq = txfreq / 2;
 		else
 			txvcofreq = txfreq;
 	txn = txvcofreq / refreq;
 	txc = txn % 3;
 	txcix = txc;
-	if (txfreq < MAXLOWBAND)
+	if (txfreq < gmaxlowband)
 		txn1 = txn;
 	else
 	{
@@ -520,14 +520,14 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	txn2 = txn1 / 63;
 	txb = txn2 - txa;
 
-	if (rxfreq > MAXUHFBAND)
+	if (rxfreq > gmaxuhfband)
 		rxvcofreq = (rxfreq + rxif) / 2;
 	else
 		rxvcofreq = rxfreq + rxif;
 	rxn = rxvcofreq / refreq;
 	rxc = rxn % 3;
 	rxcix = rxc;
-	if (rxfreq < MAXLOWBAND)
+	if (rxfreq < gmaxlowband)
 		rxn1 = rxn;
 	else
 	{
@@ -624,11 +624,11 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	plugbuf[0x0a] |= (gmodedef -> p1scanmode - 1) & 0x1f;
 	accum = (txvbits << 6);
 	accum |= (rxvbits << 2);
-	if (txfreq < MAXLOWBAND)
+	if (txfreq < gmaxlowband)
 		accum |= (3 << 4);
 	else
 		accum |= (ctable[txcix] << 4);
-	if (rxfreq < MAXLOWBAND)
+	if (rxfreq < gmaxlowband)
 		if (gmodedef -> rxextender)
 			accum |= 2;
 		else

@@ -49,10 +49,10 @@
    for example; the program isn't that smart.  The main hope is that these
    are wide enough for normal use, without overlapping. */
 
-#define MAXLOWBAND 100000000
-#define MAXHIGHBAND 250000000
-#define MAXUHFBAND 550000000
-#define MAX800BAND 950000000
+#define DEFMAXLOWBAND 100000000
+#define DEFMAXHIGHBAND 250000000
+#define DEFMAXUHFBAND 550000000
+#define DEFMAX800BAND 950000000
 
 /* Low-band radios have four sub-splits.  These are the operating
    frequencies which correspond to the default splits. */
@@ -73,13 +73,13 @@
    435, which is halfway between the factory top of a R1 radio and the
    factory bottom of an R2. */
 
-#define MAXUHFR1BAND 435000000
+#define DEFMAXUHFR1BAND 435000000
 
 /* 800 radios use one range for rx and tx, except in talkaround, when
    they shift transmit up to the receive range.  The split frequency
    is needed to calculate v-bits. */
 
-#define TALKAROUND800 825000000
+#define DEFTALKAROUND800 825000000
 
 typedef struct
 {
@@ -125,6 +125,12 @@ EXTERN double glbvco3splittx;
 EXTERN double glbvco1splitrx;
 EXTERN double glbvco2splitrx;
 EXTERN double glbvco3splitrx;
+EXTERN long gmaxlowband;
+EXTERN long gmaxhighband;
+EXTERN long gmaxuhfband;
+EXTERN long gmax800band;
+EXTERN long gmaxuhfr1band;
+EXTERN long gtalkaround800;
 EXTERN Modestruct gmodedef[MAXMODES];
 EXTERN Modestruct gscratchmodedef;
 EXTERN int gscratchlist[MAXMODES];
