@@ -74,6 +74,7 @@
 typedef struct
 {
 	int defined;
+	char label[81];
 	int scanlistsize;
 	int npscanlist[MAXMODES];
 	int txdplflag;

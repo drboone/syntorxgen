@@ -43,6 +43,7 @@ void initmode(Modestruct *m)
 
 {
 	m -> defined = 0;
+	m -> label[0] = 0;
 	m -> scanlistsize = 0;
 	memset(m -> npscanlist, 0, sizeof(m -> npscanlist));
 	m -> txdplflag = 0;
@@ -95,6 +96,7 @@ void initmode(Modestruct *m)
 %token <keyword> SQUELCHTYPE P1SCANMODE TXFREQ RXFREQ RXEXTENDER
 %token <keyword> HIGH LOW NONE NONPRI SGLPRI DBLPRI YES NO
 %token <keyword> SELECTABLE FIXED STDSTD ANDSTD ANDOR
+%token <sval>    LABEL STRING
 %token <keyword> ERROR
 
 %type <keyword> high low none nonpri sglpri dblpri yes no selectable fixed
@@ -193,7 +195,11 @@ xmstmt:				/* empty */
 						}
 					;
 
-mstmt:				NPSCANLIST intlist
+mstmt:				LABEL STRING
+						{
+							strncpy(gscratchmodedef.label, $2, 80);
+						}
+					| NPSCANLIST intlist
 						{
 							memcpy(gscratchmodedef.npscanlist,
 								gscratchlist, sizeof(int)*gscratchlistsize);

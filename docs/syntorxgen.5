@@ -115,6 +115,11 @@ than 32 modes also affects MPL, and possibly other, options.
 .SH "PER-MODE DIRECTIVES"
 .IP "MODE mode-number { mode-definition }"
 Announces that directives between { and } apply to the specified mode.
+.IP "LABEL quoted-string"
+Defines a label for this mode definition.  The string must be
+surrounded by double quote characters (").  Syntorxgen does not use
+the label; however input file editing applications might display such
+a label to describe the contents of the mode.
 .IP "NPSCANLIST mode[, mode]..."
 Defines the list of channels scanned during non-priority scan operation.
 Default if this directive is not supplied is an empty non-priority scan

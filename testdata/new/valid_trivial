@@ -1,6 +1,7 @@
 nmodes 5;
 mode 1
 {
+	label "labels do nothing, but are less free form than comments";
 	txfreq 438.750;
 	rxfreq 433.750;
 	txdpl 345;

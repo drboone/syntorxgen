@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "y.tab.h"
-#define KWLISTSIZE 43
+#define KWLISTSIZE 44
 
 struct key
 {
@@ -43,6 +43,7 @@ struct key
 	"NMODES",		NMODES,
 	"REFFREQ",		REFFREQ,
 	"MODE",			MODE,
+	"LABEL",		LABEL,
 	"NPSCANLIST",	NPSCANLIST,
 	"TXDPL",		TXDPL,
 	"TXDPLINV",		TXDPLINV,
@@ -92,9 +93,11 @@ WHITESPACE		[ \t]+
 INTEGER			[0-9]+
 DOUBLE			[0-9]*[.]+[0-9]+
 KEYWORD			[A-Za-z][A-Za-z0-9]*
+DQUOTE			["]
 DEFAULT			[^#;{} \n\t0-9A-Za-z]
 
 %s comment
+%s string
 
 %%
 
@@ -127,6 +130,12 @@ DEFAULT			[^#;{} \n\t0-9A-Za-z]
 						yylval.sval = yytext;
 						return(ERROR);
 					}
+				}
+{DQUOTE}		BEGIN(string);
+<string>[^"]+{DQUOTE}	{
+					BEGIN(INITIAL);
+					yylval.sval = yytext;
+					return(STRING);
 				}
 {DEFAULT}		{
 					fprintf(stderr, "invalid character %c at line %d\n",
