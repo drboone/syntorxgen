@@ -81,6 +81,9 @@ typedef struct
 EXTERN int greffreq;
 EXTERN double gtxvcosplit;
 EXTERN double grxvcosplit;
+EXTERN double glbvco1split;
+EXTERN double glbvco2split;
+EXTERN double glbvco3split;
 EXTERN Modestruct gmodedef[MAXMODES];
 EXTERN Modestruct gscratchmodedef;
 EXTERN int gscratchlist[MAXMODES];
