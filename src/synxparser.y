@@ -70,6 +70,8 @@ void initmode(Modestruct *m)
 	m -> txfreq = 0.0;
 	m -> rxfreq = 0.0;
 	m -> rxextender = 1;
+	m -> pmtxsplit = 0.0;
+	m -> pmrxsplit = 0.0;
 }
 
 %}
@@ -90,6 +92,7 @@ void initmode(Modestruct *m)
 %token <keyword> GREFFREQ NMODES REFFREQ MODE TXVCOSPLIT RXVCOSPLIT
 %token <keyword> LBVCO1SPLITTX LBVCO2SPLITTX LBVCO3SPLITTX
 %token <keyword> LBVCO1SPLITRX LBVCO2SPLITRX LBVCO3SPLITRX
+%token <keyword> PMTXVCOSPLIT PMRXVCOSPLIT
 %token <keyword> NPSCANLIST TXDPL TXDPLINV TXPL RXDPL RXDPLINV RXPL
 %token <keyword> TXMPL RXMPL
 %token <keyword> SCANTYPE TBSCAN TIMEOUT TXPOWER 
@@ -344,6 +347,14 @@ mstmt:				LABEL STRING
 					| RXEXTENDER yesorno
 						{
 							gscratchmodedef.rxextender = $2;
+						}
+					| PMTXVCOSPLIT DOUBLE
+						{
+							gscratchmodedef.pmtxsplit = $2;
+						}
+					| PMRXVCOSPLIT DOUBLE
+						{
+							gscratchmodedef.pmrxsplit = $2;
 						}
 					| ERROR
 						{

@@ -215,6 +215,14 @@ There is no default.
 .IP "RXEXTENDER { yes | no }"
 Enables or disables the receiver extender (a.k.a. noise blanker) in
 low-band radios.  Default is to disable the extender.
+.IP "PMTXVCOSPLIT vbit-changeover-frequency"
+Equivalent to TXVCOSPLIT, except it only affects the functioning of
+the mode definition in which it appears.  Primarily useful for radio
+testing and debugging.
+.IP "PMRXVCOSPLIT vbit-changeover-frequency"
+Equivalent to RXVCOSPLIT, except it only affects the functioning of
+the mode definition in which it appears.  Primarily useful for radio
+testing and debugging.
 .SH "DPL CODES"
 .LP
 The recognized DPL codes and their inverts appear here as

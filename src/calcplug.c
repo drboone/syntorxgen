@@ -100,7 +100,8 @@ Dplfunnybits dplfunnybits[] =
 };
 
 int selvbits(unsigned int txfreq, unsigned int rxfreq,
-	unsigned int *txvbits, unsigned int *rxvbits)
+	unsigned int *txvbits, unsigned int *rxvbits,
+	unsigned int pmtxsplit, unsigned int pmrxsplit)
 
 {
 	unsigned int txvcosplit;
@@ -132,8 +133,15 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 				else
 					grxvcosplit = 825.0;
 
-	txvcosplit = (int)(gtxvcosplit * 1000000.0L);
-	rxvcosplit = (int)(grxvcosplit * 1000000.0L);
+	if (pmtxsplit == 0)
+		txvcosplit = (int)(gtxvcosplit * 1000000.0L);
+	else
+		txvcosplit = pmtxsplit;
+
+	if (pmrxsplit == 0)
+		rxvcosplit = (int)(grxvcosplit * 1000000.0L);
+	else
+		rxvcosplit = pmrxsplit;
 
 	if (rxfreq < MAXLOWBAND)
 	{
@@ -391,6 +399,7 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 {
 	unsigned int i;
 	unsigned int txvcofreq, rxvcofreq;
+	unsigned int pmtxsplit, pmrxsplit;
 	unsigned int refreq;
 	unsigned char accum;
 	unsigned int txa, txb, txc, txn, txn1, txn2;
@@ -410,9 +419,12 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 	txfreq = (unsigned int)floor((gmodedef -> txfreq) * 1000000.0L);
 	rxfreq = (unsigned int)floor((gmodedef -> rxfreq) * 1000000.0L);
 
+	pmtxsplit = (unsigned int)floor((gmodedef -> pmtxsplit) * 1000000.0L);
+	pmrxsplit = (unsigned int)floor((gmodedef -> pmrxsplit) * 1000000.0L);
+
 	/* Figure VCO range splits */
 
-	selvbits(txfreq, rxfreq, &txvbits, &rxvbits);
+	selvbits(txfreq, rxfreq, &txvbits, &rxvbits, pmtxsplit, pmrxsplit);
 
 	/* Default: "VHF RSS prefers the 5 KHz reference frequency. All other
 	   radios prefer the 6.25 kHz frequency." -- From Pakman's code plug

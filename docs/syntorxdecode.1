@@ -35,6 +35,11 @@ reads a code plug in plain hex or Motorola S-record format.  An input
 file suitable for feeding to syntorxgen, and describing the contents
 of the code plug, is generated.
 .LP
+Note that it is nearly impossible for the program to guess where the
+V-bit splits were set when the code plug was generated.  This will not
+break the decoding, but may cause problems in regenerating the code
+plug if you do not edit the resulting file.
+.LP
 For copious information on working with Syntor X radios, see
 .IR http://www.open.org/~blenderm/syntorx/ .
 .LP

@@ -111,6 +111,8 @@ typedef struct
 	double txfreq;
 	double rxfreq;
 	int rxextender;
+	double pmtxsplit;
+	double pmrxsplit;
 } Modestruct;
 
 EXTERN int greffreq;
