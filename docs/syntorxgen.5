@@ -23,15 +23,32 @@ Non-comment lines in the file may only contain sharp characters,
 semicolons, curly braces, spaces, tabs, digits and upper or lower
 case alphabetics.
 .LP
-A sharp character (#) introduces a comment, which runs to the end of
-the line on which it appears.  Comments are ignored.  Comments may
-contain any character.
+A sharp character (#) anywhere on a line introduces a comment, which
+runs to the end of the line on which it appears.  Comments are ignored.
+Comments may contain any character.
 .SH DEFAULTS
 .IP "Reference frequency"
 .B syntorxgen
 uses the same defaults as Motorola RSS, and will automatically try
 to select an alternate if the default is not valid for the desired
 transmit frequency.
+.IP "Upper limits of radios"
+The program assumes some upper frequency limits for each type of radio.
+The low band radio is assumed to top out at 100 MHz, the high band
+radio at 250 MHz, the UHF radios at 550 MHz, and the 800 radios at
+950 MHz.  The UHF range 1 radios are assumed to top out at 420 MHz.
+These limits are compiled in, but hopefully allow for most feasible
+types of radio modifications.
+.IP "V-bit splits"
+Most v-bit changeover frequencies are specifiable in the input file.
+However, the 800 radio talkaround uses 825 MHz as the crossover,
+and this number is compiled into the program.
+.IP "Number of modes"
+The program pre-sets the number of modes to 32; however this can be
+changed by the input file.  The highest number of modes allowed by
+the program is 256.  Note that the standard ROM will only hold 128
+mode definitions, so hardware changes would be required to actually
+achieve 256 mode radios.
 .SH "GLOBAL DIRECTIVES"
 .LP
 Global directives apply to all modes defined by the input file.
@@ -217,3 +234,7 @@ The recognized PL frequencies are:
 Dennis Boone <jm-sxg at yagi.h-net.msu.edu>
 .SH "SEE ALSO"
 .BR syntorxgen (1)
+.br
+.BR http://home.xnet.com/~pakman/syntor/syntorx.htm
+.br
+.BR http://www.open.org/~blenderm/syntorx/
