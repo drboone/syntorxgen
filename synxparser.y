@@ -175,7 +175,7 @@ mstmt:				NPSCANLIST intlist
 
 							gscratchmodedef.txdplflag = 1;
 							gscratchmodedef.txplflag = 0;
-							sprintf(tooct, "%d", $2);
+							sprintf(tooct, "%03d", $2);
 							sscanf(tooct, "%o", &gscratchmodedef.txdpl);
 						}
 					| TXDPLINV yesorno
@@ -198,12 +198,12 @@ mstmt:				NPSCANLIST intlist
 
 							gscratchmodedef.rxdplflag = 1;
 							gscratchmodedef.rxplflag = 0;
-							sprintf(tooct, "%d", $2);
+							sprintf(tooct, "%03d", $2);
 							sscanf(tooct, "%o", &gscratchmodedef.rxdpl);
 						}
 					| RXDPLINV yesorno
 						{
-							gscratchmodedef.txdplinv = $2;
+							gscratchmodedef.rxdplinv = $2;
 						}
 					| RXPL DOUBLE
 						{

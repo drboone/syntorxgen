@@ -63,7 +63,8 @@ section below for a list of valid DPL codes.
 .IP "TXDPLINV { yes | no }"
 Defines whether or not the specified transmit DPL code should be
 inverted.  Default if this directive does not appear is not to invert.
-The program will invert an inverted code if the input file so requests.
+The program will set the invert bit for an inverted code if the input
+file so requests.
 .IP "TXPL pl-frequency"
 Selects the PL frequency to be transmitted.  Default if this directive
 does not appear is to transmit no PL.  See the
@@ -80,7 +81,8 @@ Either normal or inverted codes may be specified.
 .IP "RXDPLINV { yes | no }"
 Defines whether or not the specified receive DPL code should be
 inverted.  Default if this directive does not appear is not to invert.
-The program will invert an inverted code if the input file so requests.
+The program will set the invert bit for an inverted code if the input
+file so requests.
 .IP "RXPL pl-frequency"
 Selects the PL frequency required to open the receiver squelch in this
 mode.  Default if this directive does not appear is to require no PL.
