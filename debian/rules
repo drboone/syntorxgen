@@ -25,6 +25,8 @@ configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
 
+	sh bootstrap
+	sh configure
 	touch configure-stamp
 
 
@@ -35,7 +37,6 @@ build-stamp: configure-stamp
 
 	# Add here commands to compile the package.
 	$(MAKE)
-	#/usr/bin/docbook-to-man debian/syntorxgen.sgml > syntorxgen.1
 
 	touch build-stamp
 
