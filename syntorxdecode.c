@@ -137,7 +137,7 @@ void decode(unsigned int *binbuf)
 			/* yes, it's supposed to fall through */
 		case 0:	/* PL */
 			{
-				double pl;
+				float pl;
 
 				bits = binbuf[6];
 				bits |= (binbuf[7] & 0x3f) << 8;

@@ -32,7 +32,7 @@ unsigned char ctable[3] = { 2, 1, 3 };
 /* unsigned char dpltable[8] = { 0, 4, 2, 6, 1, 5, 3, 7 }; */
 unsigned int dpltable[8] = { 7, 3, 5, 1, 6, 2, 4, 0 };
 
-double validpls[] =
+float validpls[] =
 {
 	67.0, 69.3, 71.9, 74.4, 77.0, 79.7, 82.5, 85.4, 88.5, 91.5, 94.8,
 	97.4, 100.0, 103.5, 107.2, 110.9, 114.8, 118.8, 123.0, 127.3,
@@ -250,13 +250,13 @@ unsigned int encoderefreq(unsigned int refreq)
 	}
 }
 
-int txplookup(float ipl)
+unsigned int txplookup(float ipl)
 
 {
 	int i;
 	int foundpl = 0;
-	int freqbits;
-	int answer;
+	unsigned int freqbits;
+	unsigned int answer;
 
 	if (ipl == 0.0F) return (0xffdf);
 	if ((ipl < 18.1F) || (ipl > 907.1F))
@@ -267,12 +267,14 @@ int txplookup(float ipl)
 
 	for (i = 0; validpls[i] != 0.0F; i++)
 		if (validpls[i] == ipl)
-			foundpl = 1,
+		{
+			foundpl = 1;
 			break;
+		}
 	if (! foundpl)
 		fprintf(stderr, "non-standard tx pl %5.1f will be programmed anyway\n",
 			ipl);
-	freqbits = (int)((double)ipl * 18.0616F);
+	freqbits = ~(int)(ipl * 18.0616F);
 	answer = (freqbits & 0xff) << 8;
 	answer |= 0xa0;
 	answer |= (freqbits & 0x3f00) >> 8;
@@ -280,13 +282,13 @@ int txplookup(float ipl)
 	return(answer);
 }
 
-int rxplookup(float ipl)
+unsigned int rxplookup(float ipl)
 
 {
 	int i;
 	int foundpl = 0;
-	int freqbits;
-	int answer;
+	unsigned int freqbits;
+	unsigned int answer;
 
 	if (ipl == 0.0F) return (0xffdf);
 	if ((ipl < 61.2F) || (ipl > 267.8F))
@@ -297,14 +299,16 @@ int rxplookup(float ipl)
 
 	for (i = 0; validpls[i] != 0.0F; i++)
 		if (validpls[i] == ipl)
-			foundpl = 1,
+		{
+			foundpl = 1;
 			break;
+		}
 	if (! foundpl)
 		fprintf(stderr, "non-standard rx pl %5.1f will be programmed anyway\n",
 			ipl);
-	freqbits = (int)((double)ipl * 61.17F);
+	freqbits = ~(int)(ipl * 61.17F);
 	answer = (freqbits & 0xff) << 8;
-	answer |= 0xa0;
+	answer |= 0xc0;
 	answer |= (freqbits & 0x3f00) >> 8;
 
 	return(answer);
@@ -324,7 +328,7 @@ int dplookup(int ipl)
 			dplfound = 1;
 			break;
 		}
-	if (found)
+	if (dplfound)
 		return(funnybits);
 	else
 		return(7);
