@@ -49,13 +49,9 @@ EOF
 		printf("\ttxfreq %7.3f;\n", $a);
 		printf("\trxfreq %7.3f;\n", $a);
 		print <<"EOF";
-	txdpl 0;
 	txdplinv no;
-	txpl 0.0;
 	txmpl no;
-	rxdpl 0;
 	rxdplinv no;
-	rxpl 0.0;
 	rxmpl no;
 	timeout 0;
 	txpower high;
