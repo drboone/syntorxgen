@@ -58,7 +58,7 @@ transmit frequency.
 The program assumes some upper frequency limits for each type of radio.
 The low band radio is assumed to top out at 100 MHz, the high band
 radio at 250 MHz, the UHF radios at 550 MHz, and the 800 radios at
-950 MHz.  The UHF range 1 radios are assumed to top out at 420 MHz.
+950 MHz.  The UHF range 1 radios are assumed to top out at 435 MHz.
 These limits are compiled in, but hopefully allow for most feasible
 types of radio modifications.
 .IP "V-bit splits"
@@ -122,8 +122,14 @@ plug.  The EEPROM can contain 128, but more than 32 require hardware
 modifications to the radio and control head hardware.  Programming more
 than 32 modes also affects MPL, and possibly other, options.
 .SH "PER-MODE DIRECTIVES"
-.IP "MODE mode-number { mode-definition }"
-Announces that directives between { and } apply to the specified mode.
+.IP "MODE [mode-number] { mode-definition }"
+Announces that directives between { and } apply to the specified
+mode.  The mode number may be omitted, in which case the program
+will determine which mode number to use by adding one to the most
+recently used mode number.  If no modes have been defined, the program
+starts with mode 1.  Note that if you skip around in numbering, or
+mix specific mode numbers with automatic ones, you can fairly easily
+overwrite previously defined modes, and syntorxgen will not stop you.
 .IP "LABEL quoted-string"
 Defines a label for this mode definition.  The string must be
 surrounded by double quote characters (").  Syntorxgen does not use
