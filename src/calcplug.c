@@ -212,6 +212,23 @@ int selvbits(unsigned int txfreq, unsigned int rxfreq,
 			*txvbits = 0;
 		*rxvbits = 0;
 	}
+
+	if (txfreq < MAXLOWBAND)
+		return;
+
+	if (gtrvbitinvert && (txfreq > MAXUHFBAND))
+	{
+		*txvbits ^= 0x10;
+		*rxvbits ^= 0x10;
+		return;
+	}
+
+	if (gtrvbitinvert && (txfreq > MAXLOWBAND))
+	{
+		*txvbits ^= 0x01;
+		*rxvbits ^= 0x01;
+		return;
+	}
 }
 
 unsigned int selrefreq(unsigned int refreq, unsigned int txfreq)

@@ -29,7 +29,7 @@
 #include <math.h>
 /* #include "y.tab.h" */
 #include "synxparser.h"
-#define KWLISTSIZE 49
+#define KWLISTSIZE 50
 
 struct key
 {
@@ -72,6 +72,7 @@ struct key
 	"RXEXTENDER",		RXEXTENDER,
 	"PMTXVCOSPLIT",		PMTXVCOSPLIT,
 	"PMRXVCOSPLIT",		PMRXVCOSPLIT,
+	"TRVBITINVERT",		TRVBITINVERT,
 	"HIGH",				HIGH,
 	"LOW",				LOW,
 	"NONE",				NONE,

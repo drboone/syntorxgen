@@ -94,7 +94,7 @@ static int lastmode = 0;
 %token <keyword> GREFFREQ NMODES REFFREQ MODE TXVCOSPLIT RXVCOSPLIT
 %token <keyword> LBVCO1SPLITTX LBVCO2SPLITTX LBVCO3SPLITTX
 %token <keyword> LBVCO1SPLITRX LBVCO2SPLITRX LBVCO3SPLITRX
-%token <keyword> PMTXVCOSPLIT PMRXVCOSPLIT
+%token <keyword> PMTXVCOSPLIT PMRXVCOSPLIT TRVBITINVERT
 %token <keyword> NPSCANLIST TXDPL TXDPLINV TXPL RXDPL RXDPLINV RXPL
 %token <keyword> TXMPL RXMPL
 %token <keyword> SCANTYPE TBSCAN TIMEOUT TXPOWER 
@@ -158,6 +158,10 @@ stmt:				/* empty */
 					| LBVCO3SPLITRX DOUBLE
 						{
 							glbvco2splitrx = $2;
+						}
+					| TRVBITINVERT yesorno
+						{
+							gtrvbitinvert = $2;
 						}
 					| NMODES INTEGER
 						{

@@ -116,6 +116,7 @@ typedef struct
 } Modestruct;
 
 EXTERN int greffreq;
+EXTERN int gtrvbitinvert;
 EXTERN double gtxvcosplit;
 EXTERN double grxvcosplit;
 EXTERN double glbvco1splittx;

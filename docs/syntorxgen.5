@@ -121,6 +121,15 @@ Defines the number of modes to be emitted in the produced code
 plug.  The EEPROM can contain 128, but more than 32 require hardware
 modifications to the radio and control head hardware.  Programming more
 than 32 modes also affects MPL, and possibly other, options.
+.IP "TRVBITINVERT { yes | no }"
+If yes, inverts the V0 bit, typically causing the radio to use the
+transmit range of the VCO for receive, and vice versa.  The setting
+defaults to no.  This directive is primarily for radio hacking,
+such as replacing the VCO from a Range 1 UHF radio with the VCO from
+a Range 3 or 4 radio to move it into the ham bands.  The directive
+does nothing if the specified frequency is in the low-band range.
+On 800 radios, the bit which needs to be flipped is the V1 bit, and
+the program does this properly.
 .SH "PER-MODE DIRECTIVES"
 .IP "MODE [mode-number] { mode-definition }"
 Announces that directives between { and } apply to the specified
