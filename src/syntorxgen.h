@@ -68,9 +68,12 @@
 /* UHF Range 1 radios use high-side injection, all others low-side, so
    we need to be able to tell the difference.  This definition assumes
    that anyone programming an R1 frequency will be using an unmodified
-   radio in a factory-approved way. */
+   radio in a factory-approved way.  Update: ok, the first actual R1
+   radio I met and wanted to program at 431.xxx bit me.  Def'n is now
+   435, which is halfway between the factory top of a R1 radio and the
+   factory bottom of an R2. */
 
-#define MAXUHFR1BAND 420000000
+#define MAXUHFR1BAND 435000000
 
 /* 800 radios use one range for rx and tx, except in talkaround, when
    they shift transmit up to the receive range.  The split frequency
