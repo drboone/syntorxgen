@@ -1,5 +1,7 @@
 HOW TO INSTALL SYNTORXGEN
 
+Syntorxgen comes from http://msuarc.egr.msu.edu/syntorx/.
+
 The syntorxgen program is developed on Linux.  Nearly any modern unix
 system should be able to build and run it, if the proper tools are
 installed.  It is possible, with some manual intervention, to build
@@ -14,10 +16,5 @@ Required tools
 	an ANSI C compiler
 
 Assuming those tools are installed, building the program should be as
-simple as typing "make".
-
-The supplied Makefile does not provide a means of installing the program.
-To install the compiled program, copy the syntorxgen binary to a directory
-in your path, e.g. /usr/local/bin.  You may also copy the two man pages
-to the appropriate places.  For syntorxgen.1, that would probably be
-/usr/local/man/man1.  For syntorxgen.5, it would be /usr/local/man/man5.
+simple as typing "make".  To install the binaries, type "make install".
+To install the documentation, type "make install-manpages".

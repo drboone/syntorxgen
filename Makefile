@@ -23,6 +23,7 @@
 # along with Syntorxgen; if not, write to the Free Software Foundation,
 # Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+PREFIX=/usr/local
 
 INSTALL = /usr/bin/install
 
@@ -45,7 +46,9 @@ dist-clean: clean
 	$(RM) syntorxgen syntorxdecode
 
 install:
-	$(INSTALL) syntorxgen $(DESTDIR)/bin/
-	$(INSTALL) docs/syntorxgen.1 $(DESTDIR)/man/man1/
-	$(INSTALL) syntorxdecode $(DESTDIR)/bin/
-	$(INSTALL) docs/syntorxdecode.1 $(DESTDIR)/man/man1/
+	$(INSTALL) syntorxgen $(PREFIX)/bin/
+	$(INSTALL) syntorxdecode $(PREFIX)/bin/
+
+install-manpages:
+	$(INSTALL) docs/syntorxgen.1 $(PREFIX)/man/man1/
+	$(INSTALL) docs/syntorxdecode.1 $(PREFIX)/man/man1/
