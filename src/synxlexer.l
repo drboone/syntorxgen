@@ -25,7 +25,8 @@
 %{
 #include <stdlib.h>
 #include <math.h>
-#include "y.tab.h"
+/* #include "y.tab.h" */
+#include "synxparser.h"
 #define KWLISTSIZE 47
 
 struct key
