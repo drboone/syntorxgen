@@ -1,0 +1,5 @@
+Stuff fer ta do:
+
+Motorola fills with FF; Syntorxgen fills with 00.  Syntorxgen needs
+to fill with FF, but this will change some of the defaults, so the
+docs need to be updated.

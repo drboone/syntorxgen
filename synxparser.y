@@ -89,7 +89,8 @@ void initmode(Modestruct *m)
 %token <ival> INTEGER
 
 %token <keyword> GREFFREQ NMODES REFFREQ MODE TXVCOSPLIT RXVCOSPLIT
-%token <keyword> LBVCO1SPLIT LBVCO2SPLIT LBVCO3SPLIT
+%token <keyword> LBVCO1SPLITTX LBVCO2SPLITTX LBVCO3SPLITTX
+%token <keyword> LBVCO1SPLITRX LBVCO2SPLITRX LBVCO3SPLITRX
 %token <keyword> NPSCANLIST TXDPL TXDPLINV TXPL RXDPL RXDPLINV RXPL
 %token <keyword> TXMPL RXMPL
 %token <keyword> SCANTYPE TBSCAN TIMEOUT TXPOWER 
@@ -130,17 +131,29 @@ stmt:				/* empty */
 						{
 							grxvcosplit = $2;
 						}
-					| LBVCO1SPLIT DOUBLE
+					| LBVCO1SPLITTX DOUBLE
 						{
 							glbvco1splittx = $2;
 						}
-					| LBVCO2SPLIT DOUBLE
+					| LBVCO2SPLITTX DOUBLE
 						{
 							glbvco2splittx = $2;
 						}
-					| LBVCO3SPLIT DOUBLE
+					| LBVCO3SPLITTX DOUBLE
 						{
 							glbvco2splittx = $2;
+						}
+					| LBVCO1SPLITRX DOUBLE
+						{
+							glbvco1splitrx = $2;
+						}
+					| LBVCO2SPLITRX DOUBLE
+						{
+							glbvco2splitrx = $2;
+						}
+					| LBVCO3SPLITRX DOUBLE
+						{
+							glbvco2splitrx = $2;
 						}
 					| NMODES INTEGER
 						{

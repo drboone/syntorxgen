@@ -83,56 +83,64 @@ void decode(unsigned int *binbuf)
 
 	/* PL/DPL */
 
-	if (binbuf[5] & 0x20)
+	bits = (binbuf[5] & 0x60) >> 5;
+	switch (bits)
 	{
-		if (binbuf[5] & 0x40)
-		{
+		case 3:	/* NONE */
+			break;
+		case 2:	/* DPL */
 			bits = dpltable[(binbuf[4] & 0x70) >> 4]; /* C */
 			bits |= dpltable[(binbuf[4] & 0x0e) >> 1] << 3; /* B */
 			bit = (binbuf[4] & 0x01) << 2; /* A0 */
 			bit |= (binbuf[5] & 0x18) >> 3; /* A1-2 */
 			bits |= dpltable[bit] << 6;
 			printf("\ttxdpl %03o;\n", bits);
-		}
-		else
-		{
-			double pl;
+			break;
+		case 1:
+		case 0:
+			{
+				double pl;
 
-			bits = binbuf[4];
-			bits |= (binbuf[5] & 0x3f) << 8;
-			pl = (float)(~bits & 0x3fff) / 18.0616;
-			printf("\ttxpl %5.1f;\n", pl);
-		}
-		if (binbuf[5] & 0x80)
-			puts("\ttxmpl yes;");
-		else
-			puts("\ttxmpl no;");
-	}
-	if (binbuf[7] & 0x20)
+				bits = binbuf[4];
+				bits |= (binbuf[5] & 0x3f) << 8;
+				pl = (float)(~bits & 0x3fff) / 18.0616;
+				printf("\ttxpl %5.1f;\n", pl);
+			}
+			break;
+	};
+	if (binbuf[5] & 0x80)
+		puts("\ttxmpl no;");
+	else
+		puts("\ttxmpl yes;");
+
+	bits = (binbuf[7] & 0x60) >> 5;
+	switch (bits)
 	{
-		if (binbuf[7] & 0x40)
-		{
+		case 3:
+			break;
+		case 2:
 			bits = dpltable[(binbuf[6] & 0x70) >> 4]; /* C */
 			bits |= dpltable[(binbuf[6] & 0x0e) >> 1] << 3; /* B */
 			bit = (binbuf[6] & 0x01) << 2; /* A0 */
 			bit |= (binbuf[7] & 0x18) >> 3; /* A1-2 */
 			bits |= dpltable[bit] << 6;
 			printf("\trxdpl %03o;\n", bits);
-		}
-		else
-		{
-			double pl;
+		case 1:
+		case 0:
+			{
+				double pl;
 
-			bits = binbuf[6];
-			bits |= (binbuf[7] & 0x3f) << 8;
-			pl = (float)(~bits & 0x3fff) / 61.17;
-			printf("\trxpl %5.1f;\n", pl);
-		}
-		if (binbuf[7] & 0x80)
-			puts("\trxmpl yes;");
-		else
-			puts("\trxmpl no;");
-	}
+				bits = binbuf[6];
+				bits |= (binbuf[7] & 0x3f) << 8;
+				pl = (float)(~bits & 0x3fff) / 61.17;
+				printf("\trxpl %5.1f;\n", pl);
+			}
+			break;
+	};
+	if (binbuf[7] & 0x80)
+		puts("\trxmpl no;");
+	else
+		puts("\trxmpl yes;");
 
 	/* Timeout */
 
