@@ -23,10 +23,11 @@
 # along with Syntorxgen; if not, write to the Free Software Foundation,
 # Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-YACC=bison
+
+INSTALL = /usr/bin/install
+
 YFLAGS=-d -y -t
 CFLAGS=-g
-LEX=flex
 LFLAGS=-s
 LIBS=-lfl -lm
 
@@ -38,4 +39,11 @@ syntorxgen: synxparser.o synxlexer.o calcplug.o
 syntorxdecode: syntorxdecode.o
 
 clean:
-	rm *.o y.tab.h syntorxgen
+	$(RM) *.o y.tab.h 
+
+dist-clean: clean
+	$(RM) syntorxgen syntorxdecode
+
+install:
+	$(INSTALL) syntorxgen $(DESTDIR)/usr/bin/
+	$(INSTALL) syntorxdecode $(DESTDIR)/usr/bin/
