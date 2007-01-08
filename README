@@ -23,3 +23,7 @@ simple as typing:
 	./configure
 	make
 	make install
+
+On FreeBSD, you may want the gnu-<tool> variants of the autotools
+listed above, and if you intend to use those, you will have to put
+/usr/local/gnu-autotools/bin in your path.
