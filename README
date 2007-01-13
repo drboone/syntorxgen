@@ -27,3 +27,7 @@ simple as typing:
 On FreeBSD, you may want the gnu-<tool> variants of the autotools
 listed above, and if you intend to use those, you will have to put
 /usr/local/gnu-autotools/bin in your path.
+
+On NetBSD, you will need to build Bison and Autoconf from the pkgsrc
+system.  These two will bring a few other dependencies along with
+them.
