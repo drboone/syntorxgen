@@ -24,10 +24,12 @@ simple as typing:
 	make
 	make install
 
-On FreeBSD, you may want the gnu-<tool> variants of the autotools
-listed above, and if you intend to use those, you will have to put
-/usr/local/gnu-autotools/bin in your path.
+On FreeBSD, you will want the gnu-<tool> variants of the autotools.
+To use them, you will have to put /usr/local/gnu-autotools/bin in your
+path.  Installation is probably most easily achieved using sysinstall.
 
-On NetBSD, you will need to build Bison and Autoconf from the pkgsrc
+On NetBSD, you will need to build Bison and Automake from the pkgsrc
 system.  These two will bring a few other dependencies along with
-them.
+them, e.g. m4, autoconf.  For more information on pkgsrc, see:
+
+	http://www.netbsd.org/Documentation/pkgsrc/
