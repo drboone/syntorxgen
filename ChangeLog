@@ -1,5 +1,12 @@
 Changes to syntorxgen by version
 
+1.40rel
+
+	Automake/autoconf fixes so all the right files get included in the
+	distribution tarballs.
+
+	AUTHORS additions.
+
 1.31rel
 
 	Fix for floating point rounding errors, which led to messages like

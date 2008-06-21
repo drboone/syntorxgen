@@ -1,2 +1,2 @@
 SUBDIRS = src docs
-EXTRA_DIST = testdata utils
+EXTRA_DIST = testdata utils debian
