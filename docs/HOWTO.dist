@@ -1,0 +1,8 @@
+To make a distribution tarball:
+
+cvs export the source tree
+
+sh bootstrap
+./configure
+make
+make dist

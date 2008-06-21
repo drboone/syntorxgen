@@ -148,6 +148,7 @@ sharedstatedir = ${prefix}/com
 sysconfdir = ${prefix}/etc
 target_alias = 
 SUBDIRS = src docs
+EXTRA_DIST = testdata utils
 all: all-recursive
 
 .SUFFIXES:
