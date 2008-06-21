@@ -94,7 +94,14 @@ void decode(unsigned int *binbuf)
 			bit = (binbuf[4] & 0x01) << 2; /* A0 */
 			bit |= (binbuf[5] & 0x18) >> 3; /* A1-2 */
 			bits |= dpltable[bit] << 6;
-			printf("\ttxdpl %03o;\n", bits);
+			if (binbuf[4] & 0x80)
+			{
+				printf("\ttxdplinv %03o;\n", bits);
+			}
+			else
+			{
+				printf("\ttxdpl %03o;\n", bits);
+			}
 			break;
 		case 2:	/* NONE */
 			puts("\ttxdpl no;");
@@ -127,7 +134,14 @@ void decode(unsigned int *binbuf)
 			bit = (binbuf[6] & 0x01) << 2; /* A0 */
 			bit |= (binbuf[7] & 0x18) >> 3; /* A1-2 */
 			bits |= dpltable[bit] << 6;
-			printf("\trxdpl %03o;\n", bits);
+			if(binbuf[6] & 0x80)
+			{
+				printf("\trxdplinv %03o;\n", bits);
+			}
+			else
+			{
+				printf("\trxdpl %03o;\n", bits);
+			}
 			break;
 		case 2:	/* NONE */
 			puts("\trxdpl no;");
