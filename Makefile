@@ -80,7 +80,7 @@ CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
 CPPFLAGS = 
 CYGPATH_W = echo
-DEFS = -DPACKAGE_NAME=\"syntorxgen\" -DPACKAGE_TARNAME=\"syntorxgen\" -DPACKAGE_VERSION=\"1.31rel\" -DPACKAGE_STRING=\"syntorxgen\ 1.31rel\" -DPACKAGE_BUGREPORT=\"jm-sxg@yagi.h-net.msu.edu\" -DPACKAGE=\"syntorxgen\" -DVERSION=\"1.31rel\" -DYYTEXT_POINTER=1 -DHAVE_LIBM=1
+DEFS = -DPACKAGE_NAME=\"syntorxgen\" -DPACKAGE_TARNAME=\"syntorxgen\" -DPACKAGE_VERSION=\"1.40rel\" -DPACKAGE_STRING=\"syntorxgen\ 1.40rel\" -DPACKAGE_BUGREPORT=\"drb@msu.edu\" -DPACKAGE=\"syntorxgen\" -DVERSION=\"1.40rel\" -DYYTEXT_POINTER=1 -DHAVE_LIBM=1
 DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
@@ -100,16 +100,16 @@ LTLIBOBJS =
 MAKEINFO = ${SHELL} /usr/src/syntorxgen/missing --run makeinfo
 OBJEXT = o
 PACKAGE = syntorxgen
-PACKAGE_BUGREPORT = jm-sxg@yagi.h-net.msu.edu
+PACKAGE_BUGREPORT = drb@msu.edu
 PACKAGE_NAME = syntorxgen
-PACKAGE_STRING = syntorxgen 1.31rel
+PACKAGE_STRING = syntorxgen 1.40rel
 PACKAGE_TARNAME = syntorxgen
-PACKAGE_VERSION = 1.31rel
+PACKAGE_VERSION = 1.40rel
 PATH_SEPARATOR = :
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
-VERSION = 1.31rel
+VERSION = 1.40rel
 YACC = bison -y
 YFLAGS = 
 ac_ct_CC = gcc
@@ -148,7 +148,7 @@ sharedstatedir = ${prefix}/com
 sysconfdir = ${prefix}/etc
 target_alias = 
 SUBDIRS = src docs
-EXTRA_DIST = testdata utils
+EXTRA_DIST = testdata utils debian
 all: all-recursive
 
 .SUFFIXES:
