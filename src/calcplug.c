@@ -373,6 +373,30 @@ unsigned int rxplookup(float ipl)
 	return(answer);
 }
 
+int dpcalc(int ipl)
+
+{
+	int a2, a3, a4;
+	int d0, d1, d2, d3, d4, d5, d6, d7, d8;
+	int a;
+
+	d0 = (ipl & 0x0001);
+	d1 = (ipl & 0x0002) >> 1;
+	d2 = (ipl & 0x0004) >> 2;
+	d3 = (ipl & 0x0008) >> 3;
+	d4 = (ipl & 0x0010) >> 4;
+	d5 = (ipl & 0x0020) >> 5;
+	d6 = (ipl & 0x0040) >> 6;
+	d7 = (ipl & 0x0080) >> 7;
+	d8 = (ipl & 0x0100) >> 8;
+	a4 = (d0+d1+d2+d3+d4+d7) % 2;
+	a3 = (d1+d2+d3+d4+d5+d8+1) % 2;
+	a2 = (d0+d1+d5+d6+d7) % 2;
+	a = ~((a4 << 2) | (a3 << 1) | a2) & 0007;
+
+	return(a);
+}
+
 int dplookup(int ipl)
 
 {
@@ -568,7 +592,7 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 		plugbuf[0x05] |= (1 << 6);
 		plugbuf[0x05] |= (1 << 5);
 		plugbuf[0x05] |= (dpltable[(txdpl & 0700) >> 6] & 0003) << 3;
-		plugbuf[0x05] |= dplookup(txdpl);
+		plugbuf[0x05] |= dpcalc(txdpl);
 	}
 	else if (gmodedef -> txplflag)
 	{
@@ -596,7 +620,7 @@ void calcbits(Modestruct *gmodedef, unsigned char plugbuf[])
 		plugbuf[0x07] |= (1 << 6);
 		plugbuf[0x07] |= (1 << 5);
 		plugbuf[0x07] |= (dpltable[(rxdpl & 0700) >> 6] & 0003) << 3;
-		plugbuf[0x07] |= dplookup(rxdpl);
+		plugbuf[0x07] |= dpcalc(rxdpl);
 	}
 	else if (gmodedef -> rxplflag)
 	{
