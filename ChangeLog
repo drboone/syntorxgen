@@ -1,5 +1,9 @@
 Changes to syntorxgen by version
 
+1.50rel
+
+	Calculate the DPL parity bits, instead of using a table lookup.
+
 1.40rel
 
 	Automake/autoconf fixes so all the right files get included in the

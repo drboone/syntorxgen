@@ -1,12 +1,26 @@
+syntorxgen (1.50rel-1) unstable; urgency=low
+
+  * Calculate DPL parity bits, instead of using a table lookup.
+
+ -- Dennis Boone <drb@msu.edu>  Mon,  1 Feb 2010 20:17:35 -0500
+
+syntorxgen (1.40rel-1) unstable; urgency=low
+
+  * Automake/autoconf fixes so all the right files get included in the
+    distribution tarballs.
+
+  * AUTHORS additions.
+
+ -- Dennis Boone <drb@msu.edu>  Fri, 20 Jun 2008 17:12:31 -0400
+
 syntorxgen (1.31rel-1) unstable; urgency=low
 
   * Upstream fixes.
 
- -- root <drb@msu.edu>  Sun, 13 Feb 2005 15:08:56 -0500
+ -- Dennis Boone <drb@msu.edu>  Sun, 13 Feb 2005 15:08:56 -0500
 
 syntorxgen (1.20rel-1) unstable; urgency=low
 
   * Initial Release.
 
  -- Dennis Boone <drb@msu.edu>  Thu, 11 Mar 2004 08:06:56 -0500
-
