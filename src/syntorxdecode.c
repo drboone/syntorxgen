@@ -24,10 +24,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <errno.h>
 #include <time.h>
 #include <math.h>
-#include "version.h"
+/* #include "version.h" */
 
 #define USAGE     "decode [-LHUW8bsh] [-f inputfile]\n"
 #define BINARY    1

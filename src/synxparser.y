@@ -26,7 +26,9 @@
 #include <stdio.h>
 #include <errno.h>
 #include <unistd.h>
-#include "version.h"
+#include <string.h>
+#include <stdlib.h>
+/* #include "version.h" */
 
 #define INSTANTIATE
 #include "syntorxgen.h"

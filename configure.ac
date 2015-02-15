@@ -1,5 +1,5 @@
-AC_INIT(syntorxgen, 1.50rel, drb@msu.edu)
-AM_INIT_AUTOMAKE(syntorxgen, 1.50rel)
+AC_INIT(syntorxgen, 1.51rel, drb@msu.edu)
+AM_INIT_AUTOMAKE(syntorxgen, 1.51rel)
 AC_PROG_CC
 AM_PROG_LEX
 AC_PROG_YACC
