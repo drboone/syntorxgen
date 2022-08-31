@@ -432,7 +432,7 @@ int main(int argc, char *argv[])
 	int infmt = HEX;
 	char filename[MAXSTR+1] = "";
 	unsigned char inbuf[MAXSTR+1];
-	unsigned char cinbuf[MAXSTR+1];
+	unsigned char cinbuf[2048];
 	unsigned char *i;
 	unsigned int *b;
 	int rtypespec = 0;
@@ -503,7 +503,7 @@ int main(int argc, char *argv[])
 	switch (infmt)
 	{
 		case BINARY:
-			maxused = fread(cinbuf, sizeof(char), 2048, stdin);
+			maxused = fread(cinbuf, 1, sizeof(cinbuf), stdin);
 			if (maxused < 16)
 			{
 				fputs("short binary file\n", stderr);
